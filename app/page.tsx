@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Star, CheckCircle, Clock, Award, Play } from 'lucide-react';
 import CinematicHero from '@/components/hero/CinematicHero';
 import SavingsCalculator from '@/components/features/SavingsCalculator';
-import { BentoGrid, BentoCard, BentoVideoCard, BentoTrustBadge, BentoMapCard, BentoWarrantyCard } from '@/components/ui/BentoGrid';
+import DiamondTrustSection from '@/components/homepage/DiamondTrustSection';
 import { IMAGE_CATEGORIES } from '@/lib/image-sources';
 
 export default function HomePage() {
@@ -182,11 +182,6 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link
               href="#chat"
-              onClick={(e) => {
-                e.preventDefault();
-                // Chat widget button click simulation
-                document.querySelector('[aria-label="Open chat"]')?.dispatchEvent(new MouseEvent('click'));
-              }}
               className="btn-primary text-xl px-12 py-6 group"
             >
               Start Chatting with Sarah

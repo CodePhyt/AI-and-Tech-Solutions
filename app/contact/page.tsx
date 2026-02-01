@@ -10,10 +10,20 @@ export default function ContactPage() {
         e.preventDefault();
         setShowChat(true);
         // Trigger the chatbot to open
-        const chatButton = document.querySelector('[aria-label="Open chat assistant"]') as HTMLButtonElement;
+        const chatButton = document.querySelector('[aria-label="Open chat"]') as HTMLButtonElement;
         if (chatButton) {
             chatButton.click();
+        } else {
+            // Fallback if button not found immediately (e.g. relying on hash)
+            window.location.hash = '#chat';
         }
+    };
+
+    const handleSendMessage = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Simulate form submission
+        alert('Message sent successfully! We will get back to you shortly.');
+        (e.target as HTMLFormElement).reset();
     };
 
     return (
@@ -27,7 +37,7 @@ export default function ContactPage() {
                     {/* Contact Form */}
                     <div className="crystal-card p-8">
                         <h2 className="text-2xl font-semibold text-white mb-6">Send Us a Message</h2>
-                        <form className="space-y-6">
+                        <form className="space-y-6" onSubmit={handleSendMessage}>
                             <div>
                                 <label className="block text-slate-300 mb-2">Name *</label>
                                 <input type="text" required className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-sky-500" />

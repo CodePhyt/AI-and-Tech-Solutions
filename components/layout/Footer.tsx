@@ -22,7 +22,7 @@ export default function Footer() {
                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center glow-sm">
                                 <span className="text-2xl font-bold">S</span>
                             </div>
-                            <span className="text-xl font-bold gradient-text">Smile Turkey</span>
+                            <span className="text-xl font-bold gradient-text">Smile Türkiye</span>
                         </div>
                         <p className="text-slate-400 text-sm leading-relaxed">
                             Your partner in achieving the perfect smile. Experience world-class dental care in the beautiful city of Antalya, Turkey.
@@ -126,7 +126,7 @@ export default function Footer() {
                 <div className="border-t border-white/10 pt-8 mt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                         <p className="text-slate-400 text-sm">
-                            © {currentYear} Smile Turkey. All rights reserved.
+                            © {currentYear} Smile Türkiye. All rights reserved.
                         </p>
                         <div className="flex space-x-6 text-sm">
                             <Link href="/legal/privacy" className="text-slate-400 hover:text-sky-400 transition-colors">

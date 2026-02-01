@@ -238,7 +238,16 @@ export default function BlogPage() {
                             placeholder="Enter your email"
                             className="flex-1 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors"
                         />
-                        <button className="btn-primary px-8">
+                        <button
+                            className="btn-primary px-8"
+                            onClick={(e) => {
+                                const input = (e.target as HTMLElement).previousElementSibling as HTMLInputElement;
+                                if (input.value) {
+                                    alert('Subscribed successfully!');
+                                    input.value = '';
+                                }
+                            }}
+                        >
                             Subscribe
                         </button>
                     </div>

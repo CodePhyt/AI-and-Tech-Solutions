@@ -216,7 +216,7 @@ export default function StoriesPage() {
                     <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
                         Join thousands of satisfied patients who chose Smile Turkey for their dental journey. Free consultation, no obligation.
                     </p>
-                    <a href="#chatbot" className="btn-primary inline-block">
+                    <a href="#chat" className="btn-primary inline-block">
                         Get Your Free Consultation
                     </a>
                 </div>

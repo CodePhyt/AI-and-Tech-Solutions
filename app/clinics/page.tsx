@@ -153,7 +153,7 @@ export default function ClinicsPage() {
                     <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
                         Schedule a virtual tour of our facilities and meet our team before you travel.
                     </p>
-                    <a href="#chatbot" className="btn-primary inline-block">
+                    <a href="#chat" className="btn-primary inline-block">
                         Book Virtual Consultation
                     </a>
                 </div>

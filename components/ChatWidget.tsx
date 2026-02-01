@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { MessageCircle, X, Send, Loader2, Mic } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -10,6 +11,7 @@ interface Message {
 }
 
 export default function ChatWidget() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
         {
@@ -39,6 +41,14 @@ export default function ChatWidget() {
                 window.history.replaceState(null, '', window.location.pathname);
             }
         };
+
+        // Auto-open chat after 3 seconds for engagement (Homepage only)
+        if (pathname === '/') {
+            const timer = setTimeout(() => {
+                setIsOpen(true);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
 
         const checkForAssessment = () => {
             const assessmentData = sessionStorage.getItem('smile_assessment_data');

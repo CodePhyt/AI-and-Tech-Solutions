@@ -35,14 +35,52 @@ export default function Header() {
         >
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="relative h-14 w-auto">
-                            <img
-                                src="/assets/logo-premium.png"
-                                alt="Smile Turkey"
-                                className="h-full w-auto object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.2)] transition-transform duration-300 group-hover:scale-105"
-                            />
+                    {/* Logo - Premium Code-Based Design (No Quota Limits) */}
+                    <Link href="/" className="flex items-center group relative z-50">
+                        {/* Logo Container - Balances the CTA button */}
+                        <div className="flex items-center gap-3 py-2">
+                            {/* Abstract Smile/Tooth Icon */}
+                            <div className="relative w-10 h-10 flex items-center justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-sky-400 to-cyan-300 rounded-xl rotate-6 opacity-20 group-hover:rotate-12 transition-transform duration-500"></div>
+                                <div className="absolute inset-0 bg-gradient-to-bl from-teal-400 to-emerald-300 rounded-xl -rotate-3 opacity-20 group-hover:-rotate-6 transition-transform duration-500"></div>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    className="w-7 h-7 text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)] transform group-hover:scale-110 transition-transform duration-300"
+                                >
+                                    <path
+                                        d="M9 10C9 10 9.5 11 12 11C14.5 11 15 10 15 10M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
+                                        stroke="url(#logo-gradient)"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <path
+                                        d="M7.5 14.5C9 16.5 15 16.5 16.5 14.5"
+                                        stroke="url(#logo-gradient)"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                    <defs>
+                                        <linearGradient id="logo-gradient" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stopColor="#38bdf8" />
+                                            <stop offset="50%" stopColor="#22d3ee" />
+                                            <stop offset="100%" stopColor="#34d399" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            {/* Typhography - "Smile Türkiye" */}
+                            <div className="flex flex-col justify-center h-10">
+                                <h1 className="text-2xl font-bold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-slate-200 drop-shadow-sm">
+                                    Smile <span className="text-sky-400">Türkiye</span>
+                                </h1>
+                                <span className="text-[0.65rem] tracking-[0.2em] font-medium text-slate-400 uppercase group-hover:text-sky-300 transition-colors duration-300">
+                                    Premium Dental
+                                </span>
+                            </div>
                         </div>
                     </Link>
 

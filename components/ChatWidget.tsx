@@ -30,6 +30,58 @@ export default function ChatWidget() {
         scrollToBottom();
     }, [messages]);
 
+    // Handle URL hash and Assessment events
+    useEffect(() => {
+        const checkHash = () => {
+            if (window.location.hash === '#chat') {
+                setIsOpen(true);
+                // Clean URL hash without scrolling
+                window.history.replaceState(null, '', window.location.pathname);
+            }
+        };
+
+        const checkForAssessment = () => {
+            const assessmentData = sessionStorage.getItem('smile_assessment_data');
+            if (assessmentData) {
+                try {
+                    const data = JSON.parse(assessmentData);
+                    // Only add if we haven't already acknowledged it
+                    setMessages(prev => {
+                        const hasAssessmentMsg = prev.some(m => m.content.includes("I see you've completed your assessment"));
+                        if (hasAssessmentMsg) return prev;
+
+                        return [
+                            ...prev,
+                            {
+                                role: 'assistant',
+                                content: `Hello ${data.name}! I see you've completed your assessment for ${data.treatment}. I have your details here. How can I assist you with your personalized plan today?`
+                            }
+                        ];
+                    });
+                    setIsOpen(true);
+                    // Optional: clear it so we don't greet them every time? 
+                    // Keeping it allows context persistence across refreshes if we don't clear.
+                    // Let's keep it in session but maybe mark as 'read' in local state.
+                } catch (e) {
+                    console.error('Error parsing assessment data', e);
+                }
+            }
+        };
+
+        // Check on mount
+        checkHash();
+
+        // Listen for hash changes
+        window.addEventListener('hashchange', checkHash);
+        // Listen for assessment completion
+        window.addEventListener('assessmentCompleted', checkForAssessment);
+
+        return () => {
+            window.removeEventListener('hashchange', checkHash);
+            window.removeEventListener('assessmentCompleted', checkForAssessment);
+        };
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!input.trim() || isLoading) return;

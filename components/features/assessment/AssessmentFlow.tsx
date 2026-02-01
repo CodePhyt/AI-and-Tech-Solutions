@@ -74,6 +74,13 @@ export default function AssessmentFlow() {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000));
 
+        // Save to session storage for chat widget
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('smile_assessment_data', JSON.stringify(formData));
+            // Dispatch a custom event to notify other components (like ChatWidget) immediately
+            window.dispatchEvent(new Event('assessmentCompleted'));
+        }
+
         setIsSubmitting(false);
         setIsComplete(true);
     };

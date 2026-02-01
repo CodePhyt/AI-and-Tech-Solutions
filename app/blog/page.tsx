@@ -12,9 +12,10 @@ export default function BlogPage() {
     const [visiblePosts, setVisiblePosts] = useState(6);
     const [selectedCategory, setSelectedCategory] = useState('All');
 
-    const filteredPosts = selectedCategory === 'All'
+    const filteredPosts = (selectedCategory === 'All'
         ? ALL_POSTS
-        : ALL_POSTS.filter(post => post.category === selectedCategory);
+        : ALL_POSTS.filter(post => post.category === selectedCategory)
+    ).filter(post => post.slug !== ALL_POSTS[0].slug);
 
     const displayedPosts = filteredPosts.slice(0, visiblePosts);
     const hasMore = visiblePosts < filteredPosts.length;
@@ -23,23 +24,14 @@ export default function BlogPage() {
         setVisiblePosts(prev => Math.min(prev + 6, filteredPosts.length));
     };
 
-    const featuredPost = {
-        title: 'The Complete Guide to Dental Tourism in Turkey: What You Need to Know in 2024',
-        excerpt: 'Comprehensive insights into why Turkey has become the world\'s leading destination for dental treatments, combining exceptional quality with unbeatable value.',
-        image: IMAGE_CATEGORIES.BLOG_COVERS.dental_tourism_guide,
-        author: 'Dr. Mehmet Yılmaz',
-        date: 'January 15, 2024',
-        readTime: '12 min read',
-        category: 'Dental Tourism',
-        slug: 'complete-guide-dental-tourism-turkey-2024'
-    };
+    const featuredPost = ALL_POSTS[0];
 
     const categories = [
-        { name: 'All Articles', count: 42, icon: TrendingUp },
-        { name: 'Dental Tourism', count: 12, icon: Shield },
-        { name: 'Treatment Guides', count: 15, icon: Heart },
-        { name: 'Patient Resources', count: 8, icon: User },
-        { name: 'Cost Guides', count: 7, icon: TrendingUp }
+        { name: 'All Articles', count: ALL_POSTS.length, icon: TrendingUp },
+        { name: 'Dental Tourism', count: ALL_POSTS.filter(p => p.category === 'Dental Tourism').length, icon: Shield },
+        { name: 'Treatment Guides', count: ALL_POSTS.filter(p => p.category === 'Treatment Guides').length, icon: Heart },
+        { name: 'Patient Resources', count: ALL_POSTS.filter(p => p.category === 'Patient Resources').length, icon: User },
+        { name: 'Cost Guides', count: ALL_POSTS.filter(p => p.category === 'Cost Guides').length, icon: TrendingUp }
     ];
 
     return (

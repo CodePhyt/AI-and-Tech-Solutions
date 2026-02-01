@@ -6,19 +6,38 @@ import { useEffect, useState } from 'react';
 export default function CinematicHero() {
     const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+    const HERO_VIDEOS = [
+        '/A_cinematic_8k_1080p_202602011631.mp4',
+        '/A_cinematic_and_1080p_202602011630.mp4',
+        '/A_cinematic_and_1080p_202602011631.mp4',
+        '/Smooth_slowmotion_cinematic_1080p_202601311.mp4',
+        '/hero-video.mp4' // Fallback to ensure video playback
+    ];
+
+    const handleVideoEnded = () => {
+        setCurrentVideoIndex((prev) => (prev + 1) % HERO_VIDEOS.length);
+    };
+
     return (
         <section className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 h-screen overflow-hidden">
             {/* Video Background */}
             <div className="absolute inset-0">
                 <video
+                    key={HERO_VIDEOS[currentVideoIndex]}
                     autoPlay
-                    loop
                     muted
                     playsInline
-                    onLoadedData={() => setIsVideoLoaded(true)}
+                    preload="auto"
+                    onEnded={handleVideoEnded}
+                    onError={() => {
+                        console.error(`Video failed to load: ${HERO_VIDEOS[currentVideoIndex]}`);
+                        handleVideoEnded(); // Skip to next video on error
+                    }}
                     className="w-full h-full object-cover opacity-70"
                 >
-                    <source src="/hero-video.mp4" type="video/mp4" />
+                    <source src={HERO_VIDEOS[currentVideoIndex]} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
 
@@ -30,9 +49,9 @@ export default function CinematicHero() {
             <div className="absolute inset-0 pointer-events-none">
                 <div className="h-screen flex items-center justify-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, delay: 0.5 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-center px-6 max-w-4xl pointer-events-auto"
                     >
                         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">

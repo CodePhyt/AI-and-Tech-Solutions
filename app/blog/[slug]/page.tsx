@@ -102,23 +102,23 @@ export default function BlogArticlePage({ params }: { params: { slug: string } }
                                         .split('\n')
                                         .map((line: string) => {
                                             const trimmed = line.trim();
+                                            const formatInline = (text: string) =>
+                                                text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>');
+
                                             if (line.startsWith('## ')) {
-                                                return '<h2 class="text-3xl font-bold text-white mt-12 mb-6">' + line.slice(3) + '</h2>';
+                                                return '<h2 class="text-3xl font-bold text-white mt-12 mb-6">' + formatInline(line.slice(3)) + '</h2>';
                                             }
                                             if (line.startsWith('### ')) {
-                                                return '<h3 class="text-2xl font-semibold text-white mt-8 mb-4">' + line.slice(4) + '</h3>';
-                                            }
-                                            if (line.startsWith('**') && line.endsWith('**')) {
-                                                return '<p class="font-semibold text-white mt-4">' + line.slice(2, -2) + '</p>';
+                                                return '<h3 class="text-2xl font-semibold text-white mt-8 mb-4">' + formatInline(line.slice(4)) + '</h3>';
                                             }
                                             if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-                                                return '<li class="ml-6 list-disc marker:text-sky-400">' + trimmed.slice(2) + '</li>';
+                                                return '<li class="ml-6 list-disc marker:text-sky-400 pl-2 mb-2">' + formatInline(trimmed.slice(2)) + '</li>';
                                             }
                                             if (/^\d+\.\s/.test(trimmed)) {
-                                                return '<li class="ml-6 list-decimal marker:text-sky-400">' + trimmed.replace(/^\d+\.\s/, '') + '</li>';
+                                                return '<li class="ml-6 list-decimal marker:text-sky-400 pl-2 mb-2">' + formatInline(trimmed.replace(/^\d+\.\s/, '')) + '</li>';
                                             }
                                             if (trimmed) {
-                                                return '<p>' + line + '</p>';
+                                                return '<p class="mb-4">' + formatInline(line) + '</p>';
                                             }
                                             return '';
                                         })

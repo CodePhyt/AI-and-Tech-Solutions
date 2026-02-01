@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BentoVideoCard } from '@/components/ui/BentoGrid';
+
 import { PremiumTrustpilotBadge, DiamondStatsCard, GoldWarrantySeal } from '@/components/ui/TrustBadges';
 
 export default function DiamondTrustSection() {
@@ -22,21 +22,7 @@ export default function DiamondTrustSection() {
                 {/* Diamond Layout */}
                 <div className="space-y-8">
 
-                    {/* 1. Cinematic Video Hero */}
-                    <motion.div
-                        className="w-full aspect-video md:aspect-[2.35/1] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <BentoVideoCard
-                            videoUrl="/videos/testimonial-1.mp4"
-                            thumbnail="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop"
-                            title="Watch Emma's Transformation"
-                            description="Hollywood Smile in 7 Days"
-                        />
-                    </motion.div>
+
 
                     {/* 2. Trust Bar (3 Columns) */}
                     <div className="grid md:grid-cols-3 gap-6">

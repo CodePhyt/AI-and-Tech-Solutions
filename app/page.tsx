@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, Star, CheckCircle, Clock, Award, Play } from 'lucide-react';
 import CinematicHero from '@/components/hero/CinematicHero';
-import EmmaStorySection from '@/components/homepage/EmmaStorySection';
+import SharidaStorySection from '@/components/homepage/EmmaStorySection';
 import SavingsCalculator from '@/components/features/SavingsCalculator';
 import DiamondTrustSection from '@/components/homepage/DiamondTrustSection';
 import { IMAGE_CATEGORIES } from '@/lib/image-sources';
@@ -16,8 +16,8 @@ export default function HomePage() {
       {/* S (STRATEGY/HOOK) - Cinematic Scroll Hero with Image Sequence */}
       <CinematicHero />
 
-      {/* Real Patient Story - Emma */}
-      <EmmaStorySection />
+      {/* Real Patient Story - Sharida */}
+      <SharidaStorySection />
 
       {/* Quick Hook Section - Your Dream Smile, 70% Cheaper */}
       <section className="relative py-24 overflow-hidden">

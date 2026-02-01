@@ -2,13 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { MessageCircle, X, Send, Loader2, Mic, Check, CheckCheck, Paperclip } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, Mic, Check, CheckCheck, Paperclip, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import SafiyeProfileModal from './SafiyeProfileModal';
 import ImageLightbox from './ImageLightbox';
 import TypingIndicator from './TypingIndicator';
-import VoiceRecorder from './VoiceRecorder';
 import ImageUploader from './ImageUploader';
 
 interface Message {
@@ -57,14 +56,10 @@ export default function ChatWidget() {
             .join('\n\n');
 
         const text = `*New Patient Inquiry via Safiye AI* 🦷\n\n${summary}\n\n(Link to attachments/full history unavailable in MVP)`;
-        // Dr. Nesip's Number: 905442371493 (from context or similar)
-        const url = `https://wa.me/905442371493?text=${encodeURIComponent(text)}`;
+        const url = `https://wa.me/905302876350?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     };
 
-    const handleVoiceTranscript = (text: string) => {
-        setInput(prev => (prev ? prev + ' ' + text : text));
-    };
 
     const handleImageSelect = (file: File, preview: string) => {
         setSelectedImage({ file, preview });
@@ -155,20 +150,11 @@ export default function ChatWidget() {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if ((!input.trim() && !selectedImage) || isLoading) return;
-
-        const currentInput = input;
-        const currentImage = selectedImage;
-
-        setInput('');
-        setSelectedImage(null);
-
+    const processMessage = async (msgContent: string, msgImage: { file: File; preview: string } | null) => {
         const userMessage: Message = {
             role: 'user',
-            content: currentInput,
-            image: currentImage?.preview,
+            content: msgContent,
+            image: msgImage?.preview,
             timestamp: new Date(),
             status: 'sent'
         };
@@ -194,9 +180,9 @@ export default function ChatWidget() {
             if (contextMessage) apiMessages.unshift(contextMessage as any);
 
             // Add user message with context if image exists
-            let contentToSend = currentInput;
-            if (currentImage) {
-                contentToSend = `[User uploaded an image] ${currentInput}`;
+            let contentToSend = msgContent;
+            if (msgImage) {
+                contentToSend = `[User uploaded an image] ${msgContent}`;
             }
             apiMessages.push({ role: 'user', content: contentToSend });
 
@@ -206,8 +192,8 @@ export default function ChatWidget() {
                 sessionId: sessionId,
             };
 
-            if (currentImage) {
-                const base64Image = await convertImageToBase64(currentImage.file);
+            if (msgImage) {
+                const base64Image = await convertImageToBase64(msgImage.file);
                 requestBody.image = base64Image;
             }
 
@@ -220,10 +206,6 @@ export default function ChatWidget() {
             if (!response.ok) throw new Error('Failed to get response');
 
             const data = await response.json();
-
-            // Check for Special Actions (e.g. WhatsApp Link)
-            // Expecting backend to return special format or structured data ideally, 
-            // but for now we parse the text for a specific tag if needed or just display rich text.
 
             // Artificial delay for "Reading/Typing" feel based on response length
             const delay = Math.min(data.message.length * 30 + 800, 5000);
@@ -248,19 +230,30 @@ export default function ChatWidget() {
 
         } catch (error) {
             console.error('Chat error:', error);
-            setIsTyping(false);
             setIsLoading(false);
-            setMessages((prev) => [
-                ...prev,
-                {
-                    role: 'assistant',
-                    content: 'I apologize, but I\'m having trouble connecting right now. 😓\n\nPlease message us directly on WhatsApp for immediate help.',
-                    timestamp: new Date(),
-                    status: 'read'
-                },
-            ]);
+            setIsTyping(false);
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: "I'm having trouble connecting right now. Please try again or check your internet connection. 🌐",
+                timestamp: new Date(),
+                status: 'read'
+            }]);
         }
     };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if ((!input.trim() && !selectedImage) || isLoading) return;
+
+        const currentInput = input;
+        const currentImage = selectedImage;
+
+        setInput('');
+        setSelectedImage(null);
+
+        await processMessage(currentInput, currentImage);
+    };
+
 
     // Render WhatsApp Button if detected in content
     const renderContent = (content: string) => {
@@ -274,7 +267,7 @@ export default function ChatWidget() {
         if (match) {
             const [_, preFillMsg, btnText] = match;
             const cleanContent = content.replace(match[0], '').trim();
-            const phone = "905302876350"; // Nesip's number
+            const phone = "905302876350";
             const link = `https://wa.me/${phone}?text=${encodeURIComponent(preFillMsg)}`;
 
             return (
@@ -514,17 +507,13 @@ export default function ChatWidget() {
                             className="flex-1 bg-[#2A3942] rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-500"
                             disabled={isLoading}
                         />
-                        {(input.trim() || selectedImage) ? (
-                            <button
-                                type="submit"
-                                disabled={isLoading}
-                                className="bg-[#005C4B] text-white p-2.5 rounded-full hover:bg-[#00a884] transition-colors"
-                            >
-                                <Send className="w-5 h-5" />
-                            </button>
-                        ) : (
-                            <VoiceRecorder onTranscript={handleVoiceTranscript} disabled={isLoading} />
-                        )}
+                        <button
+                            type="submit"
+                            disabled={isLoading || (!input.trim() && !selectedImage)}
+                            className={`bg-[#005C4B] text-white p-2.5 rounded-full hover:bg-[#00a884] transition-colors ${(!input.trim() && !selectedImage) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            <Send className="w-5 h-5" />
+                        </button>
                     </form>
                 </div>
             </div>

@@ -72,9 +72,9 @@ export const IMAGE_CATEGORIES = {
 
     // Home Page Journey Steps
     JOURNEY: {
-        arrival: 'https://images.unsplash.com/photo-1565538964720-333d07e6015b?auto=format&fit=crop&w=800&q=80', // Mercedes interior/transfer
-        consultation: 'https://images.unsplash.com/photo-1629909615957-be38eb8c3e6a?auto=format&fit=crop&w=800&q=80', // Digital dentistry
-        transformation: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80' // Luxury resort pool/beach
+        arrival: '/assets/journey/arrival-nano.png', // Luxury transfer/airport
+        consultation: '/assets/journey/consultation-nano.png', // Digital dental planning
+        transformation: '/assets/journey/transformation-nano.png' // Antalya beach/clinic
     },
 
     // Clinic Facility Images

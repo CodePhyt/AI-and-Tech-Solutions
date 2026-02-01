@@ -52,7 +52,7 @@ export default function CinematicHero() {
                                 Get Free Assessment
                             </a>
                             <a
-                                href="#treatments"
+                                href="/treatments"
                                 className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-colors shadow-lg"
                             >
                                 Explore Treatments

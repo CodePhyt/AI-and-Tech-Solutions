@@ -85,6 +85,7 @@ export function BentoVideoCard({ videoUrl, thumbnail, title, description }: Vide
                 loop
                 muted
                 playsInline
+                controls={false}
             />
 
             {/* Play Button Overlay */}
@@ -99,8 +100,8 @@ export function BentoVideoCard({ videoUrl, thumbnail, title, description }: Vide
             {/* Content */}
             <div className="relative z-10 h-full flex flex-col justify-end p-8 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent">
                 <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-lg">{title}</h3>
-                {/* Removed redundant description container if not strictly needed or empty */}
-                {description && <p className="text-slate-200 text-sm font-medium drop-shadow-md">{description}</p>}
+                {/* User requested removal of extra description/containers */}
+                {/* {description && <p className="text-slate-200 text-sm font-medium drop-shadow-md">{description}</p>} */}
             </div>
         </div>
     );
@@ -259,39 +260,43 @@ interface WarrantyCardProps {
 export function BentoWarrantyCard({ years, type }: WarrantyCardProps) {
     return (
         <div
-            className="h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-amber-500/10 to-transparent relative overflow-hidden group"
+            className="h-full flex flex-col items-center justify-center p-6 text-center relative overflow-hidden group bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-500/20 shadow-[0_0_30px_rgba(245,158,11,0.1)]"
             role="region"
             aria-label={`${years} years ${type} warranty coverage`}
         >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(245,158,11,0.15),transparent_70%)]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,158,11,0.2),transparent_70%)]"></div>
 
-            {/* Gold Seal */}
-            <motion.div
-                className="relative mb-6"
-                animate={{
-                    rotate: [0, 360],
-                }}
-                transition={{
-                    duration: 30,
-                    repeat: Infinity,
-                    ease: "linear",
-                }}
-            >
-                <svg className="w-28 h-28 text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center transform rotate-[0deg] !important"> {/* Counter-rotate if needed, but here simple layout */}
-                        <p className="text-sm text-slate-900 font-bold tracking-widest uppercase mb-[-2px]">Lifetime</p>
-                        <p className="text-[10px] text-slate-800 font-black tracking-widest">YEARS</p>
+            {/* Animated Shine Effect */}
+            <div className="absolute inset-0 opacity-20 bg-gradient-to-tr from-transparent via-amber-200/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+
+            {/* Premium Seal Badge (CSS Only) */}
+            <div className="relative mb-6">
+                {/* Outer Ring */}
+                <div className="w-24 h-24 rounded-full border-2 border-amber-500/30 flex items-center justify-center p-1 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                    {/* Inner Badge */}
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-inner relative overflow-hidden">
+                        {/* Metallic Shine */}
+                        <div className="absolute top-0 left-0 w-full h-1/2 bg-white/20 rounded-t-full"></div>
+
+                        {/* Icon */}
+                        <svg className="w-10 h-10 text-slate-900 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
                 </div>
-            </motion.div>
 
-            <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-2">{type} Warranty</h3>
-                <div className="h-1 w-12 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto mb-2 opacity-50"></div>
-                <p className="text-slate-300 text-sm font-medium tracking-wide">Industry-Leading Coverage</p>
+                {/* Ribbon Tail (Visual flourish) */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-8 flex justify-center">
+                    <div className="w-0 h-0 border-l-[10px] border-l-transparent border-t-[15px] border-t-amber-600 border-r-[10px] border-r-transparent drop-shadow-md"></div>
+                </div>
+            </div>
+
+            <div className="relative z-10 pt-2">
+                <h3 className="text-xl font-bold text-white mb-1 tracking-tight">{type} Warranty</h3>
+                <div className="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold tracking-widest uppercase mb-2">
+                    {years} Coverage
+                </div>
+                <p className="text-slate-400 text-xs font-medium">Industry-Leading Protection</p>
             </div>
         </div>
     );

@@ -6,13 +6,15 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/api/', '/admin/', '/_next/'],
-            },
-            {
-                userAgent: 'GPTBot',
-                disallow: '/', // Prevent AI scraping if desired
+                disallow: [
+                    '/api/',
+                    '/admin/',
+                    '/*.json$',
+                    '/private/',
+                ],
             },
         ],
         sitemap: 'https://smileturkey.com/sitemap.xml',
+        host: 'https://smileturkey.com',
     };
 }

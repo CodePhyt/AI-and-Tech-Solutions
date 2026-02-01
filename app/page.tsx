@@ -100,67 +100,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* T (TEXT/PROOF) - Premium Bento Grid with Reviews */}
-      <section className="relative py-24 overflow-hidden bg-slate-900/50">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:40px_40px]" />
+      {/* T (TEXT/PROOF) - Premium Diamond Trust Section */}
+      <DiamondTrustSection />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4">
-              Trusted by <span className="gradient-text">Thousands</span>
-            </h2>
-            <p className="text-xl text-slate-400">Real patients, real results, real reviews</p>
-          </div>
-
-          <BentoGrid className="mb-16">
-            {/* Large Video Testimonial */}
-            <BentoCard size="large" hoverable={true}>
-              <BentoVideoCard
-                videoUrl="/videos/testimonial-1.mp4"
-                thumbnail="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop"
-                title="Watch Emma's Transformation"
-                description="Hollywood Smile in 7 Days"
-              />
-            </BentoCard>
-
-            {/* Trustpilot Badge */}
-            <BentoCard size="tall">
-              <BentoTrustBadge rating={5} reviews={4832} platform="Trustpilot" />
-            </BentoCard>
-
-
-
-            {/* Warranty Seal */}
-            <BentoCard size="small">
-              <BentoWarrantyCard years="Lifetime" type="Implant" />
-            </BentoCard>
-
-            {/* Additional small cards */}
-            {/* Additional small cards */}
-            <BentoCard size="small">
-              <div className="h-full flex flex-col items-center justify-center p-6 text-center bg-slate-900/40 backdrop-blur-sm border border-white/5 relative group overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="text-5xl font-black text-white mb-2 tracking-tight group-hover:scale-110 transition-transform duration-300">15+</div>
-                  <p className="text-sky-400 text-sm font-bold uppercase tracking-widest mb-1">Years</p>
-                  <p className="text-slate-400 text-xs">of Excellence</p>
-                </div>
-              </div>
-            </BentoCard>
-
-            <BentoCard size="small">
-              <div className="h-full flex flex-col items-center justify-center p-6 text-center bg-slate-900/40 backdrop-blur-sm border border-white/5 relative group overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="text-5xl font-black text-white mb-2 tracking-tight group-hover:scale-110 transition-transform duration-300">98%</div>
-                  <p className="text-emerald-400 text-sm font-bold uppercase tracking-widest mb-1">Recommend</p>
-                  <p className="text-slate-400 text-xs">Our Services</p>
-                </div>
-              </div>
-            </BentoCard>
-          </BentoGrid>
-        </div>
-      </section>
 
       {/* Journey Timeline with Tech-System Aesthetic */}
       <section className="relative py-24 overflow-hidden">

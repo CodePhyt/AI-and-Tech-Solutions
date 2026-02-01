@@ -27,13 +27,13 @@ export const IMAGE_CATEGORIES = {
             context: '4 dental implants with crowns - male patient'
         },
         veneers_whitening_female: {
-            before: 'https://images.unsplash.com/photo-1616335129668-98f5a2d64522?q=80&w=800&auto=format&fit=crop',
-            after: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
+            before: '/assets/stories/lisa-before.png',
+            after: '/assets/stories/lisa-after.png',
             context: '16 veneers Hollywood smile - female patient'
         },
         full_upper_arch_senior: {
-            before: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=800&auto=format&fit=crop',
-            after: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop',
+            before: '/assets/stories/carlos-before.png',
+            after: '/assets/stories/carlos-after.png',
             context: 'Full upper arch implants - senior male patient'
         }
     },
@@ -44,8 +44,8 @@ export const IMAGE_CATEGORIES = {
         michael_usa: '/assets/stories/michael-profile.png',
         emma_australia: '/assets/stories/emma-profile.png',
         ahmed_uae: '/assets/stories/ahmed-profile.png',
-        lisa_canada: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop',
-        carlos_spain: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop'
+        lisa_canada: '/assets/stories/lisa-profile.png',
+        carlos_spain: '/assets/stories/carlos-profile.png'
     },
 
     // Blog Article Cover Images - Premium Generated Assets
@@ -82,9 +82,9 @@ export const IMAGE_CATEGORIES = {
         reception_area: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80',
         treatment_room: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
         cbct_scanner: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=800&q=80',
-        sterilization: 'https://images.unsplash.com/photo-1534030347209-7147fdacd2f9?auto=format&fit=crop&w=800&q=80',
+        sterilization: '/assets/about/safety.png',
         smile_design_monitor: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
-        cadcam_milling: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=800&q=80',
+        cadcam_milling: 'https://images.unsplash.com/photo-1579684453423-f84349ef60b0?auto=format&fit=crop&w=800&q=80',
         waiting_lounge: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
         dental_chair: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
         clinic_exterior: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'

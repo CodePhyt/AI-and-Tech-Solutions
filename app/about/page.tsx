@@ -106,9 +106,7 @@ export default function AboutPage() {
                             </div>
                             {/* Content */}
                             <div className="p-6 text-center">
-                                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center glow-sm -mt-12 relative z-10">
-                                    <span className="text-2xl font-bold">{value.title[0]}</span>
-                                </div>
+
                                 <h3 className="text-xl font-semibold text-white mb-2">{value.title}</h3>
                                 <p className="text-slate-400 text-sm">{value.desc}</p>
                             </div>

@@ -29,18 +29,21 @@ export default function Header() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? 'glass-card border-b border-white/10 backdrop-blur-xl'
-                    : 'bg-transparent'
+                ? 'glass-card border-b border-white/10 backdrop-blur-xl'
+                : 'bg-transparent'
                 }`}
         >
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center glow-sm group-hover:glow transition-all duration-300">
-                            <span className="text-2xl font-bold">S</span>
+                        <div className="relative h-14 w-auto">
+                            <img
+                                src="/assets/logo-premium.png"
+                                alt="Smile Turkey"
+                                className="h-full w-auto object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.2)] transition-transform duration-300 group-hover:scale-105"
+                            />
                         </div>
-                        <span className="text-xl font-bold gradient-text">Smile Turkey</span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -102,7 +105,10 @@ export default function Header() {
                         </Link>
 
                         {/* CTA Button */}
-                        <Link href="/contact" className="btn-primary text-sm px-6 py-2">
+                        <Link
+                            href="/contact"
+                            className="magnetic-btn btn-primary text-sm px-8 py-2.5 shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)] border border-white/20"
+                        >
                             Get Free Quote
                         </Link>
                     </div>
@@ -170,7 +176,7 @@ export default function Header() {
                                     Contact
                                 </Link>
 
-                                <Link href="/contact" className="block btn-primary text-center mx-4">
+                                <Link href="/contact" className="block magnetic-btn btn-primary text-center mx-4 py-3 shadow-[0_0_15px_rgba(14,165,233,0.3)]">
                                     Get Free Quote
                                 </Link>
                             </div>

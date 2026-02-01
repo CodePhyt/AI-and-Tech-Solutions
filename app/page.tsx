@@ -128,10 +128,7 @@ export default function HomePage() {
               <BentoTrustBadge rating={5} reviews={4832} platform="Trustpilot" />
             </BentoCard>
 
-            {/* Map */}
-            <BentoCard size="wide">
-              <BentoMapCard location="Antalya, Turkey" />
-            </BentoCard>
+
 
             {/* Warranty Seal */}
             <BentoCard size="small">

@@ -5,6 +5,7 @@ import { ArrowRight, Star, CheckCircle, Clock, Award, Play } from 'lucide-react'
 import CinematicHero from '@/components/hero/CinematicHero';
 import SavingsCalculator from '@/components/features/SavingsCalculator';
 import { BentoGrid, BentoCard, BentoVideoCard, BentoTrustBadge, BentoMapCard, BentoWarrantyCard } from '@/components/ui/BentoGrid';
+import { IMAGE_CATEGORIES } from '@/lib/image-sources';
 
 export default function HomePage() {
   return (

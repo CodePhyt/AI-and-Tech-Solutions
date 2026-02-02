@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Check, Loader2 } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Loader2, ShieldCheck, User, Mail, Phone, Calendar, Briefcase, Calculator, Clock, MessageSquare, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { TREATMENTS } from '@/lib/treatments';
 
 interface FormData {
     name: string;
@@ -15,28 +17,23 @@ interface FormData {
     notes: string;
 }
 
-const treatments = [
-    'Hollywood Smile',
-    'Dental Implants',
-    'All-on-4 Implants',
-    'Veneers',
-    'Teeth Whitening',
-    'Not Sure / Need Consultation'
-];
+const treatmentOptions = Object.keys(TREATMENTS).map(key => ({
+    label: TREATMENTS[key as keyof typeof TREATMENTS].name,
+    value: key
+})).concat([{ label: 'Full Smile Reconstruction', value: 'full-reconstruction' }, { label: 'Urgent Consultation', value: 'urgent' }]);
 
 const budgets = [
-    '€2,000 - €5,000',
-    '€5,000 - €10,000',
-    '€10,000 - €15,000',
-    '€15,000+'
+    '£2,000 - £5,000',
+    '£5,000 - £10,000',
+    '£10,000 - £15,000',
+    '£15,000+'
 ];
 
 const timelines = [
-    'Within 1 month',
-    '1-3 months',
-    '3-6 months',
-    '6+ months',
-    'Just exploring'
+    'Immediate (Next 30 Days)',
+    'Strategic (1-3 Months)',
+    'Planning (3-6 Months)',
+    'Exploring Options'
 ];
 
 export default function AssessmentFlow() {
@@ -70,14 +67,11 @@ export default function AssessmentFlow() {
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Save to session storage for chat widget
         if (typeof window !== 'undefined') {
             sessionStorage.setItem('smile_assessment_data', JSON.stringify(formData));
-            // Dispatch a custom event to notify other components (like ChatWidget) immediately
             window.dispatchEvent(new Event('assessmentCompleted'));
         }
 
@@ -87,73 +81,83 @@ export default function AssessmentFlow() {
 
     const canProceed = () => {
         switch (step) {
-            case 1:
-                return formData.name && formData.email && formData.phone;
-            case 2:
-                return formData.treatment;
-            case 3:
-                return formData.budget && formData.timeline;
-            case 4:
-                return true;
-            default:
-                return false;
+            case 1: return formData.name && formData.email && formData.phone;
+            case 2: return formData.treatment;
+            case 3: return formData.budget && formData.timeline;
+            case 4: return true;
+            default: return false;
         }
     };
 
     if (isComplete) {
         return (
-            <div className="min-h-[70vh] flex items-center justify-center px-6">
+            <div className="min-h-[80vh] flex items-center justify-center px-6">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="max-w-2xl w-full text-center crystal-card p-10"
+                    className="max-w-2xl w-full text-center crystal-card p-12 border-[#C5A059]/30"
                 >
-                    <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
-                        <Check className="w-10 h-10 text-white" />
+                    <div className="w-24 h-24 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#C5A059]/30 shadow-[0_0_40px_rgba(197,160,89,0.3)]">
+                        <ShieldCheck className="w-12 h-12 text-[#C5A059]" />
                     </div>
-                    <h1 className="text-4xl font-bold text-white mb-4">
-                        Analysis Complete!
+
+                    <h1 className="text-4xl font-bold text-white mb-6 tracking-tight">
+                        Intake Secured
                     </h1>
-                    <p className="text-xl text-slate-300 mb-8">
-                        Thank you, {formData.name}! Sarah (our AI Concierge) has received your details.
+
+                    <p className="text-xl text-slate-400 mb-10 leading-relaxed font-light">
+                        Excellent work, <span className="text-white font-bold">{formData.name}</span>. Your case file has been prioritized. Safiye AI is now cross-referencing your profile with our clinical availability.
                     </p>
-                    <div className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 mb-8 text-left">
-                        <h3 className="font-semibold text-sky-400 mb-3 uppercase tracking-wider text-sm">Next Steps</h3>
-                        <ul className="space-y-3 text-slate-300">
-                            <li className="flex items-start gap-3">
-                                <div className="p-1 bg-emerald-500/20 rounded-full mt-0.5">
-                                    <Check className="w-3 h-3 text-emerald-400" />
-                                </div>
-                                <span>Sarah is analyzing your case details</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <div className="p-1 bg-emerald-500/20 rounded-full mt-0.5">
-                                    <Check className="w-3 h-3 text-emerald-400" />
-                                </div>
-                                <span>Generating personalized treatment options</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <div className="p-1 bg-emerald-500/20 rounded-full mt-0.5">
-                                    <Check className="w-3 h-3 text-emerald-400" />
-                                </div>
-                                <span>Calculating estimated cost savings</span>
-                            </li>
+
+                    <div className="bg-slate-900/60 border border-white/5 rounded-2xl p-8 mb-10 text-left relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-5">
+                            <Briefcase className="w-24 h-24" />
+                        </div>
+                        <h3 className="text-[10px] font-black text-[#C5A059] mb-5 uppercase tracking-[0.3em]">Agency Next Steps</h3>
+                        <ul className="space-y-4">
+                            {[
+                                'Clinical Vetting by Senior Specialist Board',
+                                'Verification of Case Complexity & Requirements',
+                                'Secure Transfer of Assessment to Safiye AI',
+                                'Drafting of Custom BrightPlan™ Coordination'
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-center gap-4 text-slate-300 text-sm">
+                                    <div className="w-5 h-5 rounded-full bg-[#C5A059]/20 flex items-center justify-center flex-shrink-0">
+                                        <Check className="w-3 h-3 text-[#C5A059]" />
+                                    </div>
+                                    <span className="font-medium">{item}</span>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
-                    <div className="grid gap-4">
-                        <a
-                            href="/#chat"
-                            className="w-full block py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(14,165,233,0.4)] transition-all transform hover:scale-[1.02]"
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        <button
+                            onClick={() => {
+                                const message = encodeURIComponent(
+                                    `*Sovereign Intake Protocol Request*\n\n` +
+                                    `*Name:* ${formData.name}\n` +
+                                    `*Email:* ${formData.email}\n` +
+                                    `*Phone:* ${formData.phone}\n` +
+                                    `*Treatment:* ${formData.treatment}\n` +
+                                    `*Budget:* ${formData.budget}\n` +
+                                    `*Timeline:* ${formData.timeline}\n` +
+                                    `*Subject Strategy:* ${formData.notes || 'N/A'}`
+                                );
+                                window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
+                            }}
+                            className="bg-[#25D366] text-white font-bold py-5 rounded-xl shadow-[0_20px_40px_rgba(37,211,102,0.2)] hover:shadow-[0_20px_40px_rgba(37,211,102,0.4)] transition-all flex items-center justify-center gap-3 group tracking-widest text-[10px] uppercase"
                         >
-                            Chat with Sarah Now
-                        </a>
-                        <a
-                            href="/"
-                            className="w-full block py-4 bg-white/5 border border-white/10 text-slate-300 font-semibold rounded-xl hover:bg-white/10 transition-colors"
+                            Finalise via WhatsApp
+                            <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        </button>
+                        <Link
+                            href="/?chat=open"
+                            className="bg-[#C5A059] text-white font-bold py-5 rounded-xl shadow-[0_20px_40px_rgba(197,160,89,0.2)] hover:shadow-[0_20px_40px_rgba(197,160,89,0.4)] transition-all flex items-center justify-center gap-3 group tracking-widest text-[10px] uppercase"
                         >
-                            Return to Homepage
-                        </a>
+                            Consult with Safiye
+                            <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        </Link>
                     </div>
                 </motion.div>
             </div>
@@ -161,82 +165,86 @@ export default function AssessmentFlow() {
     }
 
     return (
-        <div className="max-w-3xl mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto px-6 py-20">
             {/* Progress Bar */}
-            <div className="mb-12">
-                <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-sm font-medium text-sky-400">Step {step} of {totalSteps}</h2>
-                    <span className="text-sm text-slate-400">{Math.round((step / totalSteps) * 100)}% Complete</span>
+            <div className="mb-20">
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#C5A059]/20 border border-[#C5A059]/30 flex items-center justify-center">
+                            <span className="text-[#C5A059] text-xs font-black">{step}</span>
+                        </div>
+                        <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Sovereign Intake Protocol</h2>
+                    </div>
+                    <span className="text-[10px] font-black text-[#C5A059] uppercase tracking-widest">{Math.round((step / totalSteps) * 100)}% Verified</span>
                 </div>
-                <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-1 bg-slate-900 rounded-full overflow-hidden">
                     <motion.div
-                        className="h-full bg-gradient-to-r from-sky-400 to-blue-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
+                        className="h-full bg-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.5)]"
                         initial={{ width: 0 }}
                         animate={{ width: `${(step / totalSteps) * 100}%` }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.5 }}
                     />
                 </div>
             </div>
 
-            <div className="crystal-card p-8 md:p-10 relative min-h-[500px] flex flex-col">
+            <div className="crystal-card p-10 md:p-16 relative min-h-[550px] flex flex-col bg-slate-900/40 border-white/5">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={step}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.4 }}
                         className="flex-grow"
                     >
                         {/* Step 1: Personal Info */}
                         {step === 1 && (
-                            <div className="space-y-6">
-                                <h2 className="text-3xl font-bold text-white">Let's start with your details</h2>
-                                <p className="text-slate-400">We'll use this information to create your personalized treatment plan.</p>
+                            <div className="space-y-10">
+                                <div>
+                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Identity Verification</h2>
+                                    <p className="text-slate-400 font-light">Enter your secure contact credentials to initiate coordination.</p>
+                                </div>
 
-                                <div className="grid gap-5">
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Full Name *</label>
+                                <div className="grid gap-8">
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
+                                            <User className="w-4 h-4 text-[#C5A059]" /> Full Legal Name
+                                        </label>
                                         <input
                                             type="text"
                                             value={formData.name}
                                             onChange={(e) => updateField('name', e.target.value)}
-                                            className="w-full px-4 py-3 bg-slate-950/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent text-white placeholder-slate-600 outline-none transition-all"
+                                            className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all font-light"
                                             placeholder="John Smith"
                                         />
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Email Address *</label>
-                                        <input
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={(e) => updateField('email', e.target.value)}
-                                            className="w-full px-4 py-3 bg-slate-950/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent text-white placeholder-slate-600 outline-none transition-all"
-                                            placeholder="john@example.com"
-                                        />
-                                    </div>
+                                    <div className="grid md:grid-cols-2 gap-8">
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
+                                                <Mail className="w-4 h-4 text-[#C5A059]" /> Secure Email
+                                            </label>
+                                            <input
+                                                type="email"
+                                                value={formData.email}
+                                                onChange={(e) => updateField('email', e.target.value)}
+                                                className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all font-light"
+                                                placeholder="john@example.com"
+                                            />
+                                        </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Phone Number *</label>
-                                        <input
-                                            type="tel"
-                                            value={formData.phone}
-                                            onChange={(e) => updateField('phone', e.target.value)}
-                                            className="w-full px-4 py-3 bg-slate-950/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent text-white placeholder-slate-600 outline-none transition-all"
-                                            placeholder="+44 7123 456789"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Age (Optional)</label>
-                                        <input
-                                            type="number"
-                                            value={formData.age}
-                                            onChange={(e) => updateField('age', e.target.value)}
-                                            className="w-full px-4 py-3 bg-slate-950/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent text-white placeholder-slate-600 outline-none transition-all"
-                                            placeholder="35"
-                                        />
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
+                                                <Phone className="w-4 h-4 text-[#C5A059]" /> WhatsApp Preferred
+                                            </label>
+                                            <input
+                                                type="tel"
+                                                value={formData.phone}
+                                                onChange={(e) => updateField('phone', e.target.value)}
+                                                className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all font-light"
+                                                placeholder="+44 7123 456789"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -244,25 +252,27 @@ export default function AssessmentFlow() {
 
                         {/* Step 2: Treatment Selection */}
                         {step === 2 && (
-                            <div className="space-y-6">
-                                <h2 className="text-3xl font-bold text-white">Treatment Preference</h2>
-                                <p className="text-slate-400">Select the treatment that best matches your needs.</p>
+                            <div className="space-y-10">
+                                <div>
+                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Clinical Blueprint</h2>
+                                    <p className="text-slate-400 font-light">Which reconstruction architecture are you interested in?</p>
+                                </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {treatments.map((treatment) => (
+                                    {treatmentOptions.map((option) => (
                                         <button
-                                            key={treatment}
-                                            onClick={() => updateField('treatment', treatment)}
-                                            className={`p-5 border rounded-xl text-left transition-all relative overflow-hidden group ${formData.treatment === treatment
-                                                ? 'border-sky-500 bg-sky-500/10'
-                                                : 'border-white/10 bg-slate-900/30 hover:border-sky-500/50 hover:bg-slate-900/50'
+                                            key={option.value}
+                                            onClick={() => updateField('treatment', option.label)}
+                                            className={`p-6 border rounded-2xl text-left transition-all relative overflow-hidden group ${formData.treatment === option.label
+                                                ? 'border-[#C5A059] bg-[#C5A059]/10 shadow-[0_0_20px_rgba(197,160,89,0.1)]'
+                                                : 'border-white/5 bg-slate-950/40 hover:border-[#C5A059]/30 hover:bg-slate-950/60'
                                                 }`}
                                         >
                                             <div className="flex items-center justify-between relative z-10">
-                                                <span className={`font-medium ${formData.treatment === treatment ? 'text-sky-400' : 'text-slate-300 group-hover:text-white'}`}>{treatment}</span>
-                                                {formData.treatment === treatment && (
-                                                    <div className="w-6 h-6 rounded-full bg-sky-500 flex items-center justify-center">
-                                                        <Check className="w-4 h-4 text-white" />
+                                                <span className={`text-sm font-bold tracking-tight ${formData.treatment === option.label ? 'text-white' : 'text-slate-400 group-hover:text-white'}`}>{option.label}</span>
+                                                {formData.treatment === option.label && (
+                                                    <div className="w-5 h-5 rounded-full bg-[#C5A059] flex items-center justify-center">
+                                                        <Check className="w-3 h-3 text-white" />
                                                     </div>
                                                 )}
                                             </div>
@@ -274,132 +284,145 @@ export default function AssessmentFlow() {
 
                         {/* Step 3: Budget & Timeline */}
                         {step === 3 && (
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 <div>
-                                    <h2 className="text-3xl font-bold text-white mb-2">Budget & Timeline</h2>
-                                    <p className="text-slate-400">Help us customize a plan that fits you.</p>
+                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Valuation & Deployment</h2>
+                                    <p className="text-slate-400 font-light">Determine your strategic investment and timeline.</p>
                                 </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-sky-400 mb-3 uppercase tracking-wider">Estimated Budget</label>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        {budgets.map((budget) => (
-                                            <button
-                                                key={budget}
-                                                onClick={() => updateField('budget', budget)}
-                                                className={`p-4 border rounded-xl transition-all ${formData.budget === budget
-                                                    ? 'border-sky-500 bg-sky-500/10 text-white shadow-[0_0_15px_rgba(14,165,233,0.2)]'
-                                                    : 'border-white/10 bg-slate-900/30 text-slate-300 hover:border-sky-500/50 hover:bg-slate-900/50'
-                                                    }`}
-                                            >
-                                                <span className="font-medium">{budget}</span>
-                                            </button>
-                                        ))}
+                                <div className="space-y-8">
+                                    <div>
+                                        <label className="text-[10px] font-black text-[#C5A059] mb-4 uppercase tracking-[0.3em] block flex items-center gap-3">
+                                            <Calculator className="w-4 h-4" /> Estimated Budget Allocation
+                                        </label>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                            {budgets.map((budget) => (
+                                                <button
+                                                    key={budget}
+                                                    onClick={() => updateField('budget', budget)}
+                                                    className={`p-4 border rounded-xl transition-all text-xs font-bold ${formData.budget === budget
+                                                        ? 'border-[#C5A059] bg-[#C5A059]/10 text-white shadow-[0_0_15px_rgba(197,160,89,0.2)]'
+                                                        : 'border-white/5 bg-slate-950/40 text-slate-500 hover:border-[#C5A059]/30 hover:text-white'
+                                                        }`}
+                                                >
+                                                    {budget}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-sky-400 mb-3 uppercase tracking-wider">Planned Timeline</label>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        {timelines.map((timeline) => (
-                                            <button
-                                                key={timeline}
-                                                onClick={() => updateField('timeline', timeline)}
-                                                className={`p-4 border rounded-xl transition-all ${formData.timeline === timeline
-                                                    ? 'border-sky-500 bg-sky-500/10 text-white shadow-[0_0_15px_rgba(14,165,233,0.2)]'
-                                                    : 'border-white/10 bg-slate-900/30 text-slate-300 hover:border-sky-500/50 hover:bg-slate-900/50'
-                                                    }`}
-                                            >
-                                                <span className="font-medium">{timeline}</span>
-                                            </button>
-                                        ))}
+                                    <div>
+                                        <label className="text-[10px] font-black text-[#C5A059] mb-4 uppercase tracking-[0.3em] block flex items-center gap-3">
+                                            <Clock className="w-4 h-4" /> Planned Deployment
+                                        </label>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                            {timelines.map((timeline) => (
+                                                <button
+                                                    key={timeline}
+                                                    onClick={() => updateField('timeline', timeline)}
+                                                    className={`p-4 border rounded-xl transition-all text-xs font-bold ${formData.timeline === timeline
+                                                        ? 'border-[#C5A059] bg-[#C5A059]/10 text-white shadow-[0_0_15px_rgba(197,160,89,0.2)]'
+                                                        : 'border-white/5 bg-slate-950/40 text-slate-500 hover:border-[#C5A059]/30 hover:text-white'
+                                                        }`}
+                                                >
+                                                    {timeline}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 4: Additional Notes */}
+                        {/* Step 4: Final Notes */}
                         {step === 4 && (
-                            <div className="space-y-6">
-                                <h2 className="text-3xl font-bold text-white">Almost done!</h2>
-                                <p className="text-slate-400">Any specific dental concerns or questions?</p>
-
+                            <div className="space-y-10">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-2">Additional Notes (Optional)</label>
+                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Final Directives</h2>
+                                    <p className="text-slate-400 font-light">Provide any specific clinical directives or questions.</p>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
+                                        <MessageSquare className="w-4 h-4 text-[#C5A059]" /> Additional Clinical Context
+                                    </label>
                                     <textarea
                                         value={formData.notes}
                                         onChange={(e) => updateField('notes', e.target.value)}
-                                        rows={5}
-                                        className="w-full px-4 py-3 bg-slate-950/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-transparent text-white placeholder-slate-600 outline-none transition-all resize-none"
-                                        placeholder="E.g., I have a metal allergy, I want zirconium crowns..."
+                                        rows={6}
+                                        className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-2xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all resize-none font-light"
+                                        placeholder="Note any previous surgeries, allergies, or specific material preferences..."
                                     />
                                 </div>
 
-                                {/* Summary */}
-                                <div className="bg-slate-900/40 border border-white/5 rounded-2xl p-6">
-                                    <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-sky-500"></span>
-                                        Summary
+                                {/* Intelligent Summary Panel */}
+                                <div className="bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-2xl p-8 relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-4 opacity-10">
+                                        <ShieldCheck className="w-12 h-12 text-[#C5A059]" />
+                                    </div>
+                                    <h3 className="text-[10px] font-black text-white mb-6 uppercase tracking-[0.3em] flex items-center gap-3">
+                                        <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse"></span>
+                                        Protocol Pre-Verification
                                     </h3>
-                                    <dl className="space-y-3 text-sm">
-                                        <div className="flex justify-between border-b border-white/5 pb-2">
-                                            <dt className="text-slate-400">Name:</dt>
-                                            <dd className="font-medium text-white">{formData.name}</dd>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                        <div>
+                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Subject</p>
+                                            <p className="text-white text-xs font-bold truncate">{formData.name || '---'}</p>
                                         </div>
-                                        <div className="flex justify-between border-b border-white/5 pb-2">
-                                            <dt className="text-slate-400">Treatment:</dt>
-                                            <dd className="font-medium text-white">{formData.treatment}</dd>
+                                        <div>
+                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Blueprint</p>
+                                            <p className="text-white text-xs font-bold truncate">{formData.treatment || '---'}</p>
                                         </div>
-                                        <div className="flex justify-between border-b border-white/5 pb-2">
-                                            <dt className="text-slate-400">Budget:</dt>
-                                            <dd className="font-medium text-white">{formData.budget}</dd>
+                                        <div>
+                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Allocation</p>
+                                            <p className="text-white text-xs font-bold truncate">{formData.budget || '---'}</p>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <dt className="text-slate-400">Timeline:</dt>
-                                            <dd className="font-medium text-white">{formData.timeline}</dd>
+                                        <div>
+                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Schedule</p>
+                                            <p className="text-white text-xs font-bold truncate">{formData.timeline || '---'}</p>
                                         </div>
-                                    </dl>
+                                    </div>
                                 </div>
                             </div>
                         )}
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Navigation */}
-                <div className="flex items-center justify-between mt-8 pt-8 border-t border-white/10">
+                {/* Navigation Architecture */}
+                <div className="flex items-center justify-between mt-12 pt-10 border-t border-white/5">
                     <button
                         onClick={prevStep}
                         disabled={step === 1}
-                        className="flex items-center gap-2 px-6 py-3 text-slate-400 font-medium rounded-full hover:text-white hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="flex items-center gap-3 px-8 py-4 text-slate-500 font-bold uppercase tracking-widest text-[10px] rounded-xl hover:text-white hover:bg-white/5 transition-all disabled:opacity-0 disabled:pointer-events-none group"
                     >
-                        <ChevronLeft className="w-5 h-5" />
-                        Back
+                        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform text-[#C5A059]" />
+                        Previous Phase
                     </button>
 
                     {step < totalSteps ? (
                         <button
                             onClick={nextStep}
                             disabled={!canProceed()}
-                            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-full hover:shadow-[0_0_20px_rgba(14,165,233,0.4)] transition-all disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
+                            className="bg-[#C5A059] text-white font-black px-12 py-5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-[0_15px_30px_rgba(197,160,89,0.2)] hover:shadow-[0_15px_30px_rgba(197,160,89,0.4)] transition-all disabled:opacity-30 flex items-center gap-4 group hover:-translate-y-1"
                         >
-                            Next
-                            <ChevronRight className="w-5 h-5" />
+                            Next Protocol
+                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
                     ) : (
                         <button
                             onClick={handleSubmit}
                             disabled={isSubmitting}
-                            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold rounded-full hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all disabled:opacity-50 transform hover:-translate-y-0.5"
+                            className="bg-green-600 text-white font-black px-12 py-5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-[0_15px_30px_rgba(22,163,74,0.2)] hover:shadow-[0_15px_30px_rgba(22,163,74,0.4)] transition-all disabled:opacity-50 flex items-center gap-4 group hover:-translate-y-1"
                         >
                             {isSubmitting ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin" />
-                                    Submitting...
+                                    Verifying...
                                 </>
                             ) : (
                                 <>
-                                    Submit for Analysis
-                                    <Check className="w-5 h-5" />
+                                    Finalise Intake
+                                    <ShieldCheck className="w-4 h-4" />
                                 </>
                             )}
                         </button>

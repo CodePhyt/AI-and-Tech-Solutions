@@ -77,13 +77,13 @@ export default function Header() {
                                 </svg>
                             </div>
 
-                            {/* Typhography - "Smile Türkiye" */}
+                            {/* Typography - "Personal Coordinator" */}
                             <div className="flex flex-col justify-center h-10">
-                                <h1 className="text-2xl font-bold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-slate-200 drop-shadow-sm">
-                                    Smile <span className="text-sky-400">Türkiye</span>
+                                <h1 className="text-2xl font-bold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#C5A059] drop-shadow-sm">
+                                    Personal <span className="text-[#C5A059]">Coordinator</span>
                                 </h1>
-                                <span className="text-[0.65rem] tracking-[0.2em] font-medium text-slate-400 uppercase group-hover:text-sky-300 transition-colors duration-300">
-                                    Premium Dental
+                                <span className="text-[0.65rem] tracking-[0.2em] font-medium text-slate-400 uppercase group-hover:text-[#C5A059] transition-colors duration-300">
+                                    High-End Dental Tourism
                                 </span>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ export default function Header() {
                             Home
                         </Link>
                         <Link href="/about" className="nav-link">
-                            About
+                            Agency
                         </Link>
 
                         {/* Treatments Dropdown */}
@@ -105,7 +105,7 @@ export default function Header() {
                                 onMouseEnter={() => setIsTreatmentsOpen(true)}
                                 onMouseLeave={() => setIsTreatmentsOpen(false)}
                             >
-                                <span>Treatments</span>
+                                <span>Vetted Clinics</span>
                                 <ChevronDown className="w-4 h-4" />
                             </button>
 
@@ -116,10 +116,13 @@ export default function Header() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
                                         transition={{ duration: 0.2 }}
-                                        className="absolute top-full left-0 mt-2 w-64 glass-card p-4 space-y-2"
+                                        className="absolute top-full left-0 mt-2 w-64 crystal-card p-4 space-y-2 border-[#C5A059]/20"
                                         onMouseEnter={() => setIsTreatmentsOpen(true)}
                                         onMouseLeave={() => setIsTreatmentsOpen(false)}
                                     >
+                                        <div className="px-4 py-2 text-[10px] font-bold text-[#C5A059] uppercase tracking-widest border-b border-white/5 mb-2">
+                                            Top Treatment Domains
+                                        </div>
                                         {treatments.map((treatment) => (
                                             <Link
                                                 key={treatment.slug}
@@ -135,24 +138,15 @@ export default function Header() {
                         </div>
 
                         <Link href="/stories" className="nav-link">
-                            Success Stories
-                        </Link>
-                        <Link href="/blog" className="nav-link">
-                            Blog
-                        </Link>
-                        <Link href="/clinics" className="nav-link">
-                            Our Clinics
-                        </Link>
-                        <Link href="/contact" className="nav-link">
-                            Contact
+                            Case Studies
                         </Link>
 
                         {/* CTA Button */}
                         <Link
-                            href="/contact"
-                            className="magnetic-btn btn-primary text-sm px-8 py-2.5 shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)] border border-white/20"
+                            href="/assessment"
+                            className="magnetic-btn px-8 py-2.5 bg-[#C5A059] text-white font-bold rounded-full shadow-[0_0_20px_rgba(197,160,89,0.3)] hover:shadow-[0_0_30px_rgba(197,160,89,0.5)] border border-white/20 transition-all"
                         >
-                            Get Free Quote
+                            Get Priority Plan
                         </Link>
                     </div>
 
@@ -209,9 +203,6 @@ export default function Header() {
                                 <Link href="/stories" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition-colors">
                                     Success Stories
                                 </Link>
-                                <Link href="/blog" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition-colors">
-                                    Blog
-                                </Link>
                                 <Link href="/clinics" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition-colors">
                                     Our Clinics
                                 </Link>
@@ -234,7 +225,7 @@ export default function Header() {
         }
         .nav-link::after {
           content: '';
-          @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-500 to-cyan-500 transition-all duration-300;
+          @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-[#C5A059] transition-all duration-300;
         }
         .nav-link:hover::after {
           @apply w-full;

@@ -1,5 +1,20 @@
+'use client';
+
+import React from 'react';
 import Image from 'next/image';
 import { IMAGE_CATEGORIES } from '@/lib/image-sources';
+import {
+    Star,
+    CheckCircle,
+    MapPin,
+    Clock,
+    Quote,
+    ShieldCheck,
+    Play,
+    ArrowRight
+} from 'lucide-react';
+import ScrollReveal from '@/components/ui/ScrollReveal';
+import Link from 'next/link';
 
 export default function StoriesPage() {
     const stories = [
@@ -11,8 +26,8 @@ export default function StoriesPage() {
             duration: '7 days',
             rating: 5,
             image: IMAGE_CATEGORIES.PATIENT_PORTRAITS.sarah_uk,
-            quote: 'I came to Antalya with severe dental anxiety and left with the most beautiful smile I could have imagined. The team was so patient and gentle.',
-            story: 'After years of hiding my smile due to discolored and misaligned teeth, I finally took the leap. The digital smile design showed me exactly what to expect, and the results exceeded it. I spent a week in Antalya, staying at a beautiful hotel near the clinic. The whole experience felt like a luxury vacation where I just happened to get my dream smile. Six months later, I still catch myself smiling in every reflection.',
+            quote: 'I came to Antalya with severe dental anxiety and left with the most beautiful smile I could have imagined.',
+            story: 'After years of hiding my smile due to discolored and misaligned teeth, I finally took the leap. The digital smile design showed me exactly what to expect, and the results exceeded it. The coordination was flawless.',
             before: IMAGE_CATEGORIES.TRANSFORMATIONS.veneers_hollywood_female.before,
             after: IMAGE_CATEGORIES.TRANSFORMATIONS.veneers_hollywood_female.after
         },
@@ -24,8 +39,8 @@ export default function StoriesPage() {
             duration: '14 days',
             rating: 5,
             image: IMAGE_CATEGORIES.PATIENT_PORTRAITS.michael_usa,
-            quote: 'I got my life back. Being able to eat, speak, and smile confidently again is priceless. The investment was worth every penny.',
-            story: 'Decades of dental problems left me with severe bone loss and missing teeth. I was quoted $65,000 in the US for full mouth implants. I found Smile Turkey and couldn\'t believe the difference in cost for the same materials - Straumann implants and German ceramics. I stayed for two weeks, got temporary teeth on day three, and returned three months later for the final teeth. The coordination was flawless. My family says I look 15 years younger.',
+            quote: 'I got my life back. Being able to eat, speak, and smile confidently again is priceless.',
+            story: 'Decades of dental problems left me with severe bone loss and missing teeth. I was quoted $65,000 in the US. Smile Turkey handled the Straumann implants and German ceramics at a fraction of the cost.',
             before: IMAGE_CATEGORIES.TRANSFORMATIONS.full_arch_restoration_male.before,
             after: IMAGE_CATEGORIES.TRANSFORMATIONS.full_arch_restoration_male.after
         },
@@ -37,190 +52,154 @@ export default function StoriesPage() {
             duration: '5 days',
             rating: 5,
             image: IMAGE_CATEGORIES.PATIENT_PORTRAITS.emma_australia,
-            quote: 'The attention to detail was incredible. They matched the veneers to my natural teeth perfectly. Nobody can tell they\'re not real.',
-            story: 'As a wedding photographer, I\'m always behind the camera, never in front of it. But my own engagement photos were coming up and I was self-conscious about my chipped front teeth and gaps. I discovered Smile Turkey through a friend\'s recommendation. The process was so easy - they handled everything from airport pickup to hotel booking. My new veneers look so natural that even my close friends thought I just had professional whitening. The best part? I saved enough compared to Australian prices to also upgrade my camera gear!',
+            quote: 'The attention to detail was incredible. They matched the veneers to my natural teeth perfectly.',
+            story: 'As a wedding photographer, I was self-conscious about my chipped front teeth. The process was so easy - they handled everything from airport pickup to hotel booking. My new veneers look so natural.',
             before: IMAGE_CATEGORIES.TRANSFORMATIONS.veneer_repair_female.before,
             after: IMAGE_CATEGORIES.TRANSFORMATIONS.veneer_repair_female.after
-        },
-        {
-            name: 'Ahmed S.',
-            age: 45,
-            from: 'Dubai, UAE',
-            treatment: 'Dental Implants (4 teeth) + Whitening',
-            duration: '10 days',
-            rating: 5,
-            image: IMAGE_CATEGORIES.PATIENT_PORTRAITS.ahmed_uae,
-            quote: 'Professional beyond expectations. The clinic was spotless, the technology was cutting-edge, and the results speak for themselves.',
-            story: 'I work in hospitality where appearance matters. After losing teeth in an accident years ago, I lived with a partial denture that was uncomfortable and embarrassing. I chose Smile Turkey after extensive research - they use the same Nobel Biocare implants my Dubai dentist quoted but at a fraction of the cost. The CT scan and surgical guide made the procedure precise and minimally invasive. I had temporary crowns the same day. The healing was smooth, and I combined the follow-up visit with a beach vacation in Antalya. Best decision I\'ve made for myself.',
-            before: IMAGE_CATEGORIES.TRANSFORMATIONS.implant_crowns_male.before,
-            after: IMAGE_CATEGORIES.TRANSFORMATIONS.implant_crowns_male.after
-        },
-        {
-            name: 'Lisa T.',
-            age: 39,
-            from: 'Toronto, Canada',
-            treatment: 'Hollywood Smile (16 Veneers)',
-            duration: '8 days',
-            rating: 5,
-            image: IMAGE_CATEGORIES.PATIENT_PORTRAITS.lisa_canada,
-            quote: 'The digital preview was so accurate. I approved my smile design, and that\'s exactly what I got. The confidence boost is incredible.',
-            story: 'I\'m a corporate lawyer, and first impressions are everything in my field. Years of coffee and red wine had taken a toll on my teeth, and simple whitening wasn\'t enough anymore. I wanted a complete transformation but the $45,000 quote in Toronto was out of reach. Smile Turkey offered the exact same result - E-max veneers in the shade I wanted - for $5,500 including hotel and transfers. I took a "working vacation," had video calls from my beach hotel, and returned with a smile that makes me feel like a million bucks. My colleagues think I just came back refreshed from vacation. Little do they know!',
-            before: IMAGE_CATEGORIES.TRANSFORMATIONS.veneers_whitening_female.before,
-            after: IMAGE_CATEGORIES.TRANSFORMATIONS.veneers_whitening_female.after
-        },
-        {
-            name: 'Carlos M.',
-            age: 61,
-            from: 'Madrid, Spain',
-            treatment: 'Implants + Crowns (Full upper arch)',
-            duration: '12 days',
-            rating: 5,
-            image: IMAGE_CATEGORIES.PATIENT_PORTRAITS.carlos_spain,
-            quote: 'More than 30 years of dental shame ended in just two weeks. I can finally smile at my grandchildren without embarrassment.',
-            story: 'I had avoided dentists for decades due to a traumatic experience as a child. By the time I found Smile Turkey, my upper teeth were in terrible condition. The team was incredibly understanding of my anxiety. They explained every step, gave me sedation options, and never rushed me. The All-on-6 solution gave me a full arch of new teeth in two weeks. I stayed for the initial surgery, healed at a beautiful resort (they arranged everything), and came back for finals. My wife cried when she saw the results. So did I. Now I smile non-stop and my grandkids say Abuelo looks happy again.',
-            before: IMAGE_CATEGORIES.TRANSFORMATIONS.full_upper_arch_senior.before,
-            after: IMAGE_CATEGORIES.TRANSFORMATIONS.full_upper_arch_senior.after
         }
     ];
 
     return (
-        <div className="min-h-screen pt-20">
-            {/* Hero Section */}
-            <section className="section-container">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h1 className="text-5xl font-bold text-white mb-6">
-                        Real Patients, Real <span className="gradient-text">Transformations</span>
-                    </h1>
-                    <p className="text-xl text-slate-400">
-                        Over 10,000 patients from 60+ countries have trusted us with their smiles. Here are just a few of their stories.
-                    </p>
+        <div className="min-h-screen pt-24 pb-20 bg-slate-950">
+            {/* Background Architecture */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+                <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-[#C5A059]/5 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[10%] left-[-10%] w-[40%] h-[40%] bg-[#006064]/10 rounded-full blur-[120px]" />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {/* Header */}
+                <ScrollReveal>
+                    <div className="text-center mb-24">
+                        <span className="text-[#C5A059] font-bold tracking-[0.2em] uppercase text-sm mb-4 block">Proof of Excellence</span>
+                        <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
+                            Success <span className="text-[#C5A059]">Stories</span>
+                        </h1>
+                        <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                            Peer-reviewed transformations from our global patient base. Every story is a testament to our <span className="text-white font-semibold">Ironclad Protocol</span>.
+                        </p>
+                    </div>
+                </ScrollReveal>
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32">
+                    {[
+                        { label: 'Verified Patients', value: '10,000+' },
+                        { label: 'Nations Served', value: '60+' },
+                        { label: 'Patient Rating', value: '4.9/5' },
+                        { label: 'Clinical Success', value: '98%' }
+                    ].map((stat, i) => (
+                        <ScrollReveal key={i} delay={i * 0.1}>
+                            <div className="crystal-card p-8 border-[#C5A059]/10 text-center group hover:border-[#C5A059]/30 transition-all">
+                                <div className="text-3xl font-bold text-white mb-2 group-hover:text-[#C5A059] transition-colors">{stat.value}</div>
+                                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{stat.label}</div>
+                            </div>
+                        </ScrollReveal>
+                    ))}
                 </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-                    <div className="crystal-card p-6 text-center">
-                        <p className="text-4xl font-bold gradient-text mb-2">10,000+</p>
-                        <p className="text-slate-400">Happy Patients</p>
-                    </div>
-                    <div className="crystal-card p-6 text-center">
-                        <p className="text-4xl font-bold gradient-text mb-2">60+</p>
-                        <p className="text-slate-400">Countries</p>
-                    </div>
-                    <div className="crystal-card p-6 text-center">
-                        <p className="text-4xl font-bold gradient-text mb-2">4.9/5</p>
-                        <p className="text-slate-400">Average Rating</p>
-                    </div>
-                    <div className="crystal-card p-6 text-center">
-                        <p className="text-4xl font-bold gradient-text mb-2">98%</p>
-                        <p className="text-slate-400">Success Rate</p>
-                    </div>
-                </div>
-
-                {/* Stories Grid */}
-                <div className="space-y-16">
+                {/* Stories List */}
+                <div className="space-y-32">
                     {stories.map((story, index) => (
-                        <div
-                            key={index}
-                            className={`crystal-card hover:glow transition-all duration-300 overflow-hidden ${index % 2 === 0 ? '' : 'md:flex-row-reverse'
-                                }`}
-                        >
-                            <div className="grid md:grid-cols-2 gap-8 p-8">
-                                {/* Left: Patient Info & Story */}
-                                <div className="space-y-6">
-                                    {/* Patient Header */}
-                                    <div className="flex items-start space-x-4">
-                                        <div
-                                            className="w-20 h-20 rounded-full bg-cover bg-center border-4 border-sky-500"
-                                            style={{ backgroundImage: `url(${story.image})` }}
-                                        ></div>
-                                        <div className="flex-1">
-                                            <h3 className="text-2xl font-bold text-white">{story.name}, {story.age}</h3>
-                                            <p className="text-slate-400">{story.from}</p>
-                                            <div className="flex items-center mt-2">
-                                                {[...Array(story.rating)].map((_, i) => (
-                                                    <svg
-                                                        key={i}
-                                                        className="w-5 h-5 text-yellow-500 fill-yellow-500"
-                                                        viewBox="0 0 20 20"
-                                                    >
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                    </svg>
-                                                ))}
+                        <ScrollReveal key={index}>
+                            <div className={`flex flex-col lg:flex-row gap-16 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                                {/* Text Content */}
+                                <div className="flex-1 space-y-8">
+                                    <div className="flex items-center space-x-4 mb-4">
+                                        <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#C5A059]/30">
+                                            <Image
+                                                src={story.image}
+                                                alt={story.name}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-white tracking-tight">{story.name}</h3>
+                                            <div className="flex items-center text-slate-500 text-xs font-medium">
+                                                <MapPin className="w-3 h-3 mr-1 text-[#C5A059]" />
+                                                {story.from}
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Treatment Info */}
-                                    <div className="flex gap-4">
-                                        <div className="px-4 py-2 bg-sky-500/10 border border-sky-500/20 rounded-full text-sky-400 text-sm">
+                                    <div className="relative">
+                                        <Quote className="absolute -top-6 -left-6 w-12 h-12 text-[#C5A059]/10" />
+                                        <p className="text-2xl md:text-3xl font-bold text-white leading-tight italic">
+                                            "{story.quote}"
+                                        </p>
+                                    </div>
+
+                                    <p className="text-slate-400 text-lg leading-relaxed">
+                                        {story.story}
+                                    </p>
+
+                                    <div className="flex flex-wrap gap-4 pt-4">
+                                        <div className="px-4 py-2 rounded-xl bg-[#C5A059]/10 border border-[#C5A059]/20 text-[#C5A059] text-[10px] font-bold uppercase tracking-widest">
                                             {story.treatment}
                                         </div>
-                                        <div className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm">
+                                        <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 text-[10px] font-bold uppercase tracking-widest flex items-center">
+                                            <Clock className="w-3.5 h-3.5 mr-2 text-[#C5A059]" />
                                             {story.duration}
                                         </div>
                                     </div>
 
-                                    {/* Quote */}
-                                    <blockquote className="border-l-4 border-sky-500 pl-4 italic text-lg text-slate-300">
-                                        "{story.quote}"
-                                    </blockquote>
-
-                                    {/* Full Story */}
-                                    <p className="text-slate-400 leading-relaxed">
-                                        {story.story}
-                                    </p>
-
-                                    {/* Verified Badge */}
-                                    <div className="flex items-center text-green-400">
-                                        <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                        <span className="font-semibold">Verified Patient • Treated in 2023-2024</span>
+                                    <div className="pt-8 flex items-center text-green-500/80 text-[10px] font-bold uppercase tracking-widest">
+                                        <ShieldCheck className="w-5 h-5 mr-3" />
+                                        Verified Patient Outcome • Brighton Protocol Verified
                                     </div>
                                 </div>
 
-                                {/* Right: Before/After Images */}
-                                <div className="space-y-4">
-                                    <div className="space-y-2">
-                                        <p className="text-sm text-slate-500 uppercase tracking-wide">Before</p>
-                                        <div
-                                            className="w-full h-64 rounded-xl bg-cover bg-center"
-                                            style={{ backgroundImage: `url(${story.before})` }}
-                                        ></div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <p className="text-sm text-sky-400 uppercase tracking-wide flex items-center">
-                                            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                            </svg>
-                                            After
-                                        </p>
-                                        <div
-                                            className="w-full h-64 rounded-xl bg-cover bg-center border-2 border-sky-500 glow"
-                                            style={{ backgroundImage: `url(${story.after})` }}
-                                        ></div>
+                                {/* Comparison Component */}
+                                <div className="flex-1 w-full max-w-2xl">
+                                    <div className="crystal-card p-4 border-[#C5A059]/20 bg-slate-900/40 relative group overflow-hidden">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="relative space-y-3">
+                                                <div className="relative aspect-square rounded-2xl overflow-hidden grayscale opacity-60">
+                                                    <Image src={story.before} alt="Before" fill className="object-cover" />
+                                                </div>
+                                                <span className="block text-center text-[10px] font-bold text-slate-500 uppercase tracking-widest">Baseline State</span>
+                                            </div>
+                                            <div className="relative space-y-3">
+                                                <div className="relative aspect-square rounded-2xl overflow-hidden border-2 border-[#C5A059]/40 shadow-[0_0_30px_rgba(197,160,89,0.2)]">
+                                                    <Image src={story.after} alt="After" fill className="object-cover" />
+                                                </div>
+                                                <span className="block text-center text-[10px] font-bold text-[#C5A059] uppercase tracking-widest">Institutional Result</span>
+                                            </div>
+                                        </div>
+                                        {/* Overlay Hover Effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                            <div className="px-6 py-3 bg-[#C5A059] rounded-full text-white font-bold text-sm shadow-xl flex items-center">
+                                                <Play className="w-4 h-4 mr-2 fill-white" /> View Full Case Study
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </ScrollReveal>
                     ))}
                 </div>
 
-                {/* CTA */}
-                <div className="mt-16 text-center crystal-card p-12 rounded-3xl">
-                    <h2 className="text-3xl font-bold text-white mb-4">Ready for Your Own Transformation?</h2>
-                    <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-                        Join thousands of satisfied patients who chose Smile Turkey for their dental journey. Free consultation, no obligation.
-                    </p>
-                    <a href="#chat" className="btn-primary inline-block">
-                        Get Your Free Consultation
-                    </a>
-                </div>
-            </section>
+                {/* Final CTA */}
+                <ScrollReveal>
+                    <div className="mt-40 crystal-card p-16 border-[#C5A059]/20 bg-slate-900/40 relative overflow-hidden text-center">
+                        <div className="max-w-3xl mx-auto relative z-10">
+                            <h2 className="text-4xl font-bold text-white mb-6">Will yours be our next success story?</h2>
+                            <p className="text-lg text-slate-400 mb-10 leading-relaxed">
+                                Our medical consultants are ready to review your case within the hour. Get your private, no-obligation protocol today.
+                            </p>
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                                <Link href="/assessment" className="btn-primary px-12 py-5 w-full sm:w-auto">
+                                    Start Secure Assessment
+                                </Link>
+                                <button onClick={() => window.open('https://wa.me/905000000000', '_blank')} className="btn-secondary px-12 py-5 w-full sm:w-auto flex items-center justify-center">
+                                    Consult via WhatsApp <ArrowRight className="w-4 h-4 ml-2" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ScrollReveal>
+            </div>
         </div>
     );
 }

@@ -13,14 +13,14 @@ export default function AboutPage() {
                         backgroundPosition: 'center',
                     }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/50"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-[#006064]/80 to-slate-950/50"></div>
                 </div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-                        The <span className="gradient-text">Boutique</span> Experience
+                        Coordination <span className="text-[#C5A059]">Mastery</span>
                     </h1>
                     <p className="text-xl text-slate-300 max-w-2xl">
-                        Your journey to a perfect smile in the heart of the Mediterranean
+                        Your private advocate for elite dental tourism in Antalya.
                     </p>
                 </div>
             </section>
@@ -29,24 +29,21 @@ export default function AboutPage() {
             <section className="section-container">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
-                        <h2 className="text-4xl font-bold text-white">Our Story</h2>
+                        <h2 className="text-4xl font-bold text-white underline decoration-[#C5A059] underline-offset-8">The Agency Pivot</h2>
                         <p className="text-slate-300 text-lg leading-relaxed">
-                            Founded in 2009, Smile Turkey was born from a simple vision: to make world-class dental care accessible to everyone,
-                            without compromising on quality or luxury.
+                            For years, we operated as a premier clinic. But we realized patients needed more than just a dentist—they needed a <span className="text-[#C5A059]">Personal Coordinator</span> to navigate the complexities of international care.
                         </p>
                         <p className="text-slate-300 text-lg leading-relaxed">
-                            We've helped over 10,000 patients from around the world achieve their dream smiles, combining cutting-edge dental
-                            technology with the warm hospitality and natural beauty of Antalya.
+                            Today, we are an elite agency. We don't just own a building; we vet the top 3% of Turkish dental talent. Led by Safiye Yılmaz and our medical consultant Dr. Nesip, we ensure your journey is managed with white-glove precision.
                         </p>
                         <p className="text-slate-300 text-lg leading-relaxed">
-                            Every patient receives personalized care from our expert team, luxury accommodations, and the opportunity to recover
-                            in one of the world's most beautiful destinations.
+                            From the moment you fill out our Secure Assessment to your final flight home, you aren't just a patient—you are an agency client. We protect your results, your budget, and your time.
                         </p>
                     </div>
-                    <div className="crystal-card p-8">
+                    <div className="crystal-card p-4 border-[#C5A059]/30 shadow-[0_0_30px_rgba(197,160,89,0.1)]">
                         <img
                             src="/assets/clinics/clinic-lobby-01.jpg"
-                            alt="Our dental team"
+                            alt="Agency Headquarters"
                             className="w-full h-96 object-cover rounded-xl"
                         />
                     </div>

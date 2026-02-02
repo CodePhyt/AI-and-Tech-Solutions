@@ -1,32 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  /* DESIGN.md Constitution: Antalya Luxury Color System */
+  /* Ironclad Agency Architecture: Deep Teal & Gold Palette */
 
   /* Primary Palette */
-  --antalya-turquoise: #00B8D4;
-  --antalya-deep-blue: #0277BD;
-  --sand-gold: #FFD54F;
+  --agency-teal: #006064;
+  --warm-sand: #F5F5DC;
+  --muted-gold: #C5A059;
   --glass-white: #F8FAFC;
   --midnight-slate: #020617;
 
   /* Functional Colors */
   --success-green: #10B981;
-  --warning-gold: #F59E0B;
+  --warning-gold: #C5A059;
   --error-red: #EF4444;
-  --trust-blue: #3B82F6;
+  --trust-teal: #00838F;
 
   /* Transparency Scale */
   --glass-10: rgba(248, 250, 252, 0.10);
   --glass-15: rgba(248, 250, 252, 0.15);
   --glass-20: rgba(248, 250, 252, 0.20);
-  --turquoise-20: rgba(0, 184, 212, 0.20);
-  --gold-15: rgba(255, 213, 79, 0.15);
+  --teal-20: rgba(0, 96, 100, 0.20);
+  --gold-15: rgba(197, 160, 89, 0.15);
 
-  /* Legacy (for backwards compatibility) */
-  --color-primary: var(--antalya-turquoise);
-  --color-secondary: var(--antalya-deep-blue);
-  --color-accent: var(--sand-gold);
+  /* Legacy Mapping for Smooth Transitions */
+  --antalya-turquoise: var(--agency-teal);
+  --antalya-deep-blue: #004D40;
+  --sand-gold: var(--muted-gold);
+  
+  --color-primary: var(--agency-teal);
+  --color-secondary: var(--warm-sand);
+  --color-accent: var(--muted-gold);
 }
 
 * {

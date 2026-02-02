@@ -145,6 +145,8 @@ export const IMAGE_CATEGORIES = {
     }
 } as const;
 
+export const TRANSFORMATION_GROUPS = IMAGE_CATEGORIES.TRANSFORMATIONS;
+
 /**
  * Helper function to get image by category and key
  */

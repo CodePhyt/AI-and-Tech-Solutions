@@ -32,13 +32,12 @@ export default function Breadcrumbs() {
                 .join(' ');
 
             // Special cases for better labels
-            if (path === 'blog') label = 'Blog';
-            if (path === 'treatments') label = 'Treatments';
-            if (path === 'stories') label = 'Success Stories';
-            if (path === 'about') label = 'About Us';
-            if (path === 'contact') label = 'Contact';
-            if (path === 'clinics') label = 'Our Clinics';
-            if (path === 'careers') label = 'Careers';
+            if (path === 'blog') label = 'Intelligence';
+            if (path === 'treatments') label = 'Vetted Clinics';
+            if (path === 'stories') label = 'Case Studies';
+            if (path === 'about') label = 'Agency';
+            if (path === 'contact') label = 'Concierge';
+            if (path === 'assessment') label = 'Priority Plan';
 
             breadcrumbs.push({
                 label,
@@ -53,25 +52,25 @@ export default function Breadcrumbs() {
 
     return (
         <nav aria-label="Breadcrumb" className="w-full">
-            <div className="crystal-card px-6 py-3 inline-flex items-center space-x-2">
+            <div className="crystal-card px-6 py-2.5 inline-flex items-center space-x-2 border-[#C5A059]/10">
                 {breadcrumbs.map((crumb, index) => (
                     <div key={crumb.href} className="flex items-center space-x-2">
                         {/* Home icon for first item */}
                         {index === 0 && (
-                            <Home className="w-4 h-4 text-sky-400" />
+                            <Home className="w-4 h-4 text-[#C5A059]" />
                         )}
 
                         {/* Breadcrumb link or text */}
                         {index === breadcrumbs.length - 1 ? (
                             // Current page (not a link)
-                            <span className="text-white font-medium text-sm">
+                            <span className="text-white font-bold text-[10px] uppercase tracking-widest">
                                 {crumb.label}
                             </span>
                         ) : (
                             // Previous pages (links)
                             <Link
                                 href={crumb.href}
-                                className="text-slate-400 hover:text-sky-400 transition-colors text-sm font-medium"
+                                className="text-slate-400 hover:text-[#C5A059] transition-colors text-[10px] font-bold uppercase tracking-widest"
                             >
                                 {index === 0 ? '' : crumb.label}
                             </Link>
@@ -79,7 +78,7 @@ export default function Breadcrumbs() {
 
                         {/* Separator (not for last item) */}
                         {index < breadcrumbs.length - 1 && (
-                            <ChevronRight className="w-4 h-4 text-slate-600" />
+                            <ChevronRight className="w-3.5 h-3.5 text-slate-700" />
                         )}
                     </div>
                 ))}

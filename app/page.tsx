@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { CheckCircle, Play, ShieldCheck, ArrowRight, MessageSquare, Globe, Calculator } from 'lucide-react';
 import CinematicHero from '@/components/hero/CinematicHero';
-import SharidaStorySection from '@/components/homepage/EmmaStorySection';
+import TechPillars from '@/components/homepage/TechPillars';
 import DiamondTrustSection from '@/components/homepage/DiamondTrustSection';
 import BrightPlanTable from '@/components/sections/BrightPlanTable';
 import AssessmentForm from '@/components/sections/AssessmentForm';
@@ -14,8 +14,8 @@ export default function HomePage() {
       {/* STRATEGY: Cinematic Agency Hook */}
       <CinematicHero />
 
-      {/* PROOF: Real Patient Experience (Sovereign Stories) */}
-      <SharidaStorySection />
+      {/* CORE: Technical Pillars */}
+      <TechPillars />
 
       {/* THE PIVOT: Reconstruction Tiers & Valuation */}
       <BrightPlanTable />
@@ -42,7 +42,7 @@ export default function HomePage() {
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C5A059] to-[#B08D47]">Liaison</span> Awaits
                 </h2>
                 <p className="text-xl text-slate-400 leading-relaxed font-light">
-                  We orchestrate every dimension of your clinical journey. From initial blueprinting with **Safiye AI** to secure ground logistics in Antalya, our agency ensures an ironclad recovery protocol.
+                  We orchestrate every dimension of your digital journey. From initial blueprinting with **Custom Agents** to secure infrastructure, our agency ensures an ironclad execution protocol.
                 </p>
               </div>
 
@@ -52,14 +52,14 @@ export default function HomePage() {
                     <Globe className="w-6 h-6" />
                   </div>
                   <h4 className="text-white font-bold text-sm tracking-tight uppercase">Global Vetting</h4>
-                  <p className="text-slate-500 text-xs leading-relaxed">Only clinics matching our 142-point clinical excellence criteria are admitted to our network.</p>
+                  <p className="text-slate-500 text-xs leading-relaxed">Only systems matching our strict enterprise security and performance criteria are deployed to your network.</p>
                 </div>
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#C5A059]">
                     <Calculator className="w-6 h-6" />
                   </div>
                   <h4 className="text-white font-bold text-sm tracking-tight uppercase">Valuation Engine</h4>
-                  <p className="text-slate-500 text-xs leading-relaxed">Direct-to-surgical pricing ensures you receive up to 70% institutional savings without compromising material quality.</p>
+                  <p className="text-slate-500 text-xs leading-relaxed">Direct-to-value engineering ensures you receive maximum efficiency gains without compromising code quality.</p>
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function HomePage() {
                     <ShieldCheck className="w-10 h-10 text-[#C5A059]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">Initiate Private Protocol</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">Join 15,000+ international patients who transformed their lives under our agency's coordination.</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">Join forward-thinking enterprises that transformed their operations under our agency's coordination.</p>
                 </div>
 
                 <div className="space-y-4">
@@ -80,7 +80,7 @@ export default function HomePage() {
                     href="/assessment"
                     className="w-full flex items-center justify-center gap-4 py-5 bg-[#C5A059] text-white font-black rounded-xl hover:shadow-[0_0_40px_rgba(197,160,89,0.4)] transition-all uppercase tracking-[0.2em] text-[10px]"
                   >
-                    Get Priority Case File
+                    Get Priority Access
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link

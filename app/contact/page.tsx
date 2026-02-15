@@ -1,13 +1,12 @@
 'use client';
 
-import { MessageCircle, Shield, Clock, MapPin, Mail, Phone } from 'lucide-react';
+import { MessageCircle, Shield, Clock, MapPin, Mail, Phone, Cpu, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
-import type { Metadata } from 'next';
 
 export default function ContactPage() {
     const handleWhatsAppConnect = () => {
         const message = encodeURIComponent(
-            `Hello! I'd like to speak with a Personal Coordinator about my dental journey.`
+            `Hello! I'd like to initiate a secure technical consultation regarding my project infrastructure.`
         );
         window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
     };
@@ -23,15 +22,15 @@ export default function ContactPage() {
                         className="inline-flex items-center space-x-3 px-6 py-2 bg-[#C5A059]/10 rounded-full border border-[#C5A059]/20 text-[#C5A059] font-bold text-[10px] uppercase tracking-[0.3em] mb-10"
                     >
                         <Shield className="w-4 h-4" />
-                        <span>Direct Liaison Protocol</span>
+                        <span>Encrypted Communication Protocol</span>
                     </motion.div>
 
                     <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
-                        The <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C5A059] to-[#B08D47]">Direct Line</span>
+                        Establish <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C5A059] to-[#B08D47]">Secure Uplink</span>
                     </h1>
 
                     <p className="text-2xl text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
-                        No middleman. No forms. No waiting. Chat directly with your Personal Coordinator.
+                        Direct access to Principal Architect Osman Kadir. No intermediaries. Encrypted end-to-end communication.
                     </p>
                 </div>
 
@@ -57,11 +56,11 @@ export default function ContactPage() {
                                 </div>
 
                                 <h2 className="text-4xl font-bold text-white mb-6 tracking-tight">
-                                    Connect via WhatsApp
+                                    Initiate Signal via WhatsApp
                                 </h2>
 
                                 <p className="text-xl text-slate-400 mb-10 max-w-xl mx-auto font-light">
-                                    Instant access to your vetted Personal Coordinator. Available 7 days a week for comprehensive consultation and strategic planning.
+                                    Available for high-priority technical consultations. Response time guaranteed within 15 minutes for verified clients.
                                 </p>
 
                                 <button
@@ -69,7 +68,7 @@ export default function ContactPage() {
                                     className="group relative inline-flex items-center justify-center gap-4 px-12 py-6 bg-[#25D366] text-white font-black rounded-2xl text-sm uppercase tracking-[0.2em] shadow-[0_20px_60px_rgba(37,211,102,0.4)] hover:shadow-[0_30px_80px_rgba(37,211,102,0.6)] transition-all hover:-translate-y-1"
                                 >
                                     <MessageCircle className="w-6 h-6" />
-                                    <span>Open Direct Line</span>
+                                    <span>Execute Handshake</span>
                                     <motion.div
                                         className="absolute -inset-1 bg-[#25D366]/50 rounded-2xl blur-xl"
                                         animate={{ opacity: [0.5, 0.8, 0.5] }}
@@ -79,7 +78,7 @@ export default function ContactPage() {
 
                                 <div className="mt-8 flex items-center justify-center gap-2 text-[#25D366] text-xs font-bold uppercase tracking-widest">
                                     <Clock className="w-4 h-4" />
-                                    <span>Average Response Time: &lt; 14 Minutes</span>
+                                    <span>Average Latency: &lt; 15 Minutes</span>
                                 </div>
                             </div>
                         </div>
@@ -92,8 +91,8 @@ export default function ContactPage() {
                         <div className="w-14 h-14 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C5A059]/30">
                             <MapPin className="w-7 h-7 text-[#C5A059]" />
                         </div>
-                        <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Location</h3>
-                        <p className="text-slate-400 text-sm">Antalya, Turkey</p>
+                        <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Nexus</h3>
+                        <p className="text-slate-400 text-sm">Neuhaus, Germany</p>
                     </div>
 
                     <div className="crystal-card p-8 text-center border-white/5 bg-slate-900/40">
@@ -110,9 +109,9 @@ export default function ContactPage() {
                         <div className="w-14 h-14 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C5A059]/30">
                             <Mail className="w-7 h-7 text-[#C5A059]" />
                         </div>
-                        <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Email</h3>
-                        <a href="mailto:nnesipoglu@outlook.com" className="text-slate-400 hover:text-[#C5A059] transition-colors text-sm">
-                            nnesipoglu@outlook.com
+                        <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Comm Link</h3>
+                        <a href="mailto:contact@osmankadir.tech" className="text-slate-400 hover:text-[#C5A059] transition-colors text-sm">
+                            contact@osmankadir.tech
                         </a>
                     </div>
                 </div>
@@ -121,12 +120,12 @@ export default function ContactPage() {
                 <div className="max-w-2xl mx-auto mt-16 text-center">
                     <div className="flex items-center justify-center gap-12 opacity-40">
                         <div className="flex items-center gap-3">
-                            <Shield className="w-5 h-5 text-slate-500" />
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Encrypted</span>
+                            <Lock className="w-5 h-5 text-slate-500" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">PGP Encrypted</span>
                         </div>
                         <div className="flex items-center gap-3">
-                            <Shield className="w-5 h-5 text-slate-500" />
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">HIPAA Compliant</span>
+                            <Cpu className="w-5 h-5 text-slate-500" />
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sovereign Data</span>
                         </div>
                     </div>
                 </div>

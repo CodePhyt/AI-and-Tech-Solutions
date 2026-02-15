@@ -1,26 +1,24 @@
 import { NextResponse } from 'next/server';
-import { dbService } from '@/lib/services/dbService';
+import { createPublicLead } from '@/services/dal/leads';
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { email, packageId } = body;
+        const { name, email, phone, whatsapp, packageInterest, message, sentiment, source } = body;
 
-        if (!email || !packageId) {
-            return NextResponse.json({ success: false, message: 'Missing email or packageId' }, { status: 400 });
+        if (!email) {
+            return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 });
         }
 
-        const lead = await dbService.findLeadByContact(email);
+        // Use Prisma DAL to create lead
+        await createPublicLead({
+            email,
+            packageInterest,
+            source: source || 'booking_api'
+        });
 
-        if (lead) {
-            await dbService.updateLead(lead.id, {
-                status: 'booked',
-                packageInterest: packageId
-            });
-            return NextResponse.json({ success: true, message: 'Consultation booked successfully.' });
-        }
+        return NextResponse.json({ success: true, message: 'Consultation booked successfully.' });
 
-        return NextResponse.json({ success: false, message: 'Lead not found.' }, { status: 404 });
     } catch (error) {
         console.error("Booking Error", error);
         return NextResponse.json({ success: false, error: 'Failed to book' }, { status: 500 });

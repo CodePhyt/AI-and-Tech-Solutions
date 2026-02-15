@@ -6,31 +6,28 @@ import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import StructuredData from '@/components/seo/StructuredData';
 import ScrollToTop from '@/components/ui/ScrollToTop';
-import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
-import MetaPixel from '@/components/analytics/MetaPixel';
+
+// Fonts - will be configured in next/font in a future step if needed, using system fonts for now as per tailwind config
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://smileturkey.com'),
+  metadataBase: new URL('https://osmankadir.tech'), // Speculative URL
   title: {
-    default: 'Smile Turkey | Premium Dental Tourism in Antalya - Save 70%',
-    template: '%s | Smile Turkey'
+    default: 'Osman Kadir KI & Tech Solutions | Sovereign Tech Architecture',
+    template: '%s | Osman Kadir Tech'
   },
-  description: 'World-class dental treatments in paradise. Dental veneers from $250, implants from $800. 10,000+ happy patients. Hotel + transfers included. Get your dream smile in Antalya, Turkey.',
+  description: 'Enterprise-grade AI solutions, software architecture, and smart home labs. Building the future with code and intelligence.',
   keywords: [
-    'dental tourism turkey',
-    'dental veneers turkey',
-    'dental implants antalya',
-    'hollywood smile turkey',
-    'teeth whitening antalya',
-    'all-on-4 turkey',
-    'dental clinic antalya',
-    'cosmetic dentistry turkey',
-    'affordable dental care',
-    'turkey dental packages'
+    'AI solutions',
+    'software architecture',
+    'smart home lab',
+    'global trade tech',
+    'digital media',
+    'tech consulting',
+    'osman kadir'
   ],
-  authors: [{ name: 'Smile Turkey' }],
-  creator: 'Smile Turkey Dental Tourism',
-  publisher: 'Smile Turkey',
+  authors: [{ name: 'Osman Kadir' }],
+  creator: 'Osman Kadir KI & Tech Solutions',
+  publisher: 'Osman Kadir',
   formatDetection: {
     email: false,
     address: false,
@@ -39,45 +36,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://smileturkey.com',
-    siteName: 'Smile Turkey',
-    title: 'Smile Turkey - Premium Dental Tourism in Antalya',
-    description: 'Save 70% on world-class dental treatments. Veneers from $250, implants from $800. All-inclusive packages with hotel & transfers.',
+    url: 'https://osmankadir.tech',
+    siteName: 'Osman Kadir KI & Tech Solutions',
+    title: 'Osman Kadir KI & Tech Solutions - Sovereign Tech Architecture',
+    description: 'We build the future with AI. Connect it with Code.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/tech-hero-1.mp4', // Placeholder using video for now or specific OG image
         width: 1200,
         height: 630,
-        alt: 'Smile Turkey - Dental Tourism in Antalya',
+        alt: 'Osman Kadir KI & Tech Solutions',
       },
     ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Smile Turkey - Save 70% on Dental Treatments',
-    description: 'Premium dental tourism in Antalya, Turkey. Veneers from $250, implants from $800. Hotel & transfers included.',
-    images: ['/og-image.jpg'],
-    creator: '@smileturkey',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
-  },
-  manifest: '/site.webmanifest',
-  alternates: {
-    canonical: 'https://smileturkey.com',
+    icon: '/favicon.ico', // Standard favicon
   },
 };
 
@@ -88,12 +65,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        {/* Analytics */}
-        <GoogleAnalytics />
-        <MetaPixel />
-      </head>
-      <body className="relative min-h-screen bg-slate-950 text-white">
+      <body className="relative min-h-screen bg-[#0f0f0f] text-white overflow-x-hidden selection:bg-[#00f3ff] selection:text-black">
         <Header />
         <main>{children}</main>
         <Footer />

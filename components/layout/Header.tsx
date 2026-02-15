@@ -6,19 +6,19 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
-const treatments = [
-    { name: 'Dental Veneers', slug: 'dental-veneers' },
-    { name: 'Dental Implants', slug: 'dental-implants' },
-    { name: 'Teeth Whitening', slug: 'teeth-whitening' },
-    { name: 'Hollywood Smile', slug: 'hollywood-smile' },
-    { name: 'Full Mouth Restoration', slug: 'full-mouth-restoration' },
+const pillars = [
+    { name: 'AI & Software', slug: 'ai-software' },
+    { name: 'Smart Home Lab', slug: 'smart-home' },
+    { name: 'Global Trade', slug: 'global-trade' },
+    { name: 'Consulting', slug: 'consulting' },
+    { name: 'Digital Media', slug: 'digital-media' },
 ];
 
 export default function Header() {
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isTreatmentsOpen, setIsTreatmentsOpen] = useState(false);
+    const [isPillarsOpen, setIsPillarsOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -79,11 +79,11 @@ export default function Header() {
 
                             {/* Typography - "Personal Coordinator" */}
                             <div className="flex flex-col justify-center h-10">
-                                <h1 className="text-2xl font-bold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#C5A059] drop-shadow-sm">
-                                    Personal <span className="text-[#C5A059]">Coordinator</span>
+                                <h1 className="text-xl font-bold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#C5A059] drop-shadow-sm">
+                                    Osman Kadir <span className="text-[#C5A059]">KI</span>
                                 </h1>
-                                <span className="text-[0.65rem] tracking-[0.2em] font-medium text-slate-400 uppercase group-hover:text-[#C5A059] transition-colors duration-300">
-                                    High-End Dental Tourism
+                                <span className="text-[0.6rem] tracking-[0.2em] font-medium text-slate-400 uppercase group-hover:text-[#C5A059] transition-colors duration-300">
+                                    & Tech Solutions
                                 </span>
                             </div>
                         </div>
@@ -98,38 +98,38 @@ export default function Header() {
                             Agency
                         </Link>
 
-                        {/* Treatments Dropdown */}
+                        {/* Pillars Dropdown */}
                         <div className="relative group">
                             <button
                                 className="nav-link flex items-center space-x-1"
-                                onMouseEnter={() => setIsTreatmentsOpen(true)}
-                                onMouseLeave={() => setIsTreatmentsOpen(false)}
+                                onMouseEnter={() => setIsPillarsOpen(true)}
+                                onMouseLeave={() => setIsPillarsOpen(false)}
                             >
-                                <span>Vetted Clinics</span>
+                                <span>Solutions</span>
                                 <ChevronDown className="w-4 h-4" />
                             </button>
 
                             <AnimatePresence>
-                                {isTreatmentsOpen && (
+                                {isPillarsOpen && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
                                         transition={{ duration: 0.2 }}
                                         className="absolute top-full left-0 mt-2 w-64 crystal-card p-4 space-y-2 border-[#C5A059]/20"
-                                        onMouseEnter={() => setIsTreatmentsOpen(true)}
-                                        onMouseLeave={() => setIsTreatmentsOpen(false)}
+                                        onMouseEnter={() => setIsPillarsOpen(true)}
+                                        onMouseLeave={() => setIsPillarsOpen(false)}
                                     >
                                         <div className="px-4 py-2 text-[10px] font-bold text-[#C5A059] uppercase tracking-widest border-b border-white/5 mb-2">
-                                            Top Treatment Domains
+                                            Core Pillars
                                         </div>
-                                        {treatments.map((treatment) => (
+                                        {pillars.map((pillar) => (
                                             <Link
-                                                key={treatment.slug}
-                                                href={`/treatments/${treatment.slug}`}
+                                                key={pillar.slug}
+                                                href={`/services/${pillar.slug}`}
                                                 className="block px-4 py-3 rounded-lg text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
                                             >
-                                                {treatment.name}
+                                                {pillar.name}
                                             </Link>
                                         ))}
                                     </motion.div>
@@ -176,24 +176,24 @@ export default function Header() {
                                     About
                                 </Link>
 
-                                {/* Mobile Treatments */}
+                                {/* Mobile Pillars */}
                                 <div>
                                     <button
-                                        onClick={() => setIsTreatmentsOpen(!isTreatmentsOpen)}
+                                        onClick={() => setIsPillarsOpen(!isPillarsOpen)}
                                         className="w-full flex items-center justify-between px-4 py-2 hover:bg-white/10 rounded-lg transition-colors"
                                     >
-                                        <span>Treatments</span>
-                                        <ChevronDown className={`w-4 h-4 transition-transform ${isTreatmentsOpen ? 'rotate-180' : ''}`} />
+                                        <span>Solutions</span>
+                                        <ChevronDown className={`w-4 h-4 transition-transform ${isPillarsOpen ? 'rotate-180' : ''}`} />
                                     </button>
-                                    {isTreatmentsOpen && (
+                                    {isPillarsOpen && (
                                         <div className="pl-6 mt-2 space-y-2">
-                                            {treatments.map((treatment) => (
+                                            {pillars.map((pillar) => (
                                                 <Link
-                                                    key={treatment.slug}
-                                                    href={`/treatments/${treatment.slug}`}
+                                                    key={pillar.slug}
+                                                    href={`/services/${pillar.slug}`}
                                                     className="block px-4 py-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                                                 >
-                                                    {treatment.name}
+                                                    {pillar.name}
                                                 </Link>
                                             ))}
                                         </div>

@@ -1,433 +1,491 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Check, Loader2, ShieldCheck, User, Mail, Phone, Calendar, Briefcase, Calculator, Clock, MessageSquare, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { TREATMENTS } from '@/lib/treatments';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, ChevronLeft, Check, Loader2, Server, Shield, Globe, Cpu, Video, Code } from 'lucide-react';
+import { SERVICES } from '@/lib/services';
+
+// Tech-focused type definitions
+type AssessmentStep = 1 | 2 | 3 | 4;
 
 interface FormData {
     name: string;
     email: string;
     phone: string;
-    age: string;
-    treatment: string;
-    budget: string;
-    timeline: string;
+    serviceId: string | null;
+    budget: string | null;
+    timeline: string | null;
     notes: string;
+    gdprConsent: boolean;
 }
 
-const treatmentOptions = Object.keys(TREATMENTS).map(key => ({
-    label: TREATMENTS[key as keyof typeof TREATMENTS].name,
-    value: key
-})).concat([{ label: 'Full Smile Reconstruction', value: 'full-reconstruction' }, { label: 'Urgent Consultation', value: 'urgent' }]);
-
-const budgets = [
-    '£2,000 - £5,000',
-    '£5,000 - £10,000',
-    '£10,000 - £15,000',
-    '£15,000+'
+const BUDGET_OPTIONS = [
+    { id: 'seed', label: 'Seed / MVP', range: '€5k - €15k' },
+    { id: 'growth', label: 'Growth Phase', range: '€15k - €50k' },
+    { id: 'scale', label: 'Scale / Enterprise', range: '€50k+' },
+    { id: 'custom', label: 'Custom / Retainer', range: 'TBD' }
 ];
 
-const timelines = [
-    'Immediate (Next 30 Days)',
-    'Strategic (1-3 Months)',
-    'Planning (3-6 Months)',
-    'Exploring Options'
+const TIMELINE_OPTIONS = [
+    { id: 'urgent', label: 'Urgent Deployment', duration: '< 4 Weeks' },
+    { id: 'standard', label: 'Standard Cycle', duration: '1-3 Months' },
+    { id: 'strategic', label: 'Strategic Roadmap', duration: '3-6 Months' },
+    { id: 'flexible', label: 'Flexible / Ongoing', duration: 'Retainer' }
 ];
 
 export default function AssessmentFlow() {
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState<AssessmentStep>(1);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    // Form State
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
         phone: '',
-        age: '',
-        treatment: '',
-        budget: '',
-        timeline: '',
-        notes: ''
+        serviceId: null,
+        budget: null,
+        timeline: null,
+        notes: '',
+        gdprConsent: false
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isComplete, setIsComplete] = useState(false);
 
-    const totalSteps = 4;
+    const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
-    const updateField = (field: keyof FormData, value: string) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+    // Handlers
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        if (errors[name as keyof FormData]) {
+            setErrors(prev => ({ ...prev, [name]: undefined }));
+        }
+    };
+
+    const handleSelectService = (slug: string) => {
+        setFormData(prev => ({ ...prev, serviceId: slug })); // Using slug as ID
+        if (errors.serviceId) setErrors(prev => ({ ...prev, serviceId: undefined }));
+    };
+
+    const handleSelectBudget = (id: string) => {
+        setFormData(prev => ({ ...prev, budget: id }));
+        if (errors.budget) setErrors(prev => ({ ...prev, budget: undefined }));
+    };
+
+    const handleSelectTimeline = (id: string) => {
+        setFormData(prev => ({ ...prev, timeline: id }));
+        if (errors.timeline) setErrors(prev => ({ ...prev, timeline: undefined }));
+    };
+
+    const validateStep = (currentStep: AssessmentStep): boolean => {
+        const newErrors: Partial<Record<keyof FormData, string>> = {};
+        let isValid = true;
+
+        switch (currentStep) {
+            case 1:
+                if (!formData.name.trim()) newErrors.name = 'Identity required.';
+                if (!formData.email.trim() || !/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Valid secure channel required.';
+                if (!formData.phone.trim()) newErrors.phone = 'Contact signal required.';
+                break;
+            case 2:
+                if (!formData.serviceId) newErrors.serviceId = 'Select a tech pillar.';
+                break;
+            case 3:
+                if (!formData.budget) newErrors.budget = 'Define investment parameters.';
+                if (!formData.timeline) newErrors.timeline = 'Set temporal constraints.';
+                break;
+            case 4:
+                if (!formData.gdprConsent) newErrors.gdprConsent = 'Protocol acceptance required.';
+                if (formData.notes.length < 10) newErrors.notes = 'System requires minimum 10 characters for directives.';
+                break;
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            isValid = false;
+        }
+
+        return isValid;
     };
 
     const nextStep = () => {
-        if (step < totalSteps) setStep(step + 1);
+        if (validateStep(step)) {
+            setStep(prev => Math.min(prev + 1, 4) as AssessmentStep);
+        }
     };
 
     const prevStep = () => {
-        if (step > 1) setStep(step - 1);
+        setStep(prev => Math.max(prev - 1, 1) as AssessmentStep);
     };
 
     const handleSubmit = async () => {
-        setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        if (!validateStep(4)) return;
 
-        if (typeof window !== 'undefined') {
-            sessionStorage.setItem('smile_assessment_data', JSON.stringify(formData));
-            window.dispatchEvent(new Event('assessmentCompleted'));
+        setLoading(true);
+
+        try {
+            const submissionFormData = new FormData();
+            submissionFormData.append('fullName', formData.name);
+            submissionFormData.append('phone', formData.phone);
+
+            // Combine all technical details into projectScope
+            const service = formData.serviceId ? SERVICES[formData.serviceId] : null;
+            const serviceName = service ? service.title : 'Not Selected';
+            const budgetLabel = BUDGET_OPTIONS.find(b => b.id === formData.budget)?.label || 'Not Selected';
+            const timelineLabel = TIMELINE_OPTIONS.find(t => t.id === formData.timeline)?.label || 'Not Selected';
+
+            const technicalManifest = `
+Service Pillar: ${serviceName}
+Investment Scale: ${budgetLabel} (${formData.budget})
+Timeline Horizon: ${timelineLabel} (${formData.timeline})
+Contact Email: ${formData.email}
+
+Directives & Notes:
+${formData.notes}
+            `.trim();
+
+            submissionFormData.append('projectScope', technicalManifest);
+            submissionFormData.append('gdprConsent', String(formData.gdprConsent));
+
+            // Use the server action
+            const { submitAssessment } = await import('@/app/actions/assessment');
+            const result = await submitAssessment(submissionFormData);
+
+            if (result.success) {
+                // Store minimal info for ChatWidget to pick up
+                sessionStorage.setItem('nexus_assessment_data', JSON.stringify({
+                    name: formData.name.split(' ')[0],
+                    treatment: serviceName,
+                    budget: budgetLabel
+                }));
+                // Dispatch event for ChatWidget
+                window.dispatchEvent(new Event('assessmentCompleted'));
+
+                setSuccess(true);
+            } else {
+                console.error('Submission failed', result.error);
+                setErrors(prev => ({ ...prev, gdprConsent: 'Protocol synchronization failed. Please try again.' }));
+            }
+        } catch (error) {
+            console.error('Submission error', error);
+            setErrors(prev => ({ ...prev, gdprConsent: 'Network protocol error.' }));
+        } finally {
+            setLoading(false);
         }
-
-        setIsSubmitting(false);
-        setIsComplete(true);
     };
 
-    const canProceed = () => {
-        switch (step) {
-            case 1: return formData.name && formData.email && formData.phone;
-            case 2: return formData.treatment;
-            case 3: return formData.budget && formData.timeline;
-            case 4: return true;
-            default: return false;
-        }
+    const getServiceIcon = (category: string) => {
+        // Simple mapping based on category string
+        if (category.includes('AI') || category.includes('Intelligence')) return <Cpu className="w-6 h-6" />;
+        if (category.includes('Smart') || category.includes('IoT')) return <Server className="w-6 h-6" />;
+        if (category.includes('Global') || category.includes('Trade')) return <Globe className="w-6 h-6" />;
+        if (category.includes('Consulting')) return <Shield className="w-6 h-6" />;
+        if (category.includes('Media')) return <Video className="w-6 h-6" />;
+        return <Code className="w-6 h-6" />;
     };
 
-    if (isComplete) {
+    if (success) {
         return (
-            <div className="min-h-[80vh] flex items-center justify-center px-6">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="max-w-2xl w-full text-center crystal-card p-12 border-[#C5A059]/30"
-                >
-                    <div className="w-24 h-24 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#C5A059]/30 shadow-[0_0_40px_rgba(197,160,89,0.3)]">
-                        <ShieldCheck className="w-12 h-12 text-[#C5A059]" />
-                    </div>
-
-                    <h1 className="text-4xl font-bold text-white mb-6 tracking-tight">
-                        Intake Secured
-                    </h1>
-
-                    <p className="text-xl text-slate-400 mb-10 leading-relaxed font-light">
-                        Excellent work, <span className="text-white font-bold">{formData.name}</span>. Your case file has been prioritized. Safiye AI is now cross-referencing your profile with our clinical availability.
-                    </p>
-
-                    <div className="bg-slate-900/60 border border-white/5 rounded-2xl p-8 mb-10 text-left relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-4 opacity-5">
-                            <Briefcase className="w-24 h-24" />
-                        </div>
-                        <h3 className="text-[10px] font-black text-[#C5A059] mb-5 uppercase tracking-[0.3em]">Agency Next Steps</h3>
-                        <ul className="space-y-4">
-                            {[
-                                'Clinical Vetting by Senior Specialist Board',
-                                'Verification of Case Complexity & Requirements',
-                                'Secure Transfer of Assessment to Safiye AI',
-                                'Drafting of Custom BrightPlan™ Coordination'
-                            ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-4 text-slate-300 text-sm">
-                                    <div className="w-5 h-5 rounded-full bg-[#C5A059]/20 flex items-center justify-center flex-shrink-0">
-                                        <Check className="w-3 h-3 text-[#C5A059]" />
-                                    </div>
-                                    <span className="font-medium">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                        <button
-                            onClick={() => {
-                                const message = encodeURIComponent(
-                                    `*Sovereign Intake Protocol Request*\n\n` +
-                                    `*Name:* ${formData.name}\n` +
-                                    `*Email:* ${formData.email}\n` +
-                                    `*Phone:* ${formData.phone}\n` +
-                                    `*Treatment:* ${formData.treatment}\n` +
-                                    `*Budget:* ${formData.budget}\n` +
-                                    `*Timeline:* ${formData.timeline}\n` +
-                                    `*Subject Strategy:* ${formData.notes || 'N/A'}`
-                                );
-                                window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
-                            }}
-                            className="bg-[#25D366] text-white font-bold py-5 rounded-xl shadow-[0_20px_40px_rgba(37,211,102,0.2)] hover:shadow-[0_20px_40px_rgba(37,211,102,0.4)] transition-all flex items-center justify-center gap-3 group tracking-widest text-[10px] uppercase"
-                        >
-                            Finalise via WhatsApp
-                            <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        </button>
-                        <Link
-                            href="/?chat=open"
-                            className="bg-[#C5A059] text-white font-bold py-5 rounded-xl shadow-[0_20px_40px_rgba(197,160,89,0.2)] hover:shadow-[0_20px_40px_rgba(197,160,89,0.4)] transition-all flex items-center justify-center gap-3 group tracking-widest text-[10px] uppercase"
-                        >
-                            Consult with Safiye
-                            <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                        </Link>
-                    </div>
-                </motion.div>
-            </div>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="max-w-2xl mx-auto text-center p-12 bg-[#1a1a1a]/50 backdrop-blur-xl border border-[#00f3ff]/20 rounded-2xl shadow-[0_0_50px_rgba(0,243,255,0.1)]"
+            >
+                <div className="w-24 h-24 bg-[#00f3ff]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#00f3ff]/30">
+                    <Check className="w-12 h-12 text-[#00f3ff]" />
+                </div>
+                <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Protocol Initiated</h2>
+                <p className="text-slate-400 text-lg mb-8">
+                    Your parameters have been securely received. Nexus is analyzing your request and will establish a secure channel shortly.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link
+                        href="/"
+                        className="px-8 py-3 bg-[#1a1a1a] border border-white/10 text-white font-medium rounded-lg hover:bg-white/5 transition-all"
+                    >
+                        Return to Base
+                    </Link>
+                </div>
+            </motion.div>
         );
     }
 
     return (
-        <div className="max-w-4xl mx-auto px-6 py-20">
+        <div className="max-w-4xl mx-auto">
             {/* Progress Bar */}
-            <div className="mb-20">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-[#C5A059]/20 border border-[#C5A059]/30 flex items-center justify-center">
-                            <span className="text-[#C5A059] text-xs font-black">{step}</span>
-                        </div>
-                        <h2 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Sovereign Intake Protocol</h2>
-                    </div>
-                    <span className="text-[10px] font-black text-[#C5A059] uppercase tracking-widest">{Math.round((step / totalSteps) * 100)}% Verified</span>
-                </div>
-                <div className="h-1 bg-slate-900 rounded-full overflow-hidden">
+            <div className="mb-12 relative">
+                <div className="h-1 bg-[#1a1a1a] rounded-full overflow-hidden">
                     <motion.div
-                        className="h-full bg-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.5)]"
+                        className="h-full bg-gradient-to-r from-[#00f3ff] to-[#d4af37]"
                         initial={{ width: 0 }}
-                        animate={{ width: `${(step / totalSteps) * 100}%` }}
-                        transition={{ duration: 0.5 }}
+                        animate={{ width: `${(step / 4) * 100}%` }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
                     />
+                </div>
+                <div className="flex justify-between mt-4 text-xs font-medium uppercase tracking-widest text-slate-500">
+                    <span className={step >= 1 ? "text-[#00f3ff]" : ""}>Identity</span>
+                    <span className={step >= 2 ? "text-[#00f3ff]" : ""}>Tech Pillars</span>
+                    <span className={step >= 3 ? "text-[#00f3ff]" : ""}>Investment</span>
+                    <span className={step >= 4 ? "text-[#00f3ff]" : ""}>Directives</span>
                 </div>
             </div>
 
-            <div className="crystal-card p-10 md:p-16 relative min-h-[550px] flex flex-col bg-slate-900/40 border-white/5">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={step}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.4 }}
-                        className="flex-grow"
-                    >
-                        {/* Step 1: Personal Info */}
-                        {step === 1 && (
-                            <div className="space-y-10">
-                                <div>
-                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Identity Verification</h2>
-                                    <p className="text-slate-400 font-light">Enter your secure contact credentials to initiate coordination.</p>
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={step}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {/* Step 1: Identity Verification */}
+                    {step === 1 && (
+                        <div className="space-y-8">
+                            <div className="text-center mb-8">
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Identity Verification</h2>
+                                <p className="text-slate-400">Secure entry for protocol initialization.</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs uppercase tracking-widest text-[#00f3ff] font-bold">Full Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        placeholder="Enter your full name"
+                                        className={`w-full bg-[#1a1a1a]/50 border ${errors.name ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00f3ff] focus:ring-1 focus:ring-[#00f3ff] transition-all`}
+                                    />
+                                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                                 </div>
-
-                                <div className="grid gap-8">
-                                    <div className="space-y-3">
-                                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                            <User className="w-4 h-4 text-[#C5A059]" /> Full Legal Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formData.name}
-                                            onChange={(e) => updateField('name', e.target.value)}
-                                            className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all font-light"
-                                            placeholder="John Smith"
-                                        />
-                                    </div>
-
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                                <Mail className="w-4 h-4 text-[#C5A059]" /> Secure Email
-                                            </label>
-                                            <input
-                                                type="email"
-                                                value={formData.email}
-                                                onChange={(e) => updateField('email', e.target.value)}
-                                                className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all font-light"
-                                                placeholder="john@example.com"
-                                            />
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                                <Phone className="w-4 h-4 text-[#C5A059]" /> WhatsApp Preferred
-                                            </label>
-                                            <input
-                                                type="tel"
-                                                value={formData.phone}
-                                                onChange={(e) => updateField('phone', e.target.value)}
-                                                className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all font-light"
-                                                placeholder="+44 7123 456789"
-                                            />
-                                        </div>
-                                    </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs uppercase tracking-widest text-[#00f3ff] font-bold">Email Address</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        placeholder="secure@domain.com"
+                                        className={`w-full bg-[#1a1a1a]/50 border ${errors.email ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00f3ff] focus:ring-1 focus:ring-[#00f3ff] transition-all`}
+                                    />
+                                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                                </div>
+                                <div className="space-y-2 md:col-span-2">
+                                    <label className="text-xs uppercase tracking-widest text-[#00f3ff] font-bold">Phone / Signal</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        placeholder="+1 (555) 000-0000"
+                                        className={`w-full bg-[#1a1a1a]/50 border ${errors.phone ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00f3ff] focus:ring-1 focus:ring-[#00f3ff] transition-all`}
+                                    />
+                                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                                 </div>
                             </div>
-                        )}
+                        </div>
+                    )}
 
-                        {/* Step 2: Treatment Selection */}
-                        {step === 2 && (
-                            <div className="space-y-10">
-                                <div>
-                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Clinical Blueprint</h2>
-                                    <p className="text-slate-400 font-light">Which reconstruction architecture are you interested in?</p>
-                                </div>
+                    {/* Step 2: Tech Pillars (Services) */}
+                    {step === 2 && (
+                        <div className="space-y-8">
+                            <div className="text-center mb-8">
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Tech Pillar Selection</h2>
+                                <p className="text-slate-400">Define the core architecture for your initiative.</p>
+                            </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {treatmentOptions.map((option) => (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {Object.values(SERVICES).map((service) => (
+                                    <button
+                                        key={service.slug}
+                                        onClick={() => handleSelectService(service.slug)}
+                                        className={`group relative p-6 text-left rounded-xl border transition-all duration-300 hover:border-[#00f3ff]/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.1)] ${formData.serviceId === service.slug
+                                            ? 'bg-[#1a1a1a] border-[#00f3ff] shadow-[0_0_20px_rgba(0,243,255,0.2)]'
+                                            : 'bg-[#1a1a1a]/30 border-white/5'
+                                            }`}
+                                    >
+                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-colors ${formData.serviceId === service.slug ? 'bg-[#00f3ff] text-[#0f0f0f]' : 'bg-white/5 text-[#00f3ff] group-hover:bg-[#00f3ff]/20'
+                                            }`}>
+                                            {getServiceIcon(service.category)}
+                                        </div>
+                                        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#00f3ff] transition-colors">{service.title}</h3>
+                                        <p className="text-sm text-slate-400 line-clamp-2">{service.shortDescription}</p>
+                                    </button>
+                                ))}
+                            </div>
+                            {errors.serviceId && <p className="text-red-500 text-center text-sm mt-4">{errors.serviceId}</p>}
+                        </div>
+                    )}
+
+                    {/* Step 3: Investment & Timeline */}
+                    {step === 3 && (
+                        <div className="space-y-12">
+                            <div className="text-center mb-8">
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Parameters & Deployment</h2>
+                                <p className="text-slate-400">Establish budget velocity and timeline constraints.</p>
+                            </div>
+
+                            <div className="space-y-4">
+                                <label className="text-xs uppercase tracking-widest text-[#00f3ff] font-bold block mb-4">Investment Scale</label>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                    {BUDGET_OPTIONS.map((option) => (
                                         <button
-                                            key={option.value}
-                                            onClick={() => updateField('treatment', option.label)}
-                                            className={`p-6 border rounded-2xl text-left transition-all relative overflow-hidden group ${formData.treatment === option.label
-                                                ? 'border-[#C5A059] bg-[#C5A059]/10 shadow-[0_0_20px_rgba(197,160,89,0.1)]'
-                                                : 'border-white/5 bg-slate-950/40 hover:border-[#C5A059]/30 hover:bg-slate-950/60'
+                                            key={option.id}
+                                            onClick={() => handleSelectBudget(option.id)}
+                                            className={`p-4 rounded-xl border text-center transition-all ${formData.budget === option.id
+                                                ? 'bg-[#1a1a1a] border-[#d4af37] shadow-[0_0_15px_rgba(212,175,55,0.2)]'
+                                                : 'bg-[#1a1a1a]/30 border-white/5 hover:border-[#d4af37]/50'
                                                 }`}
                                         >
-                                            <div className="flex items-center justify-between relative z-10">
-                                                <span className={`text-sm font-bold tracking-tight ${formData.treatment === option.label ? 'text-white' : 'text-slate-400 group-hover:text-white'}`}>{option.label}</span>
-                                                {formData.treatment === option.label && (
-                                                    <div className="w-5 h-5 rounded-full bg-[#C5A059] flex items-center justify-center">
-                                                        <Check className="w-3 h-3 text-white" />
-                                                    </div>
-                                                )}
+                                            <div className={`text-lg font-bold mb-1 ${formData.budget === option.id ? 'text-[#d4af37]' : 'text-white'}`}>
+                                                {option.range}
                                             </div>
+                                            <div className="text-xs text-slate-400 uppercase tracking-wider">{option.label}</div>
                                         </button>
                                     ))}
                                 </div>
+                                {errors.budget && <p className="text-red-500 text-xs mt-1">{errors.budget}</p>}
                             </div>
-                        )}
 
-                        {/* Step 3: Budget & Timeline */}
-                        {step === 3 && (
-                            <div className="space-y-12">
-                                <div>
-                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Valuation & Deployment</h2>
-                                    <p className="text-slate-400 font-light">Determine your strategic investment and timeline.</p>
+                            <div className="space-y-4">
+                                <label className="text-xs uppercase tracking-widest text-[#00f3ff] font-bold block mb-4">Timeline Horizon</label>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                    {TIMELINE_OPTIONS.map((option) => (
+                                        <button
+                                            key={option.id}
+                                            onClick={() => handleSelectTimeline(option.id)}
+                                            className={`p-4 rounded-xl border text-center transition-all ${formData.timeline === option.id
+                                                ? 'bg-[#1a1a1a] border-[#00f3ff] shadow-[0_0_15px_rgba(0,243,255,0.2)]'
+                                                : 'bg-[#1a1a1a]/30 border-white/5 hover:border-[#00f3ff]/50'
+                                                }`}
+                                        >
+                                            <div className={`text-lg font-bold mb-1 ${formData.timeline === option.id ? 'text-[#00f3ff]' : 'text-white'}`}>
+                                                {option.duration}
+                                            </div>
+                                            <div className="text-xs text-slate-400 uppercase tracking-wider">{option.label}</div>
+                                        </button>
+                                    ))}
                                 </div>
+                                {errors.timeline && <p className="text-red-500 text-xs mt-1">{errors.timeline}</p>}
+                            </div>
+                        </div>
+                    )}
 
-                                <div className="space-y-8">
+                    {/* Step 4: Final Directives */}
+                    {step === 4 && (
+                        <div className="space-y-8">
+                            <div className="text-center mb-8">
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Final Directives</h2>
+                                <p className="text-slate-400">Additional context for the architectural team.</p>
+                            </div>
+
+                            <div className="space-y-4">
+                                <label className="text-xs uppercase tracking-widest text-[#00f3ff] font-bold">Project Brief / Specific Goals</label>
+                                <textarea
+                                    name="notes"
+                                    value={formData.notes}
+                                    onChange={handleInputChange}
+                                    placeholder="Describe your project goals, technical constraints, or specific requirements..."
+                                    rows={6}
+                                    className="w-full bg-[#1a1a1a]/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00f3ff] focus:ring-1 focus:ring-[#00f3ff] transition-all resize-none"
+                                />
+                                {errors.notes && <p className="text-red-500 text-xs mt-1">{errors.notes}</p>}
+                            </div>
+
+                            <div className="bg-[#1a1a1a] rounded-xl p-6 border border-white/5 space-y-4">
+                                <h3 className="text-white font-bold flex items-center gap-2">
+                                    <Shield className="w-5 h-5 text-[#d4af37]" />
+                                    Protocol Summary
+                                </h3>
+                                <div className="grid grid-cols-2 gap-4 text-sm">
                                     <div>
-                                        <label className="text-[10px] font-black text-[#C5A059] mb-4 uppercase tracking-[0.3em] block flex items-center gap-3">
-                                            <Calculator className="w-4 h-4" /> Estimated Budget Allocation
-                                        </label>
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                            {budgets.map((budget) => (
-                                                <button
-                                                    key={budget}
-                                                    onClick={() => updateField('budget', budget)}
-                                                    className={`p-4 border rounded-xl transition-all text-xs font-bold ${formData.budget === budget
-                                                        ? 'border-[#C5A059] bg-[#C5A059]/10 text-white shadow-[0_0_15px_rgba(197,160,89,0.2)]'
-                                                        : 'border-white/5 bg-slate-950/40 text-slate-500 hover:border-[#C5A059]/30 hover:text-white'
-                                                        }`}
-                                                >
-                                                    {budget}
-                                                </button>
-                                            ))}
-                                        </div>
+                                        <span className="text-slate-500 block text-xs uppercase">Identity</span>
+                                        <span className="text-white font-medium">{formData.name}</span>
                                     </div>
-
                                     <div>
-                                        <label className="text-[10px] font-black text-[#C5A059] mb-4 uppercase tracking-[0.3em] block flex items-center gap-3">
-                                            <Clock className="w-4 h-4" /> Planned Deployment
-                                        </label>
-                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                            {timelines.map((timeline) => (
-                                                <button
-                                                    key={timeline}
-                                                    onClick={() => updateField('timeline', timeline)}
-                                                    className={`p-4 border rounded-xl transition-all text-xs font-bold ${formData.timeline === timeline
-                                                        ? 'border-[#C5A059] bg-[#C5A059]/10 text-white shadow-[0_0_15px_rgba(197,160,89,0.2)]'
-                                                        : 'border-white/5 bg-slate-950/40 text-slate-500 hover:border-[#C5A059]/30 hover:text-white'
-                                                        }`}
-                                                >
-                                                    {timeline}
-                                                </button>
-                                            ))}
-                                        </div>
+                                        <span className="text-slate-500 block text-xs uppercase">Contact</span>
+                                        <span className="text-white font-medium truncate">{formData.email}</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-slate-500 block text-xs uppercase">Tech Pillar</span>
+                                        <span className="text-[#00f3ff] font-medium">
+                                            {formData.serviceId ? SERVICES[formData.serviceId]?.title : 'Not Selected'}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="text-slate-500 block text-xs uppercase">Investment</span>
+                                        <span className="text-[#d4af37] font-medium">
+                                            {BUDGET_OPTIONS.find(b => b.id === formData.budget)?.range || '-'}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                        )}
 
-                        {/* Step 4: Final Notes */}
-                        {step === 4 && (
-                            <div className="space-y-10">
-                                <div>
-                                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Final Directives</h2>
-                                    <p className="text-slate-400 font-light">Provide any specific clinical directives or questions.</p>
-                                </div>
-
-                                <div className="space-y-3">
-                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                        <MessageSquare className="w-4 h-4 text-[#C5A059]" /> Additional Clinical Context
-                                    </label>
-                                    <textarea
-                                        value={formData.notes}
-                                        onChange={(e) => updateField('notes', e.target.value)}
-                                        rows={6}
-                                        className="w-full px-6 py-5 bg-slate-950/50 border border-white/10 rounded-2xl focus:border-[#C5A059] text-white placeholder-slate-800 outline-none transition-all resize-none font-light"
-                                        placeholder="Note any previous surgeries, allergies, or specific material preferences..."
+                            <div className="flex items-start gap-3 p-4 bg-[#00f3ff]/5 rounded-lg border border-[#00f3ff]/20">
+                                <div className="pt-1">
+                                    <input
+                                        type="checkbox"
+                                        id="gdpr"
+                                        checked={formData.gdprConsent}
+                                        onChange={(e) => {
+                                            setFormData(prev => ({ ...prev, gdprConsent: e.target.checked }));
+                                            if (e.target.checked && errors.gdprConsent) setErrors(prev => ({ ...prev, gdprConsent: undefined }));
+                                        }}
+                                        className="w-4 h-4 rounded border-[#00f3ff] text-[#00f3ff] bg-transparent focus:ring-[#00f3ff]"
                                     />
                                 </div>
-
-                                {/* Intelligent Summary Panel */}
-                                <div className="bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-2xl p-8 relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10">
-                                        <ShieldCheck className="w-12 h-12 text-[#C5A059]" />
-                                    </div>
-                                    <h3 className="text-[10px] font-black text-white mb-6 uppercase tracking-[0.3em] flex items-center gap-3">
-                                        <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse"></span>
-                                        Protocol Pre-Verification
-                                    </h3>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                                        <div>
-                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Subject</p>
-                                            <p className="text-white text-xs font-bold truncate">{formData.name || '---'}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Blueprint</p>
-                                            <p className="text-white text-xs font-bold truncate">{formData.treatment || '---'}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Allocation</p>
-                                            <p className="text-white text-xs font-bold truncate">{formData.budget || '---'}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] text-[#C5A059] uppercase font-black tracking-widest mb-1">Schedule</p>
-                                            <p className="text-white text-xs font-bold truncate">{formData.timeline || '---'}</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <label htmlFor="gdpr" className="text-xs text-slate-400 cursor-pointer">
+                                    I acknowledge that I am initiating a sovereign tech inquiry. My data will be processed according to the
+                                    <a href="/legal/privacy" className="text-[#00f3ff] hover:underline ml-1">Privacy Protocol</a>.
+                                </label>
                             </div>
-                        )}
-                    </motion.div>
-                </AnimatePresence>
-
-                {/* Navigation Architecture */}
-                <div className="flex items-center justify-between mt-12 pt-10 border-t border-white/5">
-                    <button
-                        onClick={prevStep}
-                        disabled={step === 1}
-                        className="flex items-center gap-3 px-8 py-4 text-slate-500 font-bold uppercase tracking-widest text-[10px] rounded-xl hover:text-white hover:bg-white/5 transition-all disabled:opacity-0 disabled:pointer-events-none group"
-                    >
-                        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform text-[#C5A059]" />
-                        Previous Phase
-                    </button>
-
-                    {step < totalSteps ? (
-                        <button
-                            onClick={nextStep}
-                            disabled={!canProceed()}
-                            className="bg-[#C5A059] text-white font-black px-12 py-5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-[0_15px_30px_rgba(197,160,89,0.2)] hover:shadow-[0_15px_30px_rgba(197,160,89,0.4)] transition-all disabled:opacity-30 flex items-center gap-4 group hover:-translate-y-1"
-                        >
-                            Next Protocol
-                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    ) : (
-                        <button
-                            onClick={handleSubmit}
-                            disabled={isSubmitting}
-                            className="bg-green-600 text-white font-black px-12 py-5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-[0_15px_30px_rgba(22,163,74,0.2)] hover:shadow-[0_15px_30px_rgba(22,163,74,0.4)] transition-all disabled:opacity-50 flex items-center gap-4 group hover:-translate-y-1"
-                        >
-                            {isSubmitting ? (
-                                <>
-                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                    Verifying...
-                                </>
-                            ) : (
-                                <>
-                                    Finalise Intake
-                                    <ShieldCheck className="w-4 h-4" />
-                                </>
-                            )}
-                        </button>
+                            {errors.gdprConsent && <p className="text-red-500 text-xs mt-1 text-center">{errors.gdprConsent}</p>}
+                        </div>
                     )}
-                </div>
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Navigation Buttons */}
+            <div className="mt-12 flex justify-between pt-8 border-t border-white/5">
+                <button
+                    onClick={prevStep}
+                    disabled={step === 1 || loading}
+                    className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${step === 1
+                        ? 'opacity-0 pointer-events-none'
+                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                        }`}
+                >
+                    <ChevronLeft className="w-5 h-5" />
+                    Back
+                </button>
+
+                {step < 4 ? (
+                    <button
+                        onClick={nextStep}
+                        className="flex items-center gap-2 px-8 py-3 bg-[#00f3ff] text-[#0f0f0f] font-bold rounded-lg hover:bg-[#00c4cf] hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all"
+                    >
+                        Next Phase
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
+                ) : (
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="flex items-center gap-2 px-10 py-3 bg-gradient-to-r from-[#d4af37] to-[#aa8c2c] text-[#0f0f0f] font-bold rounded-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                        {loading ? (
+                            <>
+                                <Loader2 className="w-5 h-5 animate-spin" />
+                                Processing...
+                            </>
+                        ) : (
+                            <>
+                                Initiate Protocol
+                                <ChevronRight className="w-5 h-5" />
+                            </>
+                        )}
+                    </button>
+                )}
             </div>
         </div>
     );

@@ -1,12 +1,23 @@
-import Link from 'next/link';
-import { Linkedin, Mail, Phone, MapPin, ShieldCheck, Globe, Star } from 'lucide-react';
+'use client';
 
-const treatmentDomains = [
-    { name: 'Sovereign Implants', slug: 'dental-implants' },
-    { name: 'Hollywood Veneers', slug: 'dental-veneers' },
-    { name: 'Full Reconstruction', slug: 'full-mouth-restoration' },
-    { name: 'E-Max Restoration', slug: 'zirconium-crowns' },
-    { name: 'Composite Artistry', slug: 'composite-bonding' },
+import Link from 'next/link';
+import { Linkedin, Mail, MapPin, ShieldCheck, Globe, Github, Youtube, Instagram, Twitter, MessageSquare } from 'lucide-react';
+
+const pillars = [
+    { name: 'AI & Software', slug: 'ai-software' },
+    { name: 'Smart Home Lab', slug: 'smart-home' },
+    { name: 'Global Trade', slug: 'global-trade' },
+    { name: 'Consulting', slug: 'consulting' },
+    { name: 'Digital Media', slug: 'digital-media' },
+];
+
+const SOCIAL_LINKS = [
+    { name: 'GitHub', url: 'https://github.com/CodePhyt', icon: Github },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/osmankadir/', icon: Linkedin },
+    { name: 'YouTube', url: 'https://www.youtube.com/@codephyt', icon: Youtube },
+    { name: 'Instagram', url: 'https://www.instagram.com/artlabhd.ai/', icon: Instagram },
+    { name: 'TikTok', url: 'https://www.tiktok.com/@artlabhd', icon: MessageSquare },
+    { name: 'X (Twitter)', url: 'https://x.com/CodePhyt', icon: Twitter },
 ];
 
 export default function Footer() {
@@ -23,47 +34,46 @@ export default function Footer() {
                     <div className="space-y-8">
                         <div className="flex items-center space-x-3">
                             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1a2b2c] to-[#0a0e1a] border border-[#C5A059]/30 flex items-center justify-center shadow-[0_0_20px_rgba(197,160,89,0.1)]">
-                                <span className="text-2xl font-black text-[#C5A059]">ST</span>
+                                <span className="text-2xl font-black text-[#C5A059]">OK</span>
                             </div>
                             <div>
-                                <span className="block text-xl font-black text-white tracking-widest uppercase">Smile Türkiye</span>
-                                <span className="block text-[9px] font-black text-[#C5A059] uppercase tracking-[0.4em]">Personal Coordination Agency</span>
+                                <span className="block text-xl font-black text-white tracking-widest uppercase">Osman Kadir</span>
+                                <span className="block text-[9px] font-black text-[#C5A059] uppercase tracking-[0.4em]">KI & Tech Solutions</span>
                             </div>
                         </div>
 
                         <p className="text-slate-500 text-sm leading-relaxed font-medium">
-                            The world's leading coordination firm for elite clinical outcomes. We bridge the gap between international patients and vetted surgical excellence in Turkey.
+                            We build the future with AI, manage it with Code, and connect worlds.
                         </p>
 
-                        <div className="flex items-center space-x-5">
-                            <a
-                                href="https://www.linkedin.com/in/nnesipogluu/?locale=en_US"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#C5A059]/10 border border-white/5 hover:border-[#C5A059]/30 transition-all group"
-                            >
-                                <Linkedin className="w-4 h-4 text-slate-400 group-hover:text-[#C5A059] transition-colors" />
-                            </a>
-                            <div className="h-4 w-px bg-white/10" />
-                            <div className="flex items-center gap-2">
-                                <Star className="w-3 h-3 text-[#C5A059] fill-[#C5A059]" />
-                                <span className="text-[10px] font-black text-white uppercase tracking-widest">4.9 Agency Rating</span>
-                            </div>
+                        <div className="flex items-center gap-3 flex-wrap">
+                            {SOCIAL_LINKS.map((social) => (
+                                <a
+                                    key={social.name}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#C5A059]/10 border border-white/5 hover:border-[#C5A059]/30 transition-all group"
+                                    aria-label={social.name}
+                                >
+                                    <social.icon className="w-4 h-4 text-slate-400 group-hover:text-[#C5A059] transition-colors" />
+                                </a>
+                            ))}
                         </div>
                     </div>
 
                     {/* Vetted Domains */}
                     <div className="lg:pl-8">
-                        <h3 className="text-white font-black mb-8 tracking-[0.3em] uppercase text-[10px]">Clinical Domains</h3>
+                        <h3 className="text-white font-black mb-8 tracking-[0.3em] uppercase text-[10px]">Tech Pillars</h3>
                         <ul className="space-y-4">
-                            {treatmentDomains.map((domain) => (
-                                <li key={domain.slug}>
+                            {pillars.map((pillar) => (
+                                <li key={pillar.slug}>
                                     <Link
-                                        href={`/treatments/${domain.slug}`}
+                                        href={`/services/${pillar.slug}`}
                                         className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors flex items-center group"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]/0 group-hover:bg-[#C5A059] mr-0 group-hover:mr-3 transition-all" />
-                                        {domain.name}
+                                        {pillar.name}
                                     </Link>
                                 </li>
                             ))}
@@ -72,31 +82,21 @@ export default function Footer() {
 
                     {/* Agency Intelligence */}
                     <div>
-                        <h3 className="text-white font-black mb-8 tracking-[0.3em] uppercase text-[10px]">Intelligence</h3>
+                        <h3 className="text-white font-black mb-8 tracking-[0.3em] uppercase text-[10px]">Company</h3>
                         <ul className="space-y-4">
                             <li>
                                 <Link href="/about" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
-                                    The Coordination Model
+                                    About Us
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/stories" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
-                                    Clinical Case Studies
+                                <Link href="/contact" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
+                                    Contact
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/prices" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
-                                    Treatment Valuation
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/smile-gallery" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
-                                    Institutional Gallery
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/blog" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
-                                    Surgical Literature
+                                <Link href="/careers" className="text-slate-500 hover:text-[#C5A059] text-sm font-medium transition-colors">
+                                    Careers
                                 </Link>
                             </li>
                         </ul>
@@ -104,30 +104,21 @@ export default function Footer() {
 
                     {/* Command Center */}
                     <div>
-                        <h3 className="text-white font-black mb-8 tracking-[0.3em] uppercase text-[10px]">Command Center</h3>
+                        <h3 className="text-white font-black mb-8 tracking-[0.3em] uppercase text-[10px]">HQ</h3>
                         <ul className="space-y-6">
                             <li className="flex items-start space-x-4">
                                 <MapPin className="w-5 h-5 text-[#C5A059] flex-shrink-0" />
                                 <div>
-                                    <p className="text-white text-xs font-bold leading-none mb-1">Global HQ</p>
-                                    <p className="text-slate-500 text-xs">Lara Clinical District, Antalya</p>
-                                </div>
-                            </li>
-                            <li className="flex items-start space-x-4">
-                                <Phone className="w-5 h-5 text-[#C5A059] flex-shrink-0" />
-                                <div>
-                                    <p className="text-white text-xs font-bold leading-none mb-1">Direct Liaison</p>
-                                    <a href="tel:+905302876350" className="text-slate-500 text-xs hover:text-white transition-colors">
-                                        +90 530 287 63 50
-                                    </a>
+                                    <p className="text-white text-xs font-bold leading-none mb-1">Headquarters</p>
+                                    <p className="text-slate-500 text-xs">Neuhaus am Rennweg, Germany</p>
                                 </div>
                             </li>
                             <li className="flex items-start space-x-4">
                                 <Mail className="w-5 h-5 text-[#C5A059] flex-shrink-0" />
                                 <div>
-                                    <p className="text-white text-xs font-bold leading-none mb-1">Secure Intel</p>
-                                    <a href="mailto:nnesipoglu@outlook.com" className="text-slate-500 text-xs hover:text-white transition-colors truncate">
-                                        nnesipoglu@outlook.com
+                                    <p className="text-white text-xs font-bold leading-none mb-1">Email</p>
+                                    <a href="mailto:contact@osmankadir.tech" className="text-slate-500 text-xs hover:text-white transition-colors truncate">
+                                        contact@osmankadir.tech
                                     </a>
                                 </div>
                             </li>
@@ -141,27 +132,27 @@ export default function Footer() {
                         <div className="flex flex-col md:flex-row items-center gap-8">
                             <div className="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-lg border border-white/5">
                                 <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ironclad Protocol Verified</span>
+                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">DSGVO Compliant</span>
                             </div>
                             <div className="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-lg border border-white/5">
                                 <Globe className="w-4 h-4 text-[#C5A059]" />
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Cross-Border Surgical Liaison</span>
+                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Global Reach</span>
                             </div>
                         </div>
 
                         <div className="flex flex-wrap justify-center gap-8 text-[10px] font-black text-slate-600 uppercase tracking-[0.2em]">
-                            <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy Charter</Link>
-                            <Link href="/legal/terms" className="hover:text-white transition-colors">Operational Terms</Link>
-                            <Link href="/legal/cookie-policy" className="hover:text-white transition-colors">Data Policy</Link>
+                            <Link href="/legal/impressum" className="hover:text-white transition-colors">Impressum</Link>
+                            <Link href="/legal/privacy" className="hover:text-white transition-colors">Datenschutz</Link>
+                            <Link href="/legal/terms" className="hover:text-white transition-colors">AGB / Terms</Link>
                         </div>
                     </div>
 
                     <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                         <p className="text-[9px] font-bold text-slate-700 uppercase tracking-[0.5em]">
-                            © {currentYear} Smile Türkiye Agency. All Rights Reserved.
+                            © {currentYear} Osman Kadir KI & Tech Solutions. All Rights Reserved.
                         </p>
                         <div className="text-[8px] text-slate-800 font-black uppercase tracking-[0.3em]">
-                            Version: Institutional_Core_4.2.0_Sovereign
+                            Version: Osman_Kadir_v1.0.0_Sovereign
                         </div>
                     </div>
                 </div>

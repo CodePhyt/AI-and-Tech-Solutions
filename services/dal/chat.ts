@@ -1,10 +1,11 @@
 import { prisma } from '@/lib/prisma';
 import { cache } from 'react';
+import { ChatSession, Message } from '@prisma/client';
 
-export async function upsertChatSession(userToken: string) {
+export async function upsertChatSession(userToken: string): Promise<ChatSession | null> {
     try {
         // Checking if model access should be pluralized (Prisma standard)
-        return await (prisma as any).chatSession.upsert({
+        return await prisma.chatSession.upsert({
             where: { userToken },
             update: {},
             create: { userToken }
@@ -15,15 +16,15 @@ export async function upsertChatSession(userToken: string) {
     }
 }
 
-export async function saveChatMessage(sessionToken: string, role: string, content: string, image?: string) {
+export async function saveChatMessage(sessionToken: string, role: string, content: string, image?: string): Promise<Message | null> {
     try {
-        const session = await (prisma as any).chatSession.findUnique({
+        const session = await prisma.chatSession.findUnique({
             where: { userToken: sessionToken }
         });
 
         if (!session) return null;
 
-        return await (prisma as any).message.create({
+        return await prisma.message.create({
             data: {
                 role,
                 content,
@@ -37,9 +38,9 @@ export async function saveChatMessage(sessionToken: string, role: string, conten
     }
 }
 
-export const getChatSessionMessages = cache(async (sessionToken: string) => {
+export const getChatSessionMessages = cache(async (sessionToken: string): Promise<Message[]> => {
     try {
-        const session = await (prisma as any).chatSession.findUnique({
+        const session = await prisma.chatSession.findUnique({
             where: { userToken: sessionToken },
             include: { messages: { orderBy: { createdAt: 'asc' } } }
         });

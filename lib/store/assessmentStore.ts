@@ -27,7 +27,7 @@ export interface AssessmentState {
     scanFiles: { file: File, previewUrl: string }[];
     contactInfo: { name: string, email: string, phone: string };
     leadId: string | null;
-    diagnosis: any | null;
+    diagnosis: Record<string, unknown> | null;
 
     // Actions
     setStep: (step: AssessmentStep) => void;
@@ -41,7 +41,7 @@ export interface AssessmentState {
     removeScanFile: (index: number) => void;
     setContactInfo: (info: Partial<AssessmentState['contactInfo']>) => void;
     setLeadId: (id: string) => void;
-    setDiagnosis: (data: any) => void;
+    setDiagnosis: (data: Record<string, unknown>) => void;
     reset: () => void;
 }
 

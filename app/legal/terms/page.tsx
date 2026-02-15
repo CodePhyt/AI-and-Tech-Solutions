@@ -1,30 +1,31 @@
 export default function TermsPage() {
     return (
-        <div className="min-h-screen pt-20">
+        <div className="min-h-screen pt-20 bg-slate-950">
             <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 className="text-5xl font-bold text-white mb-8">Terms of Service</h1>
-                <div className="prose prose-invert max-w-none">
-                    <div className="text-slate-400 leading-relaxed space-y-6">
-                        <p className="text-lg">Last updated: {new Date().toLocaleDateString()}</p>
+                <h1 className="text-5xl font-bold text-white mb-8 border-b border-[#C5A059]/30 pb-4">Terms of Engagement</h1>
+                <div className="prose prose-invert max-w-none text-slate-300">
+                    <p className="text-sm uppercase tracking-widest mb-8 text-[#C5A059]">Effective Date: {new Date().toLocaleDateString()}</p>
 
-                        <h2 className="text-2xl font-semibold text-white mt-8 mb-4">1. Introduction</h2>
-                        <p>By accessing and using Smile Turkey's website and services, you agree to be bound by these Terms of Service.</p>
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">1. Protocol Acceptance</h2>
+                    <p>By engaging with Osman Kadir KI & Tech Solutions ("The Firm"), you agree to be bound by these Terms of Engagement. All services are rendered under strict confidentiality and professional standards.</p>
 
-                        <h2 className="text-2xl font-semibold text-white mt-8 mb-4">2. Medical Disclaimer</h2>
-                        <p>All information provided is for informational purposes only. Individual results may vary. Consultations with licensed dentists are required before any treatment.</p>
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">2. Scope of Services</h2>
+                    <p>The Firm provides technical consultancy, software architecture, and digital transformation services. We are not a medical facility, legal firm (outside of tech-legal advisory), or financial institution.</p>
 
-                        <h2 className="text-2xl font-semibold text-white mt-8 mb-4">3. Services</h2>
-                        <p>Smile Turkey provides dental tourism services including dental treatments, accommodation assistance, and travel coordination. All treatments are performed by licensed dental professionals.</p>
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">3. Confidentiality & NDA</h2>
+                    <p>We operate under a default Non-Disclosure Agreement (NDA) for all client interactions. Your proprietary data, trade secrets, and infrastructure details are treated with the highest classification of security.</p>
 
-                        <h2 className="text-2xl font-semibold text-white mt-8 mb-4">4. Pricing</h2>
-                        <p>Prices shown are estimates and may vary based on individual treatment needs. Final pricing will be confirmed after consultation.</p>
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">4. Intellectual Property</h2>
+                    <p>Unless otherwise stipulated in a Master Services Agreement (MSA), all code, architectures, and systems developed by The Firm remain our intellectual property until full settlement of invoices, at which point rights are transferred to the Client.</p>
 
-                        <h2 className="text-2xl font-semibold text-white mt-8 mb-4">5. Liability</h2>
-                        <p>While we strive for excellent results, individual outcomes may vary. We maintain comprehensive insurance and warranties on our work.</p>
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">5. Limitation of Liability</h2>
+                    <p>The Firm is not liable for indirect, incidental, or consequential damages arising from the use of our software or services. Our liability is limited to the professional fees paid for the specific engagement.</p>
 
-                        <h2 className="text-2xl font-semibold text-white mt-8 mb-4">6. Contact</h2>
-                        <p>For questions regarding these terms, contact us at nnesipoglu@outlook.com</p>
-                    </div>
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">6. Governing Law</h2>
+                    <p>These terms are governed by the laws of Germany. Any disputes shall be resolved in the courts of jurisdiction for Neuhaus am Rennweg.</p>
+
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-6">7. Contact & Signal</h2>
+                    <p>For legal inquiries, contact legal@osmankadir.tech</p>
                 </div>
             </section>
         </div>

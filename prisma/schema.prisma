@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -14,12 +14,12 @@ model Treatment {
   id           String   @id @default(cuid())
   slug         String   @unique
   name         String
-  description  String   @db.Text
+  description  String
   shortDesc    String
   price        Int      // Price in USD
   recoveryTime String
   imageUrl     String
-  features     String[] // Array of features/benefits
+  features     String   // JSON-encoded array for SQLite
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   
@@ -33,7 +33,7 @@ model Lead {
   phone       String?
   whatsapp    String?
   treatment   String?
-  message     String?  @db.Text
+  message     String?
   sentiment   String?  // "HOT" or "COLD"
   source      String?  // "chat", "contact_form", etc.
   createdAt   DateTime @default(now())
@@ -52,7 +52,7 @@ model BlogPost {
   slug        String   @unique
   title       String
   excerpt     String
-  content     String   @db.Text
+  content     String
   category    String   // "treatments", "antalya-guide", "patient-tips"
   imageUrl    String
   published   Boolean  @default(true)
@@ -69,7 +69,7 @@ model PatientStory {
   treatment     String
   beforeImage   String
   afterImage    String
-  testimonial   String   @db.Text
+  testimonial   String
   videoUrl      String?
   featured      Boolean  @default(false)
   createdAt     DateTime @default(now())
@@ -93,8 +93,8 @@ model ChatSession {
 model Message {
   id            String      @id @default(cuid())
   role          String
-  content       String      @db.Text
-  image         String?     @db.Text // Base64 strings can be large
+  content       String
+  image         String?     // Base64 strings can be large
   createdAt     DateTime    @default(now())
   
   chatSessionId String

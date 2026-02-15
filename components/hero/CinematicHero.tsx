@@ -9,11 +9,8 @@ export default function CinematicHero() {
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
     const HERO_VIDEOS = [
-        '/A_cinematic_8k_1080p_202602011631.mp4',
-        '/A_cinematic_and_1080p_202602011630.mp4',
-        '/A_cinematic_and_1080p_202602011631.mp4',
-        '/Smooth_slowmotion_cinematic_1080p_202601311.mp4',
-        '/hero-video.mp4'
+        '/tech-hero-1.mp4', // Placeholder
+        '/tech-hero-2.mp4', // Placeholder
     ];
 
     const handleVideoEnded = () => {
@@ -52,17 +49,17 @@ export default function CinematicHero() {
                         className="inline-flex items-center space-x-3 px-5 py-2 bg-[#C5A059]/10 rounded-full border border-[#C5A059]/20 text-[#C5A059] font-black text-[10px] uppercase tracking-[0.4em] mb-12 shadow-[0_0_30px_rgba(197,160,89,0.1)]"
                     >
                         <ShieldCheck className="w-4 h-4" />
-                        <span>Elite Cross-Border Dental Agency</span>
+                        <span>KI & Software Architecture</span>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.4 }}
-                        className="text-6xl md:text-8xl lg:text-[100px] font-bold text-white mb-10 leading-[0.9] tracking-tighter"
+                        className="text-6xl md:text-8xl lg:text-[90px] font-bold text-white mb-10 leading-[0.9] tracking-tighter"
                     >
-                        Don't Just Book a Clinic. <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C5A059] via-[#B08D47] to-[#C5A059] bg-size-200 animate-gradient">Get a Personal Coordinator.</span>
+                        We build the future with AI. <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C5A059] via-[#B08D47] to-[#C5A059] bg-size-200 animate-gradient">Connect it with Code.</span>
                     </motion.h1>
 
                     <motion.p
@@ -71,7 +68,7 @@ export default function CinematicHero() {
                         transition={{ duration: 1, delay: 0.6 }}
                         className="text-xl md:text-2xl text-slate-400 mb-14 drop-shadow-lg max-w-2xl font-light leading-relaxed"
                     >
-                        Powered by <span className="text-white font-bold">Safiye AI</span> & Human Experts. We orchestrate elite clinical journeys with <span className="text-[#C5A059] font-bold">70% institutional savings</span>.
+                        Custom AI Agents, Smart Home Labs, and Global Trade Solutions. <span className="text-white font-bold">Osman Kadir</span> connects digital intelligence with real-world engineering.
                     </motion.p>
 
                     <motion.div
@@ -81,23 +78,23 @@ export default function CinematicHero() {
                         className="flex flex-col sm:flex-row gap-6 items-center"
                     >
                         <Link
-                            href="/assessment"
+                            href="/contact"
                             className="w-full sm:w-auto px-12 py-6 bg-[#C5A059] text-white font-black rounded-xl text-[10px] uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(197,160,89,0.3)] hover:shadow-[0_20px_40px_rgba(197,160,89,0.5)] hover:-translate-y-1 transition-all flex items-center justify-center gap-4 group"
                         >
-                            Secure My Intake Protocol
+                            Initiate Protocol
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
 
                         <div className="flex items-center gap-8 pl-4 border-l border-white/10 h-16 hidden md:flex">
                             <div className="text-center">
-                                <p className="text-white font-bold text-xl leading-none mb-1">4.9/5</p>
+                                <p className="text-white font-bold text-xl leading-none mb-1">100%</p>
                                 <div className="flex text-[#C5A059] gap-0.5">
                                     {[...Array(5)].map((_, i) => <Star key={i} className="w-2.5 h-2.5 fill-current" />)}
                                 </div>
                             </div>
                             <div className="text-left">
-                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Verified on</p>
-                                <p className="text-white text-sm font-bold tracking-tight">Trustpilot</p>
+                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Code Quality</p>
+                                <p className="text-white text-sm font-bold tracking-tight">Enterprise Grade</p>
                             </div>
                         </div>
                     </motion.div>
@@ -115,7 +112,7 @@ export default function CinematicHero() {
                 transition={{ delay: 2, duration: 1 }}
                 className="absolute bottom-12 right-12 text-white/40 text-[9px] font-black uppercase tracking-[0.5em] flex items-center gap-6 pointer-events-none"
             >
-                <span className="hidden sm:block">Explore Agency Intelligence</span>
+                <span className="hidden sm:block">Explore Technical Pillars</span>
                 <div className="w-px h-12 bg-gradient-to-b from-[#C5A059] to-transparent" />
             </motion.div>
         </section>

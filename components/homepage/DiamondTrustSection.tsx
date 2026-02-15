@@ -32,7 +32,7 @@ export default function DiamondTrustSection() {
                         Vetted by <span className="text-[#C5A059]">Sovereign</span> Standards
                     </h2>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
-                        We operate as a personal coordination firm, ensuring every clinical partner adheres to our ironclad quality protocols.
+                        We operate as a premium technology partner, ensuring every digital solution adheres to our ironclad security and quality protocols.
                     </p>
                 </div>
 
@@ -84,9 +84,9 @@ export default function DiamondTrustSection() {
                 >
                     <div className="flex items-center gap-6 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
                         {/* Mock logo placeholders for dental associations */}
-                        <div className="text-white font-bold text-xs tracking-widest uppercase">ADA Member</div>
-                        <div className="text-white font-bold text-xs tracking-widest uppercase">ISO 9001</div>
-                        <div className="text-white font-bold text-xs tracking-widest uppercase">Health Tourism Gen. Dir.</div>
+                        <div className="text-white font-bold text-xs tracking-widest uppercase">GDPR Compliant</div>
+                        <div className="text-white font-bold text-xs tracking-widest uppercase">ISO 27001</div>
+                        <div className="text-white font-bold text-xs tracking-widest uppercase">TÜV SÜD Certified</div>
                     </div>
                     <div className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em] text-center md:text-right">
                         Verification Code: ST-AGENCY-2024-ELITE

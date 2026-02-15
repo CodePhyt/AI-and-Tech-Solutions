@@ -16,6 +16,7 @@
     "notes": "Assessment Result. Concerns: ",
     "id": "xnar3stj",
     "createdAt": "2026-01-26T14:30:27.872Z",
-    "status": "new"
+    "status": "booked",
+    "packageInterest": "package_123"
   }
 ]

@@ -32,12 +32,15 @@ export default function Breadcrumbs() {
                 .join(' ');
 
             // Special cases for better labels
-            if (path === 'blog') label = 'Intelligence';
-            if (path === 'treatments') label = 'Vetted Clinics';
-            if (path === 'stories') label = 'Case Studies';
+            if (path === 'services') label = 'Solutions';
             if (path === 'about') label = 'Agency';
             if (path === 'contact') label = 'Concierge';
             if (path === 'assessment') label = 'Priority Plan';
+            if (path === 'careers') label = 'Join Us';
+            if (path === 'legal') label = 'Protocol';
+            if (path === 'impressum') label = 'Impressum';
+            if (path === 'privacy') label = 'Privacy';
+            if (path === 'terms') label = 'Terms';
 
             breadcrumbs.push({
                 label,

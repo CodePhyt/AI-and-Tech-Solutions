@@ -3,6 +3,7 @@ import { protectAdmin } from '@/lib/auth';
 import { getLeads } from '@/services/dal';
 import { Users, FileText, Settings, LogOut, Search, Clock, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { Lead } from '@prisma/client';
 
 export default async function AdminDashboard() {
     // Ironclad DAL Security
@@ -88,7 +89,7 @@ export default async function AdminDashboard() {
                                     </td>
                                 </tr>
                             ) : (
-                                leads.map((lead: any) => (
+                                leads.map((lead: Lead) => (
                                     <tr key={lead.id} className="hover:bg-white/[0.02] transition-colors group">
                                         <td className="px-6 py-4">
                                             <div className="font-semibold text-white">{lead.name}</div>

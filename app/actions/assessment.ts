@@ -4,13 +4,20 @@ import { AssessmentSchema } from '@/lib/validations/assessment';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
+interface FileMetadata {
+    name: string;
+    type: string;
+    size: number;
+    url?: string; // Future implementation
+}
+
 export async function submitAssessment(formData: FormData) {
     try {
         // 1. Extract and Validate Input
         const rawData = {
             fullName: formData.get('fullName'),
             phone: formData.get('phone'),
-            dentalHistory: formData.get('dentalHistory'),
+            projectScope: formData.get('projectScope'),
             gdprConsent: formData.get('gdprConsent') === 'true',
         };
 
@@ -19,7 +26,7 @@ export async function submitAssessment(formData: FormData) {
         if (!validatedFields.success) {
             return {
                 success: false,
-                error: "Invalid input data. Please check the form.",
+                error: "Invalid input data. Protocol rejected.",
                 details: validatedFields.error.flatten().fieldErrors,
             };
         }
@@ -30,7 +37,7 @@ export async function submitAssessment(formData: FormData) {
         // Note: In a production environment, you would stream these to S3/Azure Blob
         // Here we validate constraints as per the Ironclad directive.
         const files = formData.getAll('files') as File[];
-        const fileMetadata: any[] = [];
+        const fileMetadata: FileMetadata[] = [];
 
         for (const file of files) {
             if (file.size > 5 * 1024 * 1024) {
@@ -55,9 +62,9 @@ export async function submitAssessment(formData: FormData) {
             data: {
                 name: data.fullName,
                 phone: data.phone,
-                message: data.dentalHistory,
+                message: data.projectScope,
                 source: 'secure_assessment_form',
-                sentiment: 'HOT', // Assessments are high-intent
+                sentiment: 'HOT', // Project Inquiries are high-intent
             },
         });
 
@@ -69,11 +76,11 @@ export async function submitAssessment(formData: FormData) {
             leadId: lead.id,
         };
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Ironclad Security Action Error:', error);
         return {
             success: false,
-            error: error.message || "An unexpected error occurred during secure processing.",
+            error: error instanceof Error ? error.message : "An unexpected error occurred during secure processing.",
         };
     }
 }

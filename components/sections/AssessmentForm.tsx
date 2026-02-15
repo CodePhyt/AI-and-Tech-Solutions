@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AssessmentSchema } from '@/lib/validations/assessment';
-import { Upload, FileText, User, Phone, CheckCircle2, AlertCircle, ShieldCheck, ArrowRight, Camera } from 'lucide-react';
+import { Upload, FileText, User, Phone, CheckCircle2, AlertCircle, ShieldCheck, ArrowRight, Camera, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { submitAssessment } from '@/app/actions/assessment';
 
@@ -44,7 +44,7 @@ export default function AssessmentForm() {
             const formData = new FormData();
             formData.append('fullName', data.fullName);
             formData.append('phone', data.phone);
-            formData.append('dentalHistory', data.dentalHistory);
+            formData.append('projectScope', data.projectScope);
             formData.append('gdprConsent', String(data.gdprConsent));
 
             files.forEach((file) => {
@@ -56,16 +56,16 @@ export default function AssessmentForm() {
             if (result.success) {
                 setSubmittedData(data);
 
-                // Sync with Safiye AI (Session Cache)
+                // Sync with Session Cache
                 if (typeof window !== 'undefined') {
                     const assessmentData = {
                         name: data.fullName,
                         phone: data.phone,
-                        treatment: 'Clinical Assessment',
-                        notes: data.dentalHistory,
+                        treatment: 'Project Inquiry',
+                        notes: data.projectScope,
                         email: 'Pending Verification'
                     };
-                    sessionStorage.setItem('smile_assessment_data', JSON.stringify(assessmentData));
+                    sessionStorage.setItem('tech_intake_data', JSON.stringify(assessmentData));
                     window.dispatchEvent(new Event('assessmentCompleted'));
                 }
 
@@ -88,13 +88,13 @@ export default function AssessmentForm() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="crystal-card p-16 text-center max-w-2xl mx-auto border-[#C5A059]/30"
             >
-                <div className="w-24 h-24 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#C5A059]/30 shadow-[0_0_30px_rgba(197,160,89,0.2)]">
-                    <ShieldCheck className="w-12 h-12 text-[#C5A059]" />
+                <div className="w-24 h-24 bg-[#00f3ff]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#00f3ff]/30 shadow-[0_0_30px_rgba(0,243,255,0.2)]">
+                    <ShieldCheck className="w-12 h-12 text-[#00f3ff]" />
                 </div>
                 <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">Protocol Initiated</h3>
                 <p className="text-slate-400 text-xl leading-relaxed mb-8">
-                    Your "Sovereign Intake" profile has been secured. A Senior Personal Coordinator will contact you within
-                    <span className="text-white font-bold"> 24 Hours</span> to finalize your BrightPlan™.
+                    Your "Sovereign Intake" profile has been secured. A Senior Technical Architect will contact you within
+                    <span className="text-white font-bold"> 24 Hours</span> to finalize your Technical Roadmap.
                 </p>
 
                 <div className="flex flex-col gap-4">
@@ -103,8 +103,8 @@ export default function AssessmentForm() {
                             const message = encodeURIComponent(
                                 `*Sovereign Intake Protocol Request*\n\n` +
                                 `*Name:* ${submittedData?.fullName}\n` +
-                                `*Contact:* ${submittedData?.phone}\n` +
-                                `*Clinical History:* ${submittedData?.dentalHistory}`
+                                `*Signal:* ${submittedData?.phone}\n` +
+                                `*Project Scope:* ${submittedData?.projectScope}`
                             );
                             window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
                         }}
@@ -115,7 +115,7 @@ export default function AssessmentForm() {
                     </button>
 
                     <div className="p-4 bg-slate-900/50 rounded-xl border border-white/5 text-[9px] text-slate-500 font-bold uppercase tracking-[0.2em]">
-                        Reference: ST-ASSESS-{Math.floor(Math.random() * 900000 + 100000)}
+                        Reference: TK-INTAKE-{Math.floor(Math.random() * 900000 + 100000)}
                     </div>
                 </div>
             </motion.div>
@@ -141,11 +141,11 @@ export default function AssessmentForm() {
                         </motion.div>
 
                         <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
-                            Secure Your <span className="text-[#C5A059]">BrightPlan™</span>
+                            Secure Your <span className="text-[#C5A059]">Digital Future</span>
                         </h2>
                         <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light">
-                            Detailed clinical analysis by Safiye AI and our Vetted Specialist Board.
-                            Professional coordination starts here.
+                            Detailed technical analysis by Osman Kadir and our Engineering Board.
+                            Professional execution starts here.
                         </p>
                     </div>
 
@@ -166,7 +166,7 @@ export default function AssessmentForm() {
 
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                    <Phone className="w-4 h-4 text-[#C5A059]" /> WhatsApp Contact
+                                    <Phone className="w-4 h-4 text-[#C5A059]" /> WhatsApp Signal
                                 </label>
                                 <input
                                     {...register('phone')}
@@ -177,30 +177,30 @@ export default function AssessmentForm() {
                             </div>
                         </div>
 
-                        {/* Step 2: History */}
+                        {/* Step 2: Scope */}
                         <div className="space-y-3">
                             <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                <FileText className="w-4 h-4 text-[#C5A059]" /> Clinical Objectives & History
+                                <FileText className="w-4 h-4 text-[#C5A059]" /> Project Objectives & Scope
                             </label>
                             <textarea
-                                {...register('dentalHistory')}
+                                {...register('projectScope')}
                                 rows={4}
-                                placeholder="Describe your current baseline and your ultimate smile goals..."
+                                placeholder="Describe your current infrastructure and your ultimate technical goals..."
                                 className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]/30 outline-none transition-all resize-none placeholder-slate-700 font-light"
                             ></textarea>
-                            {errors.dentalHistory && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest mt-2">{errors.dentalHistory.message as string}</p>}
+                            {errors.projectScope && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest mt-2">{errors.projectScope.message as string}</p>}
                         </div>
 
                         {/* WhatsApp File Submission Notice */}
                         <div className="bg-[#25D366]/10 border border-[#25D366]/20 rounded-2xl p-6">
                             <div className="flex items-start gap-4">
                                 <div className="w-12 h-12 bg-[#25D366]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <Camera className="w-6 h-6 text-[#25D366]" />
+                                    <Cpu className="w-6 h-6 text-[#25D366]" />
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-bold text-sm mb-2">Clinical Images & X-Rays</h4>
+                                    <h4 className="text-white font-bold text-sm mb-2">Technical Documents & Specs</h4>
                                     <p className="text-slate-400 text-xs leading-relaxed mb-3">
-                                        Please send any X-rays, photos, or DICOM files directly via WhatsApp after submitting this form. This ensures secure, immediate delivery to our clinical team.
+                                        Please send any architecture diagrams, specs, or existing codebases directly via WhatsApp after submitting this form. This ensures secure, immediate delivery to our engineering team.
                                     </p>
                                     <div className="flex items-center gap-2 text-[#25D366] text-[10px] font-bold uppercase tracking-widest">
                                         <Phone className="w-3 h-3" />
@@ -220,7 +220,7 @@ export default function AssessmentForm() {
                                 />
                             </div>
                             <label className="text-[11px] text-slate-500 leading-relaxed font-medium">
-                                I provide explicit clinical consent for the processing of my medical data. I understand this information is strictly for the formulation of a coordination plan and is protected under HIPAA-compliant agency protocols.
+                                I provide explicit consent for the processing of my project data. I understand this information is strictly for the formulation of a technical proposal and is protected under NDA-compliant agency protocols. See <a href="/legal/privacy" className="text-[#00f3ff] hover:underline">Privacy Protocol</a>.
                             </label>
                         </div>
                         {errors.gdprConsent && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest mt-2">{errors.gdprConsent.message as string}</p>}
@@ -236,7 +236,7 @@ export default function AssessmentForm() {
                                     <span>Sync Failed: Database Offline</span>
                                 </div>
                                 <p className="text-slate-400 text-xs leading-relaxed">
-                                    Our primary server is undergoing maintenance. Please use the direct agency liaison below to submit your clinical data securely.
+                                    Our primary server is undergoing maintenance. Please use the direct agency liaison below to submit your project data securely.
                                 </p>
                                 <button
                                     type="button"
@@ -245,8 +245,8 @@ export default function AssessmentForm() {
                                         const message = encodeURIComponent(
                                             `*Manual Sovereign Intake Submission*\n\n` +
                                             `*Name:* ${values.fullName || 'Not Provided'}\n` +
-                                            `*Contact:* ${values.phone || 'Not Provided'}\n` +
-                                            `*History:* ${values.dentalHistory || 'Not Provided'}`
+                                            `*Signal:* ${values.phone || 'Not Provided'}\n` +
+                                            `*Scope:* ${values.projectScope || 'Not Provided'}`
                                         );
                                         window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
                                     }}
@@ -265,15 +265,15 @@ export default function AssessmentForm() {
                                 const formValues = {
                                     fullName: (document.querySelector('input[name="fullName"]') as HTMLInputElement)?.value,
                                     phone: (document.querySelector('input[name="phone"]') as HTMLInputElement)?.value,
-                                    dentalHistory: (document.querySelector('textarea[name="dentalHistory"]') as HTMLTextAreaElement)?.value
+                                    projectScope: (document.querySelector('textarea[name="projectScope"]') as HTMLTextAreaElement)?.value
                                 };
-                                
+
                                 const message = encodeURIComponent(
                                     `*Sovereign Intake Protocol Request*\n\n` +
                                     `*Name:* ${formValues.fullName || 'Not Provided'}\n` +
-                                    `*Contact:* ${formValues.phone || 'Not Provided'}\n` +
-                                    `*Clinical History:* ${formValues.dentalHistory || 'Not Provided'}\n\n` +
-                                    `_I will send clinical images/x-rays in the next message._`
+                                    `*Signal:* ${formValues.phone || 'Not Provided'}\n` +
+                                    `*Project Scope:* ${formValues.projectScope || 'Not Provided'}\n\n` +
+                                    `_I will send project specs/documents in the next message._`
                                 );
                                 window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
                             }}

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  ares-engine:
+    build: .
+    container_name: ares-viking-orchestrator
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CHROMA_DB_HOST=chroma-db
+      - CHROMA_DB_PORT=8000
+    depends_on:
+      - chroma-db
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  chroma-db:
+    image: chromadb/chroma:latest
+    container_name: ares-chroma-memory
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+
+volumes:
+  chroma-data:

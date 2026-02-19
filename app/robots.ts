@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
                 ],
             },
         ],
-        sitemap: 'https://smileturkey.com/sitemap.xml',
-        host: 'https://smileturkey.com',
+        sitemap: 'https://osmankadir.tech/sitemap.xml',
+        host: 'https://osmankadir.tech',
     };
 }

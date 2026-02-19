@@ -25,19 +25,18 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://osmankadir.tech'),
   title: {
-    default: 'Osman Kadir KI & Tech Solutions | AI, Smart Home & Global Trade',
-    template: '%s | Osman Kadir Tech'
+    default: 'Osman Kadir — KI Lösungen | AI, Smart Home & Global Trade',
+    template: '%s | Osman Kadir — KI Lösungen'
   },
-  description: 'We build the future with AI, manage it with Code, and connect worlds. Your Partner for IT, Smart Home, & Global Trade in Neuhaus am Rennweg.',
+  description: 'Wir bauen die Zukunft mit KI, steuern sie mit Code und verbinden Welten. Ihr Partner für IT-Dienstleistungen, Smart Home & Warenvermittlung in Neuhaus am Rennweg.',
   keywords: [
-    'AI solutions',
     'KI Lösungen',
-    'software architecture',
-    'smart home lab',
-    'global trade tech',
-    'digital media',
-    'tech consulting',
-    'osman kadir',
+    'AI Solutions',
+    'Smart Home Thüringen',
+    'Global Trade Sourcing',
+    'Automatisierung',
+    'Agentic AI',
+    'Osman Kadir',
     'Neuhaus am Rennweg',
     'CodePhyt',
   ],

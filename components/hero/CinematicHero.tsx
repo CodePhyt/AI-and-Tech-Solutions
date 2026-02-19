@@ -48,6 +48,7 @@ export default function CinematicHero() {
                     src="/hero-bg.svg"
                     alt=""
                     aria-hidden="true"
+                    fetchPriority="high"
                     className="absolute inset-0 w-full h-full object-cover opacity-90"
                 />
                 {/* Overlay gradients */}

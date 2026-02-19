@@ -6,21 +6,22 @@ export default function StructuredData() {
     const organizationSchema = {
         '@context': 'https://schema.org',
         '@type': 'ProfessionalService',
-        name: 'Osman Kadir KI & Tech Solutions',
-        description: 'Sovereign AI Architecture, Custom Smart Home Systems, and Elite Tech Consulting.',
+        name: 'Osman Kadir — KI Lösungen',
+        description: 'Sovereign AI Architecture, Smart Home Integration & Global Trade Sourcing.',
         url: 'https://osmankadir.tech',
-        logo: 'https://osmankadir.tech/icon.png', // Needs actual icon
-        telephone: '+90-533-888-8888', // Needs actual
-        email: 'contact@osmankadir.tech',
+        logo: 'https://osmankadir.tech/favicon.ico',
+        telephone: '+49 171 3474348',
+        email: 'okadirfinance@gmail.com',
         address: {
             '@type': 'PostalAddress',
-            addressLocality: 'Munich',
+            streetAddress: 'Dorststraße 15',
+            addressLocality: 'Neuhaus am Rennweg',
+            postalCode: '98739',
             addressCountry: 'DE',
         },
-        priceRange: '€€€€',
+        priceRange: '€€',
         sameAs: [
-            // 'https://www.linkedin.com/company/osman-kadir-tech',
-            // 'https://twitter.com/osmankadir',
+            'https://github.com/CodePhyt',
         ],
     };
 

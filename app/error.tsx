@@ -36,7 +36,7 @@ export default function Error({
                         Üzgünüz, beklenmeyen bir hata oluştu. Lütfen tekrar deneyin veya ana sayfaya dönün.
                         <br />
                         <span className="text-sm">
-                            We're sorry, an unexpected error occurred. Please try again or return home.
+                            We&apos;re sorry, an unexpected error occurred. Please try again or return home.
                         </span>
                     </p>
 

@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- Background gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#001a22" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="1"/>
+    </radialGradient>
+    <!-- AI Blue glow center -->
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Gold accent glow -->
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Grid line pattern -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00d4ff" stroke-width="0.3" stroke-opacity="0.15"/>
+    </pattern>
+    <!-- Perspective grid pattern -->
+    <pattern id="pgrid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#00d4ff" stroke-width="0.2" stroke-opacity="0.08"/>
+    </pattern>
+    <!-- Blur filter for glows -->
+    <filter id="blur-sm"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="blur-md"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="blur-lg"><feGaussianBlur stdDeviation="40"/></filter>
+    <filter id="blur-xl"><feGaussianBlur stdDeviation="80"/></filter>
+    <!-- Node glow -->
+    <filter id="nodeGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- === BASE BACKGROUND === -->
+  <rect width="1920" height="1080" fill="url(#bgGlow)"/>
+
+  <!-- === GRID LAYERS === -->
+  <rect width="1920" height="1080" fill="url(#grid)" opacity="0.6"/>
+  <rect width="1920" height="1080" fill="url(#pgrid)" opacity="0.4"/>
+
+  <!-- === AMBIENT GLOWS === -->
+  <!-- Center blue glow -->
+  <ellipse cx="960" cy="480" rx="700" ry="350" fill="#00d4ff" opacity="0.04" filter="url(#blur-xl)"/>
+  <!-- Left gold glow -->
+  <ellipse cx="280" cy="600" rx="400" ry="300" fill="#ffd700" opacity="0.04" filter="url(#blur-xl)"/>
+  <!-- Right blue accent -->
+  <ellipse cx="1680" cy="400" rx="350" ry="250" fill="#00d4ff" opacity="0.05" filter="url(#blur-xl)"/>
+
+  <!-- === HORIZON LINE (Ground plane) === -->
+  <line x1="0" y1="750" x2="1920" y2="750" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.12"/>
+  <!-- Perspective lines converging to center -->
+  <line x1="960" y1="480" x2="0" y2="1080" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.06"/>
+  <line x1="960" y1="480" x2="480" y2="1080" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.06"/>
+  <line x1="960" y1="480" x2="960" y2="1080" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.08"/>
+  <line x1="960" y1="480" x2="1440" y2="1080" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.06"/>
+  <line x1="960" y1="480" x2="1920" y2="1080" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.06"/>
+
+  <!-- === FLOATING DATA PANELS === -->
+  <!-- Panel 1: Left — ArXiv Feed -->
+  <g transform="translate(60, 180)">
+    <rect width="260" height="140" rx="4" fill="#0d1a20" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.35"/>
+    <rect width="260" height="22" rx="4" fill="#00d4ff" fill-opacity="0.1"/>
+    <text x="10" y="15" font-family="monospace" font-size="9" fill="#00d4ff" opacity="0.9">▶ ArXiv · Live Feed</text>
+    <text x="10" y="42" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">Agent Reasoning Survey 2025</text>
+    <text x="10" y="58" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">LangGraph Multi-Agent Patterns</text>
+    <text x="10" y="74" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">RAG Optimization Benchmarks</text>
+    <text x="10" y="90" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.4">Local LLM Inference Methods</text>
+    <text x="10" y="108" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.6">Status: SCANNING · 06:55 UTC</text>
+    <!-- Pulse bar -->
+    <rect x="10" y="120" width="80" height="3" rx="1" fill="#00d4ff" opacity="0.6"/>
+    <rect x="94" y="120" width="30" height="3" rx="1" fill="#00d4ff" opacity="0.2"/>
+    <text x="130" y="123" font-family="monospace" font-size="7" fill="#00d4ff" opacity="0.5">LIVE</text>
+  </g>
+
+  <!-- Panel 2: Right — Agent Status -->
+  <g transform="translate(1600, 160)">
+    <rect width="260" height="160" rx="4" fill="#0d1a20" stroke="#ffd700" stroke-width="0.8" stroke-opacity="0.3"/>
+    <rect width="260" height="22" rx="4" fill="#ffd700" fill-opacity="0.08"/>
+    <text x="10" y="15" font-family="monospace" font-size="9" fill="#ffd700" opacity="0.9">⚡ Agent Swarm · Status</text>
+    <text x="10" y="42" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">Agent-01 · Researcher    <tspan fill="#00d4ff">ACTIVE</tspan></text>
+    <text x="10" y="58" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">Agent-02 · Coder        <tspan fill="#00d4ff">ACTIVE</tspan></text>
+    <text x="10" y="74" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">Agent-03 · Reviewer     <tspan fill="#ffd700">IDLE</tspan></text>
+    <text x="10" y="90" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.5">Agent-04 · Deployer     <tspan fill="#ffd700">IDLE</tspan></text>
+    <text x="10" y="106" font-family="monospace" font-size="8" fill="#e5e5e5" opacity="0.4">Orchestrator · Human-in-Loop</text>
+    <text x="10" y="126" font-family="monospace" font-size="8" fill="#ffd700" opacity="0.6">12 Agents · 2 Active</text>
+    <rect x="10" y="138" width="48" height="3" rx="1" fill="#00d4ff" opacity="0.8"/>
+    <rect x="62" y="138" width="196" height="3" rx="1" fill="#00d4ff" opacity="0.12"/>
+  </g>
+
+  <!-- Panel 3: Bottom-left — GitHub Trends -->
+  <g transform="translate(60, 820)">
+    <rect width="240" height="120" rx="4" fill="#0d1a20" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.25"/>
+    <text x="10" y="18" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.7">◈ GitHub Trending · Today</text>
+    <text x="10" y="36" font-family="monospace" font-size="7.5" fill="#e5e5e5" opacity="0.45">▲ ollama/ollama +2.1k★</text>
+    <text x="10" y="52" font-family="monospace" font-size="7.5" fill="#e5e5e5" opacity="0.45">▲ langchain-ai/langgraph</text>
+    <text x="10" y="68" font-family="monospace" font-size="7.5" fill="#e5e5e5" opacity="0.4">▲ n8n-io/n8n</text>
+    <text x="10" y="88" font-family="monospace" font-size="7" fill="#00d4ff" opacity="0.5">Faster than the market.</text>
+  </g>
+
+  <!-- Panel 4: Bottom-right — System -->
+  <g transform="translate(1620, 850)">
+    <rect width="240" height="100" rx="4" fill="#0d1a20" stroke="#ffd700" stroke-width="0.6" stroke-opacity="0.2"/>
+    <text x="10" y="18" font-family="monospace" font-size="8" fill="#ffd700" opacity="0.7">◈ CodePhyt · System</text>
+    <text x="10" y="36" font-family="monospace" font-size="7.5" fill="#e5e5e5" opacity="0.45">Location: Neuhaus am Rennweg</text>
+    <text x="10" y="52" font-family="monospace" font-size="7.5" fill="#e5e5e5" opacity="0.45">Stack: Next.js · Python · n8n</text>
+    <text x="10" y="68" font-family="monospace" font-size="7.5" fill="#e5e5e5" opacity="0.4">Mode: Bleeding Edge · DSGVO ✓</text>
+  </g>
+
+  <!-- === AGENT NETWORK NODES === -->
+  <!-- Central orchestrator node -->
+  <g transform="translate(960, 480)" filter="url(#nodeGlow)">
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.7"/>
+    <circle cx="0" cy="0" r="20" fill="#001a22" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.5"/>
+    <circle cx="0" cy="0" r="5" fill="#00d4ff" opacity="0.9"/>
+    <text x="0" y="44" font-family="monospace" font-size="9" fill="#00d4ff" opacity="0.8" text-anchor="middle">OK</text>
+  </g>
+
+  <!-- Satellite nodes with connecting lines -->
+  <!-- Node A: upper-left -->
+  <line x1="960" y1="480" x2="620" y2="300" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.25" stroke-dasharray="4,4"/>
+  <circle cx="620" cy="300" r="12" fill="#001a22" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.5"/>
+  <circle cx="620" cy="300" r="3" fill="#00d4ff" opacity="0.7"/>
+  <text x="620" y="322" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.6" text-anchor="middle">A-01</text>
+
+  <!-- Node B: upper-right -->
+  <line x1="960" y1="480" x2="1320" y2="300" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.25" stroke-dasharray="4,4"/>
+  <circle cx="1320" cy="300" r="12" fill="#001a22" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.5"/>
+  <circle cx="1320" cy="300" r="3" fill="#00d4ff" opacity="0.7"/>
+  <text x="1320" y="322" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.6" text-anchor="middle">A-02</text>
+
+  <!-- Node C: left mid -->
+  <line x1="960" y1="480" x2="460" y2="520" stroke="#ffd700" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="4,4"/>
+  <circle cx="460" cy="520" r="10" fill="#0d0d00" stroke="#ffd700" stroke-width="0.8" stroke-opacity="0.4"/>
+  <circle cx="460" cy="520" r="3" fill="#ffd700" opacity="0.6"/>
+  <text x="460" y="540" font-family="monospace" font-size="8" fill="#ffd700" opacity="0.5" text-anchor="middle">A-03</text>
+
+  <!-- Node D: right mid -->
+  <line x1="960" y1="480" x2="1460" y2="520" stroke="#ffd700" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="4,4"/>
+  <circle cx="1460" cy="520" r="10" fill="#0d0d00" stroke="#ffd700" stroke-width="0.8" stroke-opacity="0.4"/>
+  <circle cx="1460" cy="520" r="3" fill="#ffd700" opacity="0.6"/>
+  <text x="1460" y="540" font-family="monospace" font-size="8" fill="#ffd700" opacity="0.5" text-anchor="middle">A-04</text>
+
+  <!-- Node E: below-left -->
+  <line x1="960" y1="480" x2="740" y2="660" stroke="#00d4ff" stroke-width="0.5" stroke-opacity="0.18" stroke-dasharray="3,5"/>
+  <circle cx="740" cy="660" r="8" fill="#001a22" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.4"/>
+  <circle cx="740" cy="660" r="2" fill="#00d4ff" opacity="0.6"/>
+
+  <!-- Node F: below-right -->
+  <line x1="960" y1="480" x2="1180" y2="650" stroke="#00d4ff" stroke-width="0.5" stroke-opacity="0.18" stroke-dasharray="3,5"/>
+  <circle cx="1180" cy="650" r="8" fill="#001a22" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.4"/>
+  <circle cx="1180" cy="650" r="2" fill="#00d4ff" opacity="0.6"/>
+
+  <!-- === SCAN RING ANIMATION (pure SVG - static ring) === -->
+  <circle cx="960" cy="480" r="80" fill="none" stroke="#00d4ff" stroke-width="0.5" stroke-opacity="0.15" stroke-dasharray="6,6"/>
+  <circle cx="960" cy="480" r="140" fill="none" stroke="#00d4ff" stroke-width="0.3" stroke-opacity="0.08" stroke-dasharray="4,8"/>
+  <circle cx="960" cy="480" r="200" fill="none" stroke="#ffd700" stroke-width="0.3" stroke-opacity="0.06" stroke-dasharray="4,10"/>
+
+  <!-- === SCANLINES === -->
+  <rect width="1920" height="1080" fill="url(#scanlines)" opacity="0.02"/>
+
+  <!-- === CORNER BRACKETS (HUD style) === -->
+  <!-- Top-left -->
+  <path d="M 30 30 L 30 70 M 30 30 L 70 30" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.4" fill="none"/>
+  <!-- Top-right -->
+  <path d="M 1890 30 L 1890 70 M 1890 30 L 1850 30" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.4" fill="none"/>
+  <!-- Bottom-left -->
+  <path d="M 30 1050 L 30 1010 M 30 1050 L 70 1050" stroke="#ffd700" stroke-width="1.5" stroke-opacity="0.3" fill="none"/>
+  <!-- Bottom-right -->
+  <path d="M 1890 1050 L 1890 1010 M 1890 1050 L 1850 1050" stroke="#ffd700" stroke-width="1.5" stroke-opacity="0.3" fill="none"/>
+
+  <!-- === HUD STATUS BAR (top) === -->
+  <text x="40" y="22" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.4">CODEPHYT · DIGITAL HQ · v2.1</text>
+  <text x="1700" y="22" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.4" text-anchor="start">SYS: NOMINAL</text>
+
+  <!-- === BOTTOM DATA BAR === -->
+  <line x1="0" y1="1060" x2="1920" y2="1060" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.15"/>
+  <text x="40" y="1074" font-family="monospace" font-size="7.5" fill="#00d4ff" opacity="0.3">Osman Kadir — KI Lösungen · Dorststraße 15 · 98739 Neuhaus am Rennweg · DSGVO ✓</text>
+  <text x="1720" y="1074" font-family="monospace" font-size="7.5" fill="#ffd700" opacity="0.3">Bleeding Edge · 🇩🇪</text>
+</svg>

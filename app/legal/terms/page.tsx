@@ -2,12 +2,12 @@ export default function TermsPage() {
     return (
         <div className="min-h-screen pt-20 bg-slate-950">
             <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 className="text-5xl font-bold text-white mb-8 border-b border-[#C5A059]/30 pb-4">Terms of Engagement</h1>
+                <h1 className="text-5xl font-bold text-white mb-8 border-b border-[#ffd700]/30 pb-4">Terms of Engagement</h1>
                 <div className="prose prose-invert max-w-none text-slate-300">
-                    <p className="text-sm uppercase tracking-widest mb-8 text-[#C5A059]">Effective Date: {new Date().toLocaleDateString()}</p>
+                    <p className="text-sm uppercase tracking-widest mb-8 text-[#ffd700]">Effective Date: {new Date().toLocaleDateString()}</p>
 
                     <h2 className="text-2xl font-bold text-white mt-12 mb-6">1. Protocol Acceptance</h2>
-                    <p>By engaging with Osman Kadir KI & Tech Solutions ("The Firm"), you agree to be bound by these Terms of Engagement. All services are rendered under strict confidentiality and professional standards.</p>
+                    <p>By engaging with Osman Kadir KI & Tech Solutions (&quot;The Firm&quot;), you agree to be bound by these Terms of Engagement. All services are rendered under strict confidentiality and professional standards.</p>
 
                     <h2 className="text-2xl font-bold text-white mt-12 mb-6">2. Scope of Services</h2>
                     <p>The Firm provides technical consultancy, software architecture, and digital transformation services. We are not a medical facility, legal firm (outside of tech-legal advisory), or financial institution.</p>

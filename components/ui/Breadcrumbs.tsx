@@ -22,7 +22,7 @@ export default function Breadcrumbs() {
         ];
 
         let currentPath = '';
-        paths.forEach((path, index) => {
+        paths.forEach((path, _index) => {
             currentPath += `/${path}`;
 
             // Format label (capitalize, replace hyphens)
@@ -55,12 +55,12 @@ export default function Breadcrumbs() {
 
     return (
         <nav aria-label="Breadcrumb" className="w-full">
-            <div className="crystal-card px-6 py-2.5 inline-flex items-center space-x-2 border-[#C5A059]/10">
+            <div className="crystal-card px-6 py-2.5 inline-flex items-center space-x-2 border-[#ffd700]/10">
                 {breadcrumbs.map((crumb, index) => (
                     <div key={crumb.href} className="flex items-center space-x-2">
                         {/* Home icon for first item */}
                         {index === 0 && (
-                            <Home className="w-4 h-4 text-[#C5A059]" />
+                            <Home className="w-4 h-4 text-[#ffd700]" />
                         )}
 
                         {/* Breadcrumb link or text */}
@@ -73,7 +73,7 @@ export default function Breadcrumbs() {
                             // Previous pages (links)
                             <Link
                                 href={crumb.href}
-                                className="text-slate-400 hover:text-[#C5A059] transition-colors text-[10px] font-bold uppercase tracking-widest"
+                                className="text-slate-400 hover:text-[#ffd700] transition-colors text-[10px] font-bold uppercase tracking-widest"
                             >
                                 {index === 0 ? '' : crumb.label}
                             </Link>

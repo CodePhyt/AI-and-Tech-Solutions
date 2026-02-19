@@ -20,7 +20,7 @@ export const safiyeProfile = {
     // Professional Details
     professional: {
         role: 'Lead Patient Coordinator',
-        company: 'Smile Turkey Dental Clinic',
+        company: 'Osman Kadir KI & Tech Solutions',
         yearsOfExperience: 6,
         languages: ['Turkish (Native)', 'English (Fluent)', 'German (Conversational)'],
         specialization: 'International patient care and treatment coordination',
@@ -72,8 +72,8 @@ export const safiyeProfile = {
         whyDentalTourism: `Passionate about helping international patients because she knows what it's like to be far from home. 
     Her tourism background helps her understand patient anxieties about traveling for medical care.`,
 
-        dailyLife: `Mornings start with a swim at Konyaaltı Beach, then heading to the clinic by 8 AM. 
-    Spends the day coordinating treatments, video consulting with patients, and ensuring everyone feels cared for. 
+        dailyLife: `Mornings start with a swim at Konyaaltı Beach, then heading to the tech office by 8 AM. 
+    Spends the day coordinating projects, video consulting with clients, and ensuring everyone feels cared for. 
     Evenings are for volleyball, photography, or relaxing at a beachside café.`,
     },
 
@@ -102,7 +102,7 @@ export const safiyeProfile = {
     localTips: {
         weather: 'Sunny 300+ days a year, warm even in winter',
         bestTimeToVisit: 'April-November for beach + treatment combo',
-        gettingAround: 'Clinic provides VIP transfers, but trams are easy too',
+        gettingAround: 'Office provides VIP transfers, but trams are easy too',
         afterTreatment: 'Patients love exploring Old Town, taking boat tours, visiting waterfalls',
         foodScene: 'Amazing seafood, traditional Turkish breakfast, rooftop restaurants',
     },
@@ -113,7 +113,7 @@ export const safiyeProfile = {
         email: 'safiye@smileturkey.com',
         whatsapp: '+90 530 287 6350',
         website: 'www.smileturkey.com',
-        officeLocation: 'Smile Turkey Dental Clinic, Konyaaltı, Antalya',
+        officeLocation: 'Osman Kadir KI & Tech Solutions, Konyaaltı, Antalya',
     },
 } as const;
 

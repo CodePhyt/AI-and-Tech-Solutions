@@ -45,6 +45,6 @@ export const getSafePublicData = cache(async () => {
     // No session check required for public data
     return {
         agencyName: "My Personal Coordinator",
-        tagline: "High-End Dental Tourism Intelligence",
+        tagline: "Premium AI & Technology Consulting",
     };
 });

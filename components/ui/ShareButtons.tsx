@@ -16,7 +16,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
 
     const encodedUrl = encodeURIComponent(url);
     const encodedTitle = encodeURIComponent(title);
-    const encodedDesc = encodeURIComponent(description);
+    const _encodedDesc = encodeURIComponent(description);
 
     const shareLinks = {
         whatsapp: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,

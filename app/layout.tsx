@@ -1,29 +1,45 @@
 import React from 'react';
 import './globals.css';
 import type { Metadata } from 'next';
+import { Space_Grotesk, Inter } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import StructuredData from '@/components/seo/StructuredData';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import { LangProvider } from '@/lib/lang-context';
 
-// Fonts - will be configured in next/font in a future step if needed, using system fonts for now as per tailwind config
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://osmankadir.tech'), // Speculative URL
+  metadataBase: new URL('https://osmankadir.tech'),
   title: {
-    default: 'Osman Kadir KI & Tech Solutions | Sovereign Tech Architecture',
+    default: 'Osman Kadir KI & Tech Solutions | AI, Smart Home & Global Trade',
     template: '%s | Osman Kadir Tech'
   },
-  description: 'Enterprise-grade AI solutions, software architecture, and smart home labs. Building the future with code and intelligence.',
+  description: 'We build the future with AI, manage it with Code, and connect worlds. Your Partner for IT, Smart Home, & Global Trade in Neuhaus am Rennweg.',
   keywords: [
     'AI solutions',
+    'KI Lösungen',
     'software architecture',
     'smart home lab',
     'global trade tech',
     'digital media',
     'tech consulting',
-    'osman kadir'
+    'osman kadir',
+    'Neuhaus am Rennweg',
+    'CodePhyt',
   ],
   authors: [{ name: 'Osman Kadir' }],
   creator: 'Osman Kadir KI & Tech Solutions',
@@ -35,14 +51,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'de_DE',
     url: 'https://osmankadir.tech',
     siteName: 'Osman Kadir KI & Tech Solutions',
-    title: 'Osman Kadir KI & Tech Solutions - Sovereign Tech Architecture',
-    description: 'We build the future with AI. Connect it with Code.',
+    title: 'Osman Kadir KI & Tech Solutions — AI, Smart Home & Global Trade',
+    description: 'We build the future with AI, manage it with Code, and connect worlds.',
     images: [
       {
-        url: '/tech-hero-1.mp4', // Placeholder using video for now or specific OG image
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Osman Kadir KI & Tech Solutions',
@@ -54,7 +70,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: '/favicon.ico', // Standard favicon
+    icon: '/favicon.ico',
   },
 };
 
@@ -64,15 +80,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="relative min-h-screen bg-[#0f0f0f] text-white overflow-x-hidden selection:bg-[#00f3ff] selection:text-black">
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <ChatWidget />
-        <ScrollToTop />
-        <StructuredData />
+    <html lang="de" className={`scroll-smooth ${spaceGrotesk.variable} ${inter.variable}`}>
+      <body className="relative min-h-screen bg-[#0a0a0a] text-[#e5e5e5] overflow-x-hidden selection:bg-[#00d4ff] selection:text-black font-body">
+        <LangProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <ChatWidget />
+          <ScrollToTop />
+          <StructuredData />
+        </LangProvider>
       </body>
     </html>
   );
 }
+

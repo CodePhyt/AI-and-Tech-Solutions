@@ -1,0 +1,92 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="60%" r="70%">
+      <stop offset="0%" stop-color="#001a20"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <filter id="glow-cyan">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-big">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00d4ff" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="floor-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- Floor / room perspective -->
+  <polygon points="100,420 700,420 580,260 220,260" fill="#00d4ff" fill-opacity="0.02" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1"/>
+
+  <!-- Smart home sensors / devices as boxes in perspective -->
+  <g fill="#0a1a20" stroke="#00d4ff" stroke-opacity="0.4" stroke-width="1.5">
+    <!-- Device 1 -->
+    <rect x="180" y="300" width="60" height="70" rx="4"/>
+    <rect x="183" y="316" width="54" height="40" rx="2" stroke-opacity="0.2" fill="#00d4ff" fill-opacity="0.06"/>
+    <!-- Device 2 -->
+    <rect x="360" y="280" width="80" height="90" rx="4"/>
+    <rect x="364" y="296" width="72" height="52" rx="2" stroke-opacity="0.2" fill="#00d4ff" fill-opacity="0.06"/>
+    <!-- Device 3 -->
+    <rect x="560" y="300" width="60" height="70" rx="4"/>
+    <rect x="563" y="316" width="54" height="40" rx="2" stroke-opacity="0.2" fill="#00d4ff" fill-opacity="0.06"/>
+  </g>
+
+  <!-- Wireless signals from central hub -->
+  <g fill="none" stroke="#00d4ff" stroke-opacity="0.3" stroke-linecap="round">
+    <path d="M 400 200 Q 390 180 370 175" stroke-width="1.5"/>
+    <path d="M 400 200 Q 380 165 350 160" stroke-width="1.5"/>
+    <path d="M 400 200 Q 410 180 430 175" stroke-width="1.5"/>
+    <path d="M 400 200 Q 420 165 450 160" stroke-width="1.5"/>
+    <path d="M 400 200 Q 400 170 400 155" stroke-width="1.5"/>
+  </g>
+
+  <!-- Connection lines to devices -->
+  <g stroke="#00d4ff" stroke-opacity="0.2" stroke-width="1" stroke-dasharray="4,4">
+    <line x1="400" y1="200" x2="210" y2="300"/>
+    <line x1="400" y1="200" x2="400" y2="280"/>
+    <line x1="400" y1="200" x2="590" y2="300"/>
+  </g>
+
+  <!-- Central hub - smart home controller -->
+  <g filter="url(#glow-big)">
+    <circle cx="400" cy="200" r="50" fill="#0a1a20" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="400" cy="200" r="36" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- HomeAssistant-like icon -->
+    <polygon points="400,172 424,190 424,218 376,218 376,190" fill="none" stroke="#00d4ff" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="390" y="200" width="20" height="18" rx="2" fill="#00d4ff" fill-opacity="0.4"/>
+    <circle cx="385" cy="193" r="3" fill="#ffd700"/>
+    <circle cx="415" cy="193" r="3" fill="#ffd700"/>
+  </g>
+
+  <!-- Glow on floor nodes -->
+  <g filter="url(#glow-cyan)">
+    <circle cx="210" cy="300" r="5" fill="#00d4ff"/>
+    <circle cx="400" cy="280" r="5" fill="#00d4ff"/>
+    <circle cx="590" cy="300" r="5" fill="#00d4ff"/>
+  </g>
+
+  <!-- Energy stats -->
+  <g font-family="monospace" font-size="10" fill="#00d4ff" fill-opacity="0.5">
+    <text x="620" y="160">ENERGY -34%</text>
+    <text x="620" y="175">SENSORS: 47</text>
+    <text x="620" y="190">CO2: OPTIMAL</text>
+  </g>
+
+  <rect x="0" y="480" width="800" height="2" fill="#00d4ff" fill-opacity="0.4"/>
+  <rect x="300" y="476" width="200" height="2" fill="#ffd700" fill-opacity="0.5"/>
+  <text x="400" y="448" font-family="'Arial', sans-serif" font-size="11" font-weight="bold" fill="#00d4ff" fill-opacity="0.6" text-anchor="middle" letter-spacing="6">SMART HOME LAB TRANSFORMATION</text>
+  <path d="M 16 16 L 40 16 M 16 16 L 16 40" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 16 L 760 16 M 784 16 L 784 40" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 16 484 L 40 484 M 16 484 L 16 460" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 484 L 760 484 M 784 484 L 784 460" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+</svg>

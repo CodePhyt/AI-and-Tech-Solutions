@@ -61,7 +61,7 @@ testCases.forEach((test, index) => {
     } else {
         // Should match
         if (match) {
-            const [_, message, button] = match;
+            const [, message, button] = match;
 
             const messageMatch = message === test.expectedMessage;
             const buttonMatch = button === test.expectedButton;

@@ -1,0 +1,92 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#1a1500"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <filter id="glow-gold">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-soft">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffd700" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffd700" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- Ambient warm glow -->
+  <ellipse cx="400" cy="240" rx="220" ry="150" fill="#ffd700" fill-opacity="0.04"/>
+
+  <!-- HEX grid dots representing smart home mesh -->
+  <g fill="#ffd700" fill-opacity="0.3">
+    <circle cx="200" cy="160" r="3"/><circle cx="240" cy="160" r="3"/><circle cx="280" cy="160" r="3"/>
+    <circle cx="320" cy="160" r="3"/><circle cx="360" cy="160" r="3"/><circle cx="400" cy="160" r="3"/>
+    <circle cx="440" cy="160" r="3"/><circle cx="480" cy="160" r="3"/><circle cx="520" cy="160" r="3"/>
+    <circle cx="560" cy="160" r="3"/><circle cx="600" cy="160" r="3"/>
+    <circle cx="180" cy="200" r="3"/><circle cx="220" cy="200" r="3"/><circle cx="260" cy="200" r="3"/>
+    <circle cx="300" cy="200" r="3"/><circle cx="500" cy="200" r="3"/><circle cx="540" cy="200" r="3"/>
+    <circle cx="580" cy="200" r="3"/><circle cx="620" cy="200" r="3"/>
+    <circle cx="200" cy="320" r="3"/><circle cx="240" cy="320" r="3"/><circle cx="560" cy="320" r="3"/>
+    <circle cx="600" cy="320" r="3"/>
+  </g>
+
+  <!-- Connection lines from hub -->
+  <g stroke="#ffd700" stroke-opacity="0.2" stroke-width="1" fill="none">
+    <line x1="400" y1="240" x2="200" y2="140"/> <line x1="400" y1="240" x2="600" y2="140"/>
+    <line x1="400" y1="240" x2="170" y2="280"/> <line x1="400" y1="240" x2="630" y2="280"/>
+    <line x1="400" y1="240" x2="240" y2="370"/> <line x1="400" y1="240" x2="560" y2="370"/>
+    <line x1="400" y1="240" x2="340" y2="400"/> <line x1="400" y1="240" x2="460" y2="400"/>
+  </g>
+
+  <!-- Glow scanline -->
+  <rect x="0" y="239" width="800" height="2" fill="url(#line-grad)" opacity="0.4"/>
+
+  <!-- Outer sensor nodes -->
+  <g filter="url(#glow-gold)">
+    <circle cx="200" cy="140" r="7" fill="#ffd700"/>
+    <circle cx="600" cy="140" r="7" fill="#ffd700"/>
+    <circle cx="170" cy="280" r="7" fill="#ffd700"/>
+    <circle cx="630" cy="280" r="7" fill="#ffd700"/>
+    <circle cx="240" cy="370" r="7" fill="#ffd700"/>
+    <circle cx="560" cy="370" r="7" fill="#ffd700"/>
+    <circle cx="340" cy="400" r="5" fill="#ffd700"/>
+    <circle cx="460" cy="400" r="5" fill="#ffd700"/>
+  </g>
+
+  <!-- Central hub — house icon -->
+  <g filter="url(#glow-soft)">
+    <circle cx="400" cy="240" r="50" fill="#0a0a0a" stroke="#ffd700" stroke-width="2"/>
+    <circle cx="400" cy="240" r="38" fill="#ffd700" fill-opacity="0.07" stroke="#ffd700" stroke-width="0.5" stroke-opacity="0.5"/>
+    <!-- House shape -->
+    <polygon points="400,205 430,230 430,265 370,265 370,230" fill="none" stroke="#ffd700" stroke-width="2" stroke-linejoin="round"/>
+    <line x1="400" y1="205" x2="370" y2="230" stroke="#ffd700" stroke-width="2"/>
+    <rect x="388" y="245" width="14" height="20" rx="2" fill="#ffd700" fill-opacity="0.5"/>
+    <line x1="374" y1="265" x2="374" y2="270" stroke="#ffd700" stroke-width="1.5"/>
+    <line x1="426" y1="265" x2="426" y2="270" stroke="#ffd700" stroke-width="1.5"/>
+  </g>
+
+  <!-- Gold accent line bottom -->
+  <rect x="0" y="480" width="800" height="2" fill="#ffd700" fill-opacity="0.4"/>
+  <rect x="300" y="476" width="200" height="2" fill="#00d4ff" fill-opacity="0.5"/>
+
+  <!-- Label -->
+  <text x="400" y="448" font-family="'Arial', sans-serif" font-size="11" font-weight="bold" fill="#ffd700" fill-opacity="0.6" text-anchor="middle" letter-spacing="6">SMART HOME LAB</text>
+
+  <!-- Corner marks -->
+  <path d="M 16 16 L 40 16 M 16 16 L 16 40" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 16 L 760 16 M 784 16 L 784 40" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 16 484 L 40 484 M 16 484 L 16 460" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 484 L 760 484 M 784 484 L 784 460" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+</svg>

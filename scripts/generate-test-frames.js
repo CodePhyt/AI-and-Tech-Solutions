@@ -12,6 +12,7 @@
  * - Frame 61-100: Fully exploded view
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 
@@ -19,27 +20,27 @@ const path = require('path');
 const outputDir = path.join(process.cwd(), 'public', 'sequence', 'implant');
 
 if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-    console.log(`✅ Created directory: ${outputDir}`);
+  fs.mkdirSync(outputDir, { recursive: true });
+  console.log(`✅ Created directory: ${outputDir}`);
 }
 
 // Generate SVG placeholder frames
 const totalFrames = 100;
 
 for (let i = 0; i < totalFrames; i++) {
-    const frameNumber = String(i + 1).padStart(3, '0');
-    const progress = i / (totalFrames - 1);
+  const frameNumber = String(i + 1).padStart(3, '0');
+  const progress = i / (totalFrames - 1);
 
-    // Calculate positions for "explosion" effect
-    const crownY = 540 - (progress * 300); // Moves up
-    const abutmentY = 540; // Stays center
-    const screwY = 540 + (progress * 400); // Moves down
+  // Calculate positions for "explosion" effect
+  const crownY = 540 - (progress * 300); // Moves up
+  const abutmentY = 540; // Stays center
+  const screwY = 540 + (progress * 400); // Moves down
 
-    const rotation = progress * 360;
-    const opacity = Math.max(0.3, 1 - progress * 0.3);
+  const rotation = progress * 360;
+  const opacity = Math.max(0.3, 1 - progress * 0.3);
 
-    // Create SVG content
-    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+  // Create SVG content
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
   <!-- DESIGN.md: Midnight Slate Background -->
   <rect width="1920" height="1080" fill="#020617"/>
@@ -91,13 +92,13 @@ for (let i = 0; i < totalFrames; i++) {
   <rect x="100" y="120" width="${progress * 400}" height="10" fill="#00B8D4" rx="5"/>
 </svg>`;
 
-    // Save as SVG (can be converted to JPG later with ImageMagick or similar)
-    const filename = path.join(outputDir, `${frameNumber}.svg`);
-    fs.writeFileSync(filename, svg);
+  // Save as SVG (can be converted to JPG later with ImageMagick or similar)
+  const filename = path.join(outputDir, `${frameNumber}.svg`);
+  fs.writeFileSync(filename, svg);
 
-    if ((i + 1) % 20 === 0) {
-        console.log(`Generated ${i + 1}/${totalFrames} frames...`);
-    }
+  if ((i + 1) % 20 === 0) {
+    console.log(`Generated ${i + 1}/${totalFrames} frames...`);
+  }
 }
 
 console.log(`\n✅ Successfully generated ${totalFrames} placeholder frames!`);

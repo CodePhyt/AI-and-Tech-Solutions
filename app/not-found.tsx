@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, Terminal, ArrowLeft, AlertTriangle } from 'lucide-react';
+import { Home, Terminal, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function NotFound() {
@@ -14,22 +14,22 @@ export default function NotFound() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-2xl w-full text-center relative z-10"
             >
-                <div className="crystal-card p-12 border-[#C5A059]/30 shadow-[0_0_50px_rgba(197,160,89,0.1)] backdrop-blur-xl bg-slate-900/80">
+                <div className="crystal-card p-12 border-[#ffd700]/30 shadow-[0_0_50px_rgba(255,215,0,0.1)] backdrop-blur-xl bg-slate-900/80">
 
                     <motion.div
                         initial={{ rotate: 0 }}
                         animate={{ rotate: 360 }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="w-32 h-32 mx-auto mb-8 rounded-full border border-dashed border-[#C5A059]/30 flex items-center justify-center relative"
+                        className="w-32 h-32 mx-auto mb-8 rounded-full border border-dashed border-[#ffd700]/30 flex items-center justify-center relative"
                     >
-                        <div className="absolute inset-2 rounded-full border border-[#C5A059]/10 animate-ping" />
-                        <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-[#C5A059] to-[#B08D47]">404</span>
+                        <div className="absolute inset-2 rounded-full border border-[#ffd700]/10 animate-ping" />
+                        <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-[#ffd700] to-[#B08D47]">404</span>
                     </motion.div>
 
                     <h1 className="text-4xl font-bold text-white mb-2 uppercase tracking-widest">
                         Signal Lost
                     </h1>
-                    <div className="flex items-center justify-center gap-2 text-[#C5A059] mb-8">
+                    <div className="flex items-center justify-center gap-2 text-[#ffd700] mb-8">
                         <AlertTriangle className="w-4 h-4" />
                         <span className="text-xs font-mono">ERR_DESTINATION_UNREACHABLE</span>
                     </div>
@@ -41,7 +41,7 @@ export default function NotFound() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
                             href="/"
-                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#C5A059] text-black font-bold rounded-xl overflow-hidden"
+                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#ffd700] text-black font-bold rounded-xl overflow-hidden"
                         >
                             <Home className="w-5 h-5" />
                             <span>Return to Base</span>
@@ -50,9 +50,9 @@ export default function NotFound() {
 
                         <Link
                             href="/services"
-                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-800 text-white font-bold rounded-xl border border-white/5 hover:border-[#C5A059]/50 transition-colors"
+                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-800 text-white font-bold rounded-xl border border-white/5 hover:border-[#ffd700]/50 transition-colors"
                         >
-                            <Terminal className="w-5 h-5 text-[#C5A059]" />
+                            <Terminal className="w-5 h-5 text-[#ffd700]" />
                             <span>View Capabilities</span>
                         </Link>
                     </div>

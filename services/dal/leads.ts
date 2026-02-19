@@ -22,7 +22,7 @@ export async function createPublicLead(data: {
             return await prisma.lead.update({
                 where: { id: existingLead.id },
                 data: {
-                    treatment: packageInterest || existingLead.treatment,
+                    service: packageInterest || existingLead.service,
                     sentiment: 'HOT',
                 }
             });
@@ -31,7 +31,7 @@ export async function createPublicLead(data: {
         return await prisma.lead.create({
             data: {
                 email,
-                treatment: packageInterest,
+                service: packageInterest,
                 source: source || 'booking_api',
                 sentiment: 'HOT',
                 name: 'Pending Name',

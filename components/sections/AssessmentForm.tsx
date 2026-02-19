@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AssessmentSchema } from '@/lib/validations/assessment';
-import { Upload, FileText, User, Phone, CheckCircle2, AlertCircle, ShieldCheck, ArrowRight, Camera, Cpu } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { z } from 'zod';
+
+type AssessmentData = z.infer<typeof AssessmentSchema>;
+import { FileText, User, Phone, AlertCircle, ShieldCheck, ArrowRight, Cpu } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { submitAssessment } from '@/app/actions/assessment';
 
 export default function AssessmentForm() {
@@ -13,7 +16,7 @@ export default function AssessmentForm() {
     const [isSuccess, setIsSuccess] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
     const [files, setFiles] = useState<File[]>([]);
-    const [submittedData, setSubmittedData] = useState<any>(null);
+    const [submittedData, setSubmittedData] = useState<AssessmentData | null>(null);
 
     const {
         register,
@@ -23,7 +26,7 @@ export default function AssessmentForm() {
         resolver: zodResolver(AssessmentSchema),
     });
 
-    const onDrop = (e: React.DragEvent) => {
+    const _onDrop = (e: React.DragEvent) => {
         e.preventDefault();
         const droppedFiles = Array.from(e.dataTransfer.files);
         handleFiles(droppedFiles);
@@ -36,7 +39,7 @@ export default function AssessmentForm() {
         setFiles(prev => [...prev, ...validFiles]);
     };
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: AssessmentData) => {
         setIsSubmitting(true);
         setServerError(null);
 
@@ -74,7 +77,7 @@ export default function AssessmentForm() {
                 setSubmittedData(data); // Store anyway to allow WhatsApp fallback
                 setServerError(result.error || 'Something went wrong');
             }
-        } catch (err) {
+        } catch (_err) {
             setServerError('A database sync error occurred. You can still finalise your intake via Direct WhatsApp below.');
         } finally {
             setIsSubmitting(false);
@@ -86,14 +89,14 @@ export default function AssessmentForm() {
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="crystal-card p-16 text-center max-w-2xl mx-auto border-[#C5A059]/30"
+                className="crystal-card p-16 text-center max-w-2xl mx-auto border-[#ffd700]/30"
             >
                 <div className="w-24 h-24 bg-[#00f3ff]/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#00f3ff]/30 shadow-[0_0_30px_rgba(0,243,255,0.2)]">
                     <ShieldCheck className="w-12 h-12 text-[#00f3ff]" />
                 </div>
                 <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">Protocol Initiated</h3>
                 <p className="text-slate-400 text-xl leading-relaxed mb-8">
-                    Your "Sovereign Intake" profile has been secured. A Senior Technical Architect will contact you within
+                    Your &quot;Sovereign Intake&quot; profile has been secured. A Senior Technical Architect will contact you within
                     <span className="text-white font-bold"> 24 Hours</span> to finalize your Technical Roadmap.
                 </p>
 
@@ -134,14 +137,14 @@ export default function AssessmentForm() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="inline-flex items-center space-x-3 px-6 py-2 bg-[#C5A059]/10 rounded-full border border-[#C5A059]/20 text-[#C5A059] font-bold text-[10px] uppercase tracking-[0.3em] mb-10"
+                            className="inline-flex items-center space-x-3 px-6 py-2 bg-[#ffd700]/10 rounded-full border border-[#ffd700]/20 text-[#ffd700] font-bold text-[10px] uppercase tracking-[0.3em] mb-10"
                         >
                             <ShieldCheck className="w-4 h-4" />
                             <span>Encrypted Sovereign Intake</span>
                         </motion.div>
 
                         <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
-                            Secure Your <span className="text-[#C5A059]">Digital Future</span>
+                            Secure Your <span className="text-[#ffd700]">Digital Future</span>
                         </h2>
                         <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light">
                             Detailed technical analysis by Osman Kadir and our Engineering Board.
@@ -154,24 +157,24 @@ export default function AssessmentForm() {
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                    <User className="w-4 h-4 text-[#C5A059]" /> Full Name
+                                    <User className="w-4 h-4 text-[#ffd700]" /> Full Name
                                 </label>
                                 <input
                                     {...register('fullName')}
                                     placeholder="Your Name"
-                                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]/30 outline-none transition-all placeholder-slate-700"
+                                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700]/30 outline-none transition-all placeholder-slate-700"
                                 />
                                 {errors.fullName && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest mt-2">{errors.fullName.message as string}</p>}
                             </div>
 
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                    <Phone className="w-4 h-4 text-[#C5A059]" /> WhatsApp Signal
+                                    <Phone className="w-4 h-4 text-[#ffd700]" /> WhatsApp Signal
                                 </label>
                                 <input
                                     {...register('phone')}
                                     placeholder="+44 7700 000000"
-                                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]/30 outline-none transition-all placeholder-slate-700"
+                                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700]/30 outline-none transition-all placeholder-slate-700"
                                 />
                                 {errors.phone && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest mt-2">{errors.phone.message as string}</p>}
                             </div>
@@ -180,13 +183,13 @@ export default function AssessmentForm() {
                         {/* Step 2: Scope */}
                         <div className="space-y-3">
                             <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-3">
-                                <FileText className="w-4 h-4 text-[#C5A059]" /> Project Objectives & Scope
+                                <FileText className="w-4 h-4 text-[#ffd700]" /> Project Objectives & Scope
                             </label>
                             <textarea
                                 {...register('projectScope')}
                                 rows={4}
                                 placeholder="Describe your current infrastructure and your ultimate technical goals..."
-                                className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]/30 outline-none transition-all resize-none placeholder-slate-700 font-light"
+                                className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700]/30 outline-none transition-all resize-none placeholder-slate-700 font-light"
                             ></textarea>
                             {errors.projectScope && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest mt-2">{errors.projectScope.message as string}</p>}
                         </div>
@@ -216,7 +219,7 @@ export default function AssessmentForm() {
                                 <input
                                     type="checkbox"
                                     {...register('gdprConsent')}
-                                    className="w-5 h-5 accent-[#C5A059] cursor-pointer"
+                                    className="w-5 h-5 accent-[#ffd700] cursor-pointer"
                                 />
                             </div>
                             <label className="text-[11px] text-slate-500 leading-relaxed font-medium">
@@ -241,7 +244,7 @@ export default function AssessmentForm() {
                                 <button
                                     type="button"
                                     onClick={() => {
-                                        const values = submittedData || {};
+                                        const values = submittedData || ({} as Partial<AssessmentData>);
                                         const message = encodeURIComponent(
                                             `*Manual Sovereign Intake Submission*\n\n` +
                                             `*Name:* ${values.fullName || 'Not Provided'}\n` +

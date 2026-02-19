@@ -1,0 +1,86 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1a1400"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <filter id="glow-gold">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-big">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffd700" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <ellipse cx="400" cy="250" rx="250" ry="130" fill="#ffd700" fill-opacity="0.03"/>
+
+  <!-- Shipping routes — straight lines across the "map" -->
+  <g stroke="#ffd700" stroke-opacity="0.2" stroke-width="1" fill="none">
+    <path d="M 120 200 L 680 200" stroke-dasharray="6,4"/>
+    <path d="M 120 250 L 680 250" stroke-dasharray="6,4"/>
+    <path d="M 120 300 L 680 300" stroke-dasharray="6,4"/>
+  </g>
+
+  <!-- Package/container icons along routes -->
+  <g fill="#0a0a0a" stroke="#ffd700" stroke-opacity="0.4" stroke-width="1.5">
+    <rect x="160" y="186" width="44" height="28" rx="3"/>
+    <line x1="182" y1="186" x2="182" y2="214" stroke-opacity="0.3"/>
+    <rect x="300" y="236" width="44" height="28" rx="3"/>
+    <line x1="322" y1="236" x2="322" y2="264" stroke-opacity="0.3"/>
+    <rect x="500" y="186" width="44" height="28" rx="3"/>
+    <line x1="522" y1="186" x2="522" y2="214" stroke-opacity="0.3"/>
+    <rect x="580" y="286" width="44" height="28" rx="3"/>
+    <line x1="602" y1="286" x2="602" y2="314" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- Moving truck icon -->
+  <g transform="translate(420, 237)" filter="url(#glow-gold)">
+    <rect x="0" y="0" width="50" height="26" rx="3" fill="#0a0a0a" stroke="#ffd700" stroke-width="2"/>
+    <polygon points="50,0 70,10 70,26 50,26" fill="#0a0a0a" stroke="#ffd700" stroke-width="2"/>
+    <circle cx="12" cy="28" r="5" fill="#ffd700"/>
+    <circle cx="38" cy="28" r="5" fill="#ffd700"/>
+    <circle cx="62" cy="28" r="5" fill="#ffd700"/>
+  </g>
+
+  <!-- ERP dashboard bars right side -->
+  <g fill="none" stroke="#ffd700" stroke-opacity="0.3" stroke-width="1">
+    <rect x="580" y="120" width="160" height="100" rx="4"/>
+    <text x="660" y="138" text-anchor="middle" font-family="Arial" font-size="9" fill="#ffd700" fill-opacity="0.5">LOGISTICS ERP</text>
+    <rect x="592" y="148" width="30" height="60" rx="2" fill="#ffd700" fill-opacity="0.15"/>
+    <rect x="630" y="165" width="30" height="43" rx="2" fill="#ffd700" fill-opacity="0.1"/>
+    <rect x="668" y="155" width="30" height="53" rx="2" fill="#ffd700" fill-opacity="0.2"/>
+    <rect x="706" y="140" width="22" height="68" rx="2" fill="#ffd700" fill-opacity="0.25"/>
+  </g>
+
+  <!-- Central hub - package icon with glow -->
+  <g filter="url(#glow-big)">
+    <circle cx="400" cy="250" r="55" fill="#0a0a0a" stroke="#ffd700" stroke-width="2"/>
+    <circle cx="400" cy="250" r="40" fill="#ffd700" fill-opacity="0.05" stroke="#ffd700" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Package icon -->
+    <polygon points="400,218 428,234 428,266 400,282 372,266 372,234" fill="none" stroke="#ffd700" stroke-width="2"/>
+    <line x1="400" y1="218" x2="400" y2="282" stroke="#ffd700" stroke-width="1" stroke-opacity="0.5"/>
+    <line x1="372" y1="234" x2="428" y2="250" stroke="#ffd700" stroke-width="1" stroke-opacity="0.5"/>
+  </g>
+
+  <!-- Stats -->
+  <g font-family="monospace" font-size="10" fill="#ffd700" fill-opacity="0.5">
+    <text x="80" y="160">SKUs: 2,400</text>
+    <text x="80" y="175">LEAD -40%</text>
+    <text x="80" y="190">UPTIME: 99.8%</text>
+  </g>
+
+  <rect x="0" y="480" width="800" height="2" fill="#ffd700" fill-opacity="0.4"/>
+  <rect x="300" y="476" width="200" height="2" fill="#00d4ff" fill-opacity="0.5"/>
+  <text x="400" y="448" font-family="'Arial', sans-serif" font-size="11" font-weight="bold" fill="#ffd700" fill-opacity="0.6" text-anchor="middle" letter-spacing="6">CROSS-BORDER LOGISTICS PLATFORM</text>
+  <path d="M 16 16 L 40 16 M 16 16 L 16 40" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 16 L 760 16 M 784 16 L 784 40" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 16 484 L 40 484 M 16 484 L 16 460" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 484 L 760 484 M 784 484 L 784 460" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+</svg>

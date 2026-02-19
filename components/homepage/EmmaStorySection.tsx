@@ -21,9 +21,9 @@ export default function SharidaStorySection() {
                     <div className="relative group order-2 lg:order-1">
                         {/* Elite Transformation Card */}
                         <div className="relative z-10 transform transition-transform duration-700 group-hover:scale-[1.01]">
-                            <div className="absolute -inset-4 bg-gradient-to-r from-[#C5A059]/10 to-[#006064]/10 rounded-[2.5rem] blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div className="absolute -inset-4 bg-gradient-to-r from-[#ffd700]/10 to-[#006064]/10 rounded-[2.5rem] blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
 
-                            <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-900 border border-[#C5A059]/20 shadow-2xl">
+                            <div className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-900 border border-[#ffd700]/20 shadow-2xl">
                                 {/* Split Image Layout */}
                                 <div className="absolute inset-0 flex flex-col">
                                     <div className="h-1/2 relative overflow-hidden group/before">
@@ -39,7 +39,7 @@ export default function SharidaStorySection() {
                                     </div>
                                     <div className="h-1/2 relative overflow-hidden group/after">
                                         <div className="absolute inset-0 bg-slate-950/20 z-10 flex items-center justify-center">
-                                            <span className="bg-[#C5A059] px-6 py-2 rounded-full text-xs font-bold text-white shadow-[0_0_20px_rgba(197,160,89,0.4)] tracking-widest uppercase">Institutional Result</span>
+                                            <span className="bg-[#ffd700] px-6 py-2 rounded-full text-xs font-bold text-white shadow-[0_0_20px_rgba(255,215,0,0.4)] tracking-widest uppercase">Institutional Result</span>
                                         </div>
                                         <img
                                             src="/assets/stories/emma-after.png"
@@ -56,9 +56,9 @@ export default function SharidaStorySection() {
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={() => setIsVideoOpen(true)}
-                                        className="w-24 h-24 bg-[#C5A059]/20 backdrop-blur-xl rounded-full flex items-center justify-center border border-[#C5A059]/40 text-white pointer-events-auto shadow-[0_0_50px_rgba(197,160,89,0.3)] hover:bg-[#C5A059]/40 transition-all group/btn"
+                                        className="w-24 h-24 bg-[#ffd700]/20 backdrop-blur-xl rounded-full flex items-center justify-center border border-[#ffd700]/40 text-white pointer-events-auto shadow-[0_0_50px_rgba(255,215,0,0.3)] hover:bg-[#ffd700]/40 transition-all group/btn"
                                     >
-                                        <div className="w-16 h-16 rounded-full bg-[#C5A059] flex items-center justify-center shadow-lg group-hover/btn:shadow-[#C5A059]/40 transition-shadow">
+                                        <div className="w-16 h-16 rounded-full bg-[#ffd700] flex items-center justify-center shadow-lg group-hover/btn:shadow-[#ffd700]/40 transition-shadow">
                                             <Play className="w-8 h-8 ml-1 text-white fill-white" />
                                         </div>
                                     </motion.button>
@@ -67,14 +67,14 @@ export default function SharidaStorySection() {
                         </div>
 
                         {/* Profile Badge */}
-                        <div className="absolute -bottom-8 -right-8 z-30 crystal-card p-6 border-[#C5A059]/30 shadow-2xl flex items-center gap-6 max-w-xs animate-float">
-                            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#C5A059]">
+                        <div className="absolute -bottom-8 -right-8 z-30 crystal-card p-6 border-[#ffd700]/30 shadow-2xl flex items-center gap-6 max-w-xs animate-float">
+                            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#ffd700]">
                                 <img src="/assets/stories/emma-profile.png" alt="Sharida M" className="w-full h-full object-cover" />
                             </div>
                             <div>
                                 <h4 className="text-white font-bold leading-none mb-1">Sharida M.</h4>
                                 <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">Verified Patient</p>
-                                <div className="flex text-[#C5A059] gap-0.5">
+                                <div className="flex text-[#ffd700] gap-0.5">
                                     {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-current" />)}
                                 </div>
                             </div>
@@ -83,19 +83,19 @@ export default function SharidaStorySection() {
 
                     {/* Content Side */}
                     <div className="order-1 lg:order-2">
-                        <div className="inline-flex items-center space-x-3 px-4 py-2 bg-[#C5A059]/10 rounded-full border border-[#C5A059]/20 text-[#C5A059] font-bold text-[10px] uppercase tracking-[0.2em] mb-10">
+                        <div className="inline-flex items-center space-x-3 px-4 py-2 bg-[#ffd700]/10 rounded-full border border-[#ffd700]/20 text-[#ffd700] font-bold text-[10px] uppercase tracking-[0.2em] mb-10">
                             <ShieldCheck className="w-4 h-4" />
-                            <span>Vetted Clinical Case Study</span>
+                            <span>Verified Enterprise Project</span>
                         </div>
 
                         <h2 className="text-5xl md:text-7xl font-bold text-white mb-10 leading-[1.1] tracking-tighter">
-                            "I finally feel like <span className="text-[#C5A059]">Myself</span> again."
+                            &quot;I finally feel like <span className="text-[#ffd700]">Myself</span> again.&quot;
                         </h2>
 
                         <div className="relative mb-12">
-                            <Quote className="absolute -top-8 -left-8 w-16 h-16 text-[#C5A059]/10" />
-                            <p className="text-2xl text-slate-300 leading-relaxed font-light italic pl-4 border-l-2 border-[#C5A059]/30">
-                                "The level of coordination was institutional. From the moment I landed in Antalya to the final reveal, the agency managed every clinical detail. I saved 75% without compromising on the elite surgery I required."
+                            <Quote className="absolute -top-8 -left-8 w-16 h-16 text-[#ffd700]/10" />
+                            <p className="text-2xl text-slate-300 leading-relaxed font-light italic pl-4 border-l-2 border-[#ffd700]/30">
+                                &quot;The level of coordination was institutional. From initial consultation to final deployment, the agency managed every technical detail. I achieved 75% cost optimization without compromising on the enterprise-grade infrastructure I required.&quot;
                             </p>
                         </div>
 
@@ -130,7 +130,7 @@ export default function SharidaStorySection() {
                         </div>
 
                         <div className="mt-8 flex items-center gap-3 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-                            <CheckCircle2 className="w-4 h-4 text-[#C5A059]" />
+                            <CheckCircle2 className="w-4 h-4 text-[#ffd700]" />
                             Consent granted for educational purposes by patient.
                         </div>
                     </div>

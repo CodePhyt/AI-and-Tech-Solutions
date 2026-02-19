@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { MessageCircle, X, Send, Bot, Check, CheckCheck } from 'lucide-react';
@@ -58,7 +57,7 @@ export default function ChatWidget() {
             .join('\n\n');
 
         const text = `*New Tech Inquiry via Nexus AI* 🚀\n\n${summary}\n\n(Session ID: ${sessionId})`;
-        const url = `https://wa.me/447400000000?text=${encodeURIComponent(text)}`; // Replace with actual number
+        const url = `https://wa.me/491713474348?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     };
 
@@ -282,7 +281,7 @@ export default function ChatWidget() {
                     <div className="absolute inset-0 rounded-full border border-[#00f3ff]/20 animate-ping opacity-20" />
                     <Bot className="w-8 h-8 text-[#00f3ff] group-hover:text-white transition-colors" />
                     {hasUnread && (
-                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#C5A059] text-black text-xs flex items-center justify-center rounded-full font-bold">1</span>
+                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#ffd700] text-black text-xs flex items-center justify-center rounded-full font-bold">1</span>
                     )}
                 </motion.button>
             </motion.div>
@@ -342,7 +341,7 @@ export default function ChatWidget() {
                 }}
             >
                 <div className="flex justify-center my-4">
-                    <div className="bg-[#0f0f0f]/80 text-[#C5A059] text-[10px] px-3 py-1.5 rounded-lg text-center border border-[#C5A059]/20 font-mono">
+                    <div className="bg-[#0f0f0f]/80 text-[#ffd700] text-[10px] px-3 py-1.5 rounded-lg text-center border border-[#ffd700]/20 font-mono">
                         🔒 END-TO-END ENCRYPTED PROTOCOL
                     </div>
                 </div>

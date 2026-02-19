@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { dbService } from '@/lib/services/dbService';
-import fs from 'fs';
-import path from 'path';
+import { PrismaClient } from '@prisma/client';
+
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
     try {
@@ -16,22 +17,16 @@ export async function POST(request: Request) {
         const phone = formData.get('phone') as string;
         const message = formData.get('message') as string;
         const diagnosisStr = formData.get('diagnosisId') as string;
+        // diagnosis parsing reserved for future use
+        void diagnosisStr;
 
-        let diagnosis = undefined;
-        if (diagnosisStr) {
-            try {
-                diagnosis = JSON.parse(diagnosisStr);
-            } catch (e) {
-                console.error("Parse error", e);
+        const saved = await prisma.lead.create({
+            data: {
+                name,
+                email,
+                phone: phone || '',
+                message: message || '',
             }
-        }
-
-        const saved = await dbService.saveLead({
-            name,
-            email,
-            phone,
-            notes: message,
-            diagnosis
         });
 
         // Debug logging
@@ -53,7 +48,10 @@ export async function PUT(request: Request) {
             return NextResponse.json({ success: false, error: 'ID is required' }, { status: 400 });
         }
 
-        const updated = await dbService.updateLead(id, updates);
+        const updated = await prisma.lead.update({
+            where: { id },
+            data: updates
+        });
 
         if (!updated) {
             return NextResponse.json({ success: false, error: 'Lead not found' }, { status: 404 });

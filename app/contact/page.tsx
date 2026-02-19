@@ -8,29 +8,29 @@ export default function ContactPage() {
         const message = encodeURIComponent(
             `Hello! I'd like to initiate a secure technical consultation regarding my project infrastructure.`
         );
-        window.open(`https://wa.me/905302876350?text=${message}`, '_blank');
+        window.open(`https://wa.me/491713474348?text=${message}`, '_blank');
     };
 
     return (
-        <div className="min-h-screen pt-20 bg-slate-950">
+        <div className="min-h-screen pt-20 bg-[#0a0a0a]">
             {/* Hero Section */}
             <section className="section-container py-20">
                 <div className="max-w-4xl mx-auto text-center mb-20">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center space-x-3 px-6 py-2 bg-[#C5A059]/10 rounded-full border border-[#C5A059]/20 text-[#C5A059] font-bold text-[10px] uppercase tracking-[0.3em] mb-10"
+                        className="inline-flex items-center space-x-3 px-6 py-2 bg-[#ffd700]/10 rounded-full border border-[#ffd700]/20 text-[#ffd700] font-bold text-[10px] uppercase tracking-[0.3em] mb-10"
                     >
                         <Shield className="w-4 h-4" />
                         <span>Encrypted Communication Protocol</span>
                     </motion.div>
 
                     <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
-                        Establish <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C5A059] to-[#B08D47]">Secure Uplink</span>
+                        Secure Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd700] to-[#ffd700]/80">Digital Future</span>
                     </h1>
 
                     <p className="text-2xl text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
-                        Direct access to Principal Architect Osman Kadir. No intermediaries. Encrypted end-to-end communication.
+                        Detailed technical analysis by Osman Kadir and our Engineering Board. Professional execution starts here.
                     </p>
                 </div>
 
@@ -41,10 +41,10 @@ export default function ContactPage() {
                     transition={{ delay: 0.2 }}
                     className="max-w-3xl mx-auto"
                 >
-                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#006064] via-[#006064] to-[#004D40] p-1">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#C5A059]/20 via-transparent to-[#C5A059]/20 animate-pulse" />
+                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#00d4ff]/30 via-[#00d4ff]/20 to-[#00a5cc]/30 p-1">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#ffd700]/20 via-transparent to-[#ffd700]/20 animate-pulse" />
 
-                        <div className="relative bg-slate-950 rounded-3xl p-12 md:p-16">
+                        <div className="relative bg-[#0a0a0a] rounded-3xl p-12 md:p-16">
                             <div className="text-center">
                                 <div className="w-24 h-24 bg-[#25D366]/10 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-[#25D366]/30 relative">
                                     <motion.div
@@ -88,29 +88,29 @@ export default function ContactPage() {
                 {/* Contact Details */}
                 <div className="max-w-3xl mx-auto mt-20 grid md:grid-cols-3 gap-8">
                     <div className="crystal-card p-8 text-center border-white/5 bg-slate-900/40">
-                        <div className="w-14 h-14 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C5A059]/30">
-                            <MapPin className="w-7 h-7 text-[#C5A059]" />
+                        <div className="w-14 h-14 bg-[#ffd700]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#ffd700]/30">
+                            <MapPin className="w-7 h-7 text-[#ffd700]" />
                         </div>
                         <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Nexus</h3>
                         <p className="text-slate-400 text-sm">Neuhaus, Germany</p>
                     </div>
 
                     <div className="crystal-card p-8 text-center border-white/5 bg-slate-900/40">
-                        <div className="w-14 h-14 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C5A059]/30">
-                            <Phone className="w-7 h-7 text-[#C5A059]" />
+                        <div className="w-14 h-14 bg-[#ffd700]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#ffd700]/30">
+                            <Phone className="w-7 h-7 text-[#ffd700]" />
                         </div>
-                        <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Direct Line</h3>
-                        <a href="tel:+905302876350" className="text-slate-400 hover:text-[#C5A059] transition-colors text-sm">
-                            +90 530 287 63 50
+                        <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">WhatsApp Signal</h3>
+                        <a href="https://wa.me/491713474348" className="text-slate-400 hover:text-[#ffd700] transition-colors text-sm">
+                            +49 171 3474348
                         </a>
                     </div>
 
                     <div className="crystal-card p-8 text-center border-white/5 bg-slate-900/40">
-                        <div className="w-14 h-14 bg-[#C5A059]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#C5A059]/30">
-                            <Mail className="w-7 h-7 text-[#C5A059]" />
+                        <div className="w-14 h-14 bg-[#ffd700]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#ffd700]/30">
+                            <Mail className="w-7 h-7 text-[#ffd700]" />
                         </div>
                         <h3 className="text-white font-bold mb-2 text-sm uppercase tracking-widest">Comm Link</h3>
-                        <a href="mailto:contact@osmankadir.tech" className="text-slate-400 hover:text-[#C5A059] transition-colors text-sm">
+                        <a href="mailto:contact@osmankadir.tech" className="text-slate-400 hover:text-[#ffd700] transition-colors text-sm">
                             contact@osmankadir.tech
                         </a>
                     </div>

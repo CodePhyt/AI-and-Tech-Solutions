@@ -66,7 +66,7 @@ interface VideoCardProps {
     description?: string;
 }
 
-export function BentoVideoCard({ videoUrl, thumbnail, title, description }: VideoCardProps) {
+export function BentoVideoCard({ videoUrl, thumbnail, title, description: _description }: VideoCardProps) {
     return (
         <div className="relative h-full group" role="article" aria-label={`Video: ${title}`}>
             {/* Thumbnail */}

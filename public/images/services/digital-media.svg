@@ -1,0 +1,83 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1a0a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <filter id="glow-cyan">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-big">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00d4ff" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="bar1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- Audio waveform bars - digital media -->
+  <g filter="url(#glow-cyan)">
+    <!-- Left bars -->
+    <rect x="110" y="220" width="18" height="60" rx="3" fill="url(#bar1)" fill-opacity="0.6"/>
+    <rect x="136" y="195" width="18" height="110" rx="3" fill="url(#bar1)" fill-opacity="0.7"/>
+    <rect x="162" y="210" width="18" height="80" rx="3" fill="url(#bar1)" fill-opacity="0.6"/>
+    <rect x="188" y="185" width="18" height="130" rx="3" fill="url(#bar2)" fill-opacity="0.8"/>
+    <rect x="214" y="215" width="18" height="70" rx="3" fill="url(#bar1)" fill-opacity="0.6"/>
+    <rect x="240" y="230" width="18" height="40" rx="3" fill="url(#bar1)" fill-opacity="0.5"/>
+    <rect x="266" y="205" width="18" height="90" rx="3" fill="url(#bar2)" fill-opacity="0.7"/>
+    <rect x="292" y="220" width="18" height="60" rx="3" fill="url(#bar1)" fill-opacity="0.6"/>
+  </g>
+
+  <!-- Central lens / camera aperture -->
+  <g filter="url(#glow-big)">
+    <circle cx="400" cy="250" r="70" fill="#0a0a0a" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="400" cy="250" r="52" fill="#0a0a0a" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.5"/>
+    <circle cx="400" cy="250" r="35" fill="#00d4ff" fill-opacity="0.08" stroke="#ffd700" stroke-width="2"/>
+    <!-- Aperture blades -->
+    <g transform="rotate(0, 400, 250)" stroke="#00d4ff" stroke-width="1.5" fill="none" stroke-opacity="0.7">
+      <path d="M 400 215 Q 420 230 420 250"/>
+      <path d="M 435 235 Q 430 255 415 265"/>
+      <path d="M 420 278 Q 400 280 385 265"/>
+      <path d="M 365 263 Q 370 242 385 234"/>
+      <path d="M 378 218 Q 398 215 413 225"/>
+    </g>
+    <!-- Center dot -->
+    <circle cx="400" cy="250" r="8" fill="#ffd700" fill-opacity="0.8"/>
+  </g>
+
+  <!-- Right waveform bars -->
+  <g filter="url(#glow-cyan)">
+    <rect x="492" y="225" width="18" height="50" rx="3" fill="url(#bar2)" fill-opacity="0.6"/>
+    <rect x="518" y="200" width="18" height="100" rx="3" fill="url(#bar1)" fill-opacity="0.7"/>
+    <rect x="544" y="215" width="18" height="70" rx="3" fill="url(#bar2)" fill-opacity="0.6"/>
+    <rect x="570" y="188" width="18" height="124" rx="3" fill="url(#bar1)" fill-opacity="0.8"/>
+    <rect x="596" y="210" width="18" height="80" rx="3" fill="url(#bar2)" fill-opacity="0.6"/>
+    <rect x="622" y="228" width="18" height="44" rx="3" fill="url(#bar1)" fill-opacity="0.5"/>
+    <rect x="648" y="205" width="18" height="90" rx="3" fill="url(#bar2)" fill-opacity="0.7"/>
+    <rect x="674" y="222" width="18" height="56" rx="3" fill="url(#bar1)" fill-opacity="0.6"/>
+  </g>
+
+  <!-- Horizontal scanline through middle -->
+  <line x1="0" y1="250" x2="800" y2="250" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.08" stroke-dasharray="4,6"/>
+
+  <rect x="0" y="480" width="800" height="2" fill="#ffd700" fill-opacity="0.4"/>
+  <rect x="280" y="476" width="240" height="2" fill="#00d4ff" fill-opacity="0.6"/>
+  <text x="400" y="448" font-family="'Arial', sans-serif" font-size="11" font-weight="bold" fill="#00d4ff" fill-opacity="0.6" text-anchor="middle" letter-spacing="6">DIGITAL MEDIA &amp; BRAND STUDIO</text>
+  <path d="M 16 16 L 40 16 M 16 16 L 16 40" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 16 L 760 16 M 784 16 L 784 40" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 16 484 L 40 484 M 16 484 L 16 460" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 484 L 760 484 M 784 484 L 784 460" stroke="#ffd700" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+</svg>

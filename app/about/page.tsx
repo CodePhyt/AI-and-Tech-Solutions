@@ -1,106 +1,332 @@
-import { Cpu, Globe, Lock, Code } from 'lucide-react';
+'use client';
+
+import { motion } from 'framer-motion';
+import { Cpu, Globe, Home, ArrowRight, Zap, Clock, Users } from 'lucide-react';
+import Link from 'next/link';
+import { useLang, t } from '@/lib/lang-context';
+
+const TIMELINE = [
+    {
+        year: '2017–2022',
+        de: 'Hotellerie & Gastgewerbe',
+        en: 'Hospitality & Service Industry',
+        desc_de: 'Internationale Gäste aus 40+ Ländern. Gelernt: Vertrauen aufbauen, Erwartungen übertreffen, kulturelle Nuancen meistern.',
+        desc_en: 'International guests from 40+ countries. Learned: building trust, exceeding expectations, mastering cultural nuance.',
+        color: '#ffd700',
+    },
+    {
+        year: '2022',
+        de: 'KI-Transition beginnt',
+        en: 'AI Transition Begins',
+        desc_de: 'Erste Experimente mit GPT-3 und Automatisierungstools. Sofort erkannt: KI transformiert alles.',
+        desc_en: 'First experiments with GPT-3 and automation tools. Immediately saw: AI transforms everything.',
+        color: '#00d4ff',
+    },
+    {
+        year: '2023',
+        de: 'Autonome Agenten',
+        en: 'Autonomous Agents',
+        desc_de: 'Aufbau des ersten AI-Agenten-Schwarms: n8n, LangChain, lokale LLMs. Keine Abhängigkeit von Big-Tech-APIs.',
+        desc_en: 'Built the first AI agent swarm: n8n, LangChain, local LLMs. Zero Big-Tech API dependency.',
+        color: '#00d4ff',
+    },
+    {
+        year: '2024',
+        de: 'Smart Home Lab',
+        en: 'Smart Home Lab',
+        desc_de: 'HomeAssistant, Zigbee-Netzwerke und lokale IoT-Mesh-Systeme. Alle Daten bleiben lokal.',
+        desc_en: 'HomeAssistant, Zigbee networks, and local IoT mesh. All data stays local.',
+        color: '#ffd700',
+    },
+    {
+        year: 'Heute',
+        de: 'Bleeding Edge Operations',
+        en: 'Bleeding Edge Operations',
+        desc_de: 'Tägliche Auswertung von ArXiv-Papers, GitHub Trending und HuggingFace-Releases. Das neueste Modell von heute wird morgen deployt.',
+        desc_en: 'Daily evaluation of ArXiv papers, GitHub trending, and HuggingFace releases. Today\'s best model deployed tomorrow.',
+        color: '#00d4ff',
+    },
+];
+
+const DIFFERENTIATORS = [
+    {
+        icon: Clock,
+        de: 'Täglich aktuell',
+        en: 'Daily Updates',
+        desc_de: 'ArXiv-Papers und neue Modell-Releases werden jeden Morgen vor 07:00 Uhr ausgewertet.',
+        desc_en: 'ArXiv papers and new model releases evaluated every morning before 07:00.',
+        color: '#00d4ff',
+    },
+    {
+        icon: Users,
+        de: 'One-Man Army',
+        en: 'One-Man Army',
+        desc_de: 'Ein Mensch. Ein Schwarm autonomer KI-Agenten. Kein Overhead, keine Bürokratie.',
+        desc_en: 'One human. A swarm of autonomous AI agents. No overhead, no bureaucracy.',
+        color: '#ffd700',
+    },
+    {
+        icon: Globe,
+        de: 'Souverän & Lokal',
+        en: 'Sovereign & Local',
+        desc_de: 'Keine Cloud-Abhängigkeiten. DSGVO-konform. Ihre Daten bleiben bei Ihnen.',
+        desc_en: 'No cloud dependencies. GDPR-compliant. Your data stays with you.',
+        color: '#00d4ff',
+    },
+    {
+        icon: Zap,
+        de: 'Stunden, nicht Monate',
+        en: 'Hours, Not Months',
+        desc_de: 'Von Briefing zu funktionierendem Prototyp in Stunden. Agiles Deployment ohne Wartezeiten.',
+        desc_en: 'From briefing to working prototype in hours. Agile deployment with zero waiting.',
+        color: '#ffd700',
+    },
+];
+
+const TECH_STACK = [
+    { name: 'Python / FastAPI', level: 95 },
+    { name: 'LangChain + LangGraph', level: 90 },
+    { name: 'Local LLMs (Ollama)', level: 88 },
+    { name: 'HomeAssistant / Zigbee', level: 85 },
+    { name: 'Next.js / React', level: 80 },
+    { name: 'n8n Agentic Workflows', level: 92 },
+    { name: 'Docker / Linux Servers', level: 78 },
+];
 
 export default function AboutPage() {
+    const { lang } = useLang();
+
     return (
-        <div className="min-h-screen pt-20 bg-slate-950">
-            {/* Hero */}
-            <section className="relative h-96 flex items-center overflow-hidden">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: 'url(/assets/tech-hero-abstract.jpg)', // Placeholder or reuse existing tech bg if available
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-[#006064]/40 to-slate-950/50"></div>
-                </div>
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-                        Sovereign <span className="text-[#C5A059]">Architecture</span>
-                    </h1>
-                    <p className="text-xl text-slate-300 max-w-2xl">
-                        Building the digital backbone of the future.
-                    </p>
-                </div>
-            </section>
+        <div className="min-h-screen bg-[#0a0a0a]">
 
-            {/* Story */}
-            <section className="section-container">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    <div className="space-y-6">
-                        <h2 className="text-4xl font-bold text-white underline decoration-[#C5A059] underline-offset-8">The Technical Evolution</h2>
-                        <p className="text-slate-300 text-lg leading-relaxed">
-                            Established to bridge the gap between legacy systems and sovereign future-tech. We realized that enterprises didn&apos;t just need software—they needed a <span className="text-[#C5A059]">Sovereign Architect</span> to navigate the complexities of AI, IoT, and Global Trade.
-                        </p>
-                        <p className="text-slate-300 text-lg leading-relaxed">
-                            Today, Osman Kadir Solutions acts as a high-tier consultancy. We don&apos;t just write code; we engineer value protocols. Led by Osman Kadir, we ensure your digital transformation is managed with military-grade precision and engineering excellence.
-                        </p>
-                        <p className="text-slate-300 text-lg leading-relaxed">
-                            From the moment you initiate our Secure Assessment to the final deployment, you align with a vision of digital sovereignty. We protect your data, your infrastructure, and your future.
-                        </p>
-                    </div>
-                    <div className="crystal-card p-4 border-[#C5A059]/30 shadow-[0_0_30px_rgba(197,160,89,0.1)] h-96 bg-slate-900/50 flex items-center justify-center">
-                        <Cpu className="w-32 h-32 text-[#C5A059]/50 animate-pulse" />
-                    </div>
-                </div>
-            </section>
+            {/* ── Hero ── */}
+            <section className="relative pt-40 pb-24 overflow-hidden">
+                {/* Grid background */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,212,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,212,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]" />
 
-            {/* Why Us */}
-            <section className="section-container bg-gradient-to-b from-slate-950 to-slate-900">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-white mb-4">
-                        Why <span className="text-[#00f3ff]">Osman Kadir Tech</span>?
-                    </h2>
-                    <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                        More than just development - it&apos;s a complete sovereign ecosystem
-                    </p>
-                </div>
-                <div className="grid md:grid-cols-3 gap-8">
-                    {[
-                        {
-                            title: 'Sovereign Control',
-                            description: 'Retain absolute ownership of your data and infrastructure. No vendor lock-in.',
-                            icon: <Lock className="w-8 h-8 text-[#00f3ff] mb-4" />
-                        },
-                        {
-                            title: 'Elite Engineering',
-                            description: 'Systems architected by top-tier talent using cutting-edge stacks (Next.js, Python, Rust).',
-                            icon: <Code className="w-8 h-8 text-[#00f3ff] mb-4" />
-                        },
-                        {
-                            title: 'Global Logistics',
-                            description: 'Integrated solutions that bridge digital systems with physical real-world trade.',
-                            icon: <Globe className="w-8 h-8 text-[#00f3ff] mb-4" />
-                        },
-                    ].map((item, index) => (
-                        <div key={index} className="crystal-card p-8 hover:border-[#00f3ff]/30 transition-all group">
-                            {item.icon}
-                            <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-[#00f3ff] transition-colors">{item.title}</h3>
-                            <p className="text-slate-400">{item.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                <div className="relative z-10 max-w-7xl mx-auto px-6">
+                    <motion.span
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-[#00d4ff] font-black tracking-[0.4em] uppercase text-[10px] mb-6 block"
+                    >
+                        {t('— Der Architekt', '— The Architect', lang)}
+                    </motion.span>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tighter"
+                    >
+                        {t('Human-in-the-Loop', 'Human-in-the-Loop', lang)}
+                        <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ffd700] to-[#ffd700]/70">
+                            {t('Architekt.', 'Architect.', lang)}
+                        </span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-[#e5e5e5]/60 max-w-2xl font-light leading-relaxed"
+                    >
+                        {t(
+                            'Kein traditionelles IT-Unternehmen. Eine One-Man-Army, die einen Schwarm autonomer KI-Agenten orchestriert — schneller als jede Agentur.',
+                            'Not a traditional IT company. A one-man army orchestrating a swarm of autonomous AI agents — faster than any agency.',
+                            lang
+                        )}
+                    </motion.p>
 
-            {/* Values */}
-            <section className="section-container">
-                <h2 className="text-4xl font-bold text-white text-center mb-16">Core Principles</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[
-                        { title: 'Precision', desc: 'Mathematical accuracy in every line of code', icon: Code },
-                        { title: 'Security', desc: 'Zero-trust architecture by default', icon: Lock },
-                        { title: 'Transparency', desc: 'Open protocols and clear documentation', icon: Globe },
-                        { title: 'Innovation', desc: 'Relentless pursuit of the bleeding edge', icon: Cpu },
-                    ].map((value, i) => (
-                        <div key={i} className="crystal-card overflow-hidden group hover:scale-105 transition-transform bg-slate-900/40 p-10 flex flex-col items-center text-center border-white/5 hover:border-[#C5A059]/20">
-                            <div className="w-16 h-16 bg-[#C5A059]/10 rounded-full flex items-center justify-center mb-6 text-[#C5A059]">
-                                <value.icon className="w-8 h-8" />
+                    {/* Stat cards */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.35 }}
+                        className="flex flex-wrap gap-6 mt-12"
+                    >
+                        {[
+                            { label: t('ArXiv täglich', 'ArXiv Daily', lang), value: '06:55', unit: t('Uhr gelesen', 'AM read', lang) },
+                            { label: t('Agenten im Schwarm', 'Agents in Swarm', lang), value: '12+', unit: t('autonome Workflows', 'autonomous workflows', lang) },
+                            { label: t('Sprachen', 'Languages', lang), value: '3', unit: 'DE / EN / TR' },
+                        ].map(({ label, value, unit }) => (
+                            <div key={label} className="px-6 py-4 rounded-xl bg-white/3 border border-white/8 backdrop-blur-sm">
+                                <div className="text-2xl font-black text-[#00d4ff]">{value}</div>
+                                <div className="text-[10px] font-bold text-[#ffd700] uppercase tracking-widest">{label}</div>
+                                <div className="text-[10px] text-slate-500">{unit}</div>
                             </div>
-                            <h3 className="text-xl font-semibold text-white mb-2">{value.title}</h3>
-                            <p className="text-slate-400 text-sm">{value.desc}</p>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── Timeline ── */}
+            <section className="py-24 max-w-7xl mx-auto px-6">
+                <div className="mb-16">
+                    <span className="text-[#ffd700] font-black tracking-[0.4em] uppercase text-[10px] mb-3 block">
+                        {t('— Die Reise', '— The Journey', lang)}
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white">
+                        {t('Vom Hotelier zum', 'From Hospitality to', lang)}{' '}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d4ff] to-[#00d4ff]/70">
+                            {t('KI-Architekten.', 'AI Architect.', lang)}
+                        </span>
+                    </h2>
+                </div>
+
+                <div className="relative">
+                    {/* Timeline line */}
+                    <div className="absolute left-[11px] top-0 bottom-0 w-px bg-gradient-to-b from-[#00d4ff]/30 via-[#ffd700]/20 to-transparent hidden md:block" />
+
+                    <div className="space-y-12">
+                        {TIMELINE.map((item, i) => (
+                            <motion.div
+                                key={item.year}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="flex gap-8"
+                            >
+                                {/* Dot */}
+                                <div className="hidden md:flex flex-col items-center mt-1.5">
+                                    <div
+                                        className="w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0"
+                                        style={{ borderColor: item.color, boxShadow: `0 0 12px ${item.color}40` }}
+                                    >
+                                        <div className="w-2 h-2 rounded-full" style={{ background: item.color }} />
+                                    </div>
+                                </div>
+
+                                <div className="flex-1 pb-12 border-b border-white/5 last:border-0">
+                                    <span
+                                        className="text-[10px] font-black tracking-widest uppercase mb-2 block"
+                                        style={{ color: item.color }}
+                                    >
+                                        {item.year}
+                                    </span>
+                                    <h3 className="text-xl font-bold text-white mb-2">
+                                        {lang === 'de' ? item.de : item.en}
+                                    </h3>
+                                    <p className="text-slate-400 leading-relaxed max-w-2xl">
+                                        {lang === 'de' ? item.desc_de : item.desc_en}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Why Different ── */}
+            <section className="py-24 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <span className="text-[#00d4ff] font-black tracking-[0.4em] uppercase text-[10px] mb-3 block">
+                            {t('— Warum anders', '— Why Different', lang)}
+                        </span>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white">
+                            {t('Schneller als der Markt.', 'Faster Than the Market.', lang)}
+                        </h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {DIFFERENTIATORS.map((item, i) => (
+                            <motion.div
+                                key={item.en}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="p-6 rounded-xl bg-[#121212] border border-white/5 hover:border-white/15 transition-all group"
+                            >
+                                <div
+                                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform"
+                                    style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}
+                                >
+                                    <item.icon className="w-6 h-6" style={{ color: item.color }} />
+                                </div>
+                                <h3 className="text-base font-bold text-white mb-2">
+                                    {lang === 'de' ? item.de : item.en}
+                                </h3>
+                                <p className="text-slate-500 text-sm leading-relaxed">
+                                    {lang === 'de' ? item.desc_de : item.desc_en}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Tech Stack ── */}
+            <section className="py-24 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div>
+                            <span className="text-[#ffd700] font-black tracking-[0.4em] uppercase text-[10px] mb-3 block">
+                                {t('— Arsenal', '— Arsenal', lang)}
+                            </span>
+                            <h2 className="text-4xl font-bold text-white mb-6">
+                                {t('Der aktuelle Stack.', 'The Current Stack.', lang)}
+                            </h2>
+                            <p className="text-slate-400 leading-relaxed">
+                                {t(
+                                    'Nicht das, was vor zwei Jahren trendy war. Was heute, diese Woche, auf Basis der neuesten Modelle und Frameworks funktioniert.',
+                                    'Not what was trendy two years ago. What works today, this week, based on the newest models and frameworks.',
+                                    lang
+                                )}
+                            </p>
                         </div>
-                    ))}
+
+                        <div className="space-y-5">
+                            {TECH_STACK.map((tech, i) => (
+                                <motion.div
+                                    key={tech.name}
+                                    initial={{ opacity: 0, x: 30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.07 }}
+                                >
+                                    <div className="flex justify-between mb-1.5">
+                                        <span className="text-sm font-semibold text-white">{tech.name}</span>
+                                        <span className="text-xs text-slate-500">{tech.level}%</span>
+                                    </div>
+                                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: `${tech.level}%` }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 1, delay: i * 0.07 }}
+                                            className="h-full rounded-full bg-gradient-to-r from-[#00d4ff] to-[#00d4ff]/60"
+                                        />
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── CTA ── */}
+            <section className="py-24 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <h2 className="text-4xl font-bold text-white mb-6">
+                        {t('Bereit für die Bleeding Edge?', 'Ready for the Bleeding Edge?', lang)}
+                    </h2>
+                    <p className="text-slate-400 mb-10 max-w-xl mx-auto">
+                        {t(
+                            'Lassen Sie uns reden. Heute implementieren wir, was andere erst morgen kennenlernen.',
+                            'Let\'s talk. Today we implement what others won\'t discover until tomorrow.',
+                            lang
+                        )}
+                    </p>
+                    <Link
+                        href="/contact"
+                        className="inline-flex items-center gap-4 px-10 py-4 bg-[#00d4ff] text-[#0a0a0a] font-extrabold rounded-lg text-xs uppercase tracking-[0.25em] hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(0,212,255,0.4)] transition-all"
+                    >
+                        {t('Jetzt Kontakt aufnehmen', 'Get in Touch', lang)}
+                        <ArrowRight className="w-4 h-4" />
+                    </Link>
                 </div>
             </section>
         </div>

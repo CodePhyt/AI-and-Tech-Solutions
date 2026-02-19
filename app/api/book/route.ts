@@ -4,7 +4,7 @@ import { createPublicLead } from '@/services/dal/leads';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { name, email, phone, whatsapp, packageInterest, message, sentiment, source } = body;
+        const { email, packageInterest, source } = body;
 
         if (!email) {
             return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 });

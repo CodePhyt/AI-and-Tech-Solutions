@@ -46,7 +46,7 @@ export default function SavingsCalculator() {
     });
 
     const selectedCountry = watch('country');
-    const selectedTreatment = watch('treatment');
+    const _selectedTreatment = watch('treatment');
 
     const onSubmit = async (data: CalculatorForm) => {
         setCalculating(true);
@@ -234,7 +234,7 @@ export default function SavingsCalculator() {
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.4 }}
                                         >
-                                            That's {result.percentage}% off!
+                                            That&apos;s {result.percentage}% off!
                                         </motion.p>
                                     </div>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 interface LiveCounterProps {
@@ -22,8 +22,11 @@ export default function LiveCounter({
     const rounded = useTransform(count, (latest) => Math.round(latest));
     const [displayValue, setDisplayValue] = useState(0);
 
+    // duration is accepted as a prop for API compatibility
+    void duration;
+
     useEffect(() => {
-        const controls = count.set(target);
+        count.set(target);
 
         const unsubscribe = rounded.on('change', (latest) => {
             setDisplayValue(latest);
@@ -32,7 +35,7 @@ export default function LiveCounter({
         return () => {
             unsubscribe();
         };
-    }, [target]);
+    }, [target, count, rounded]);
 
     return (
         <span className={className}>

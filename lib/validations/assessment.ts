@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"];
+const _MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const _ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"];
 
 export const AssessmentSchema = z.object({
     fullName: z.string().min(2, "Name is too short").max(100),

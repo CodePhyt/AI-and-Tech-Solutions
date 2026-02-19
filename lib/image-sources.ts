@@ -4,42 +4,42 @@
  */
 
 export const IMAGE_CATEGORIES = {
-    // Patient Transformation Images
+    // Project Transformation Images
     TRANSFORMATIONS: {
         veneers_hollywood_female: {
             before: '/assets/stories/sarah-before.png',
             after: '/assets/stories/sarah-after.png',
-            context: 'Hollywood smile veneers - female patient'
+            context: 'Enterprise AI implementation - female executive'
         },
         full_arch_restoration_male: {
             before: '/assets/stories/michael-before.png',
             after: '/assets/stories/michael-after.png',
-            context: 'All-on-6 full mouth restoration - male patient'
+            context: 'Complete smart home automation - male client'
         },
         veneer_repair_female: {
             before: '/assets/stories/emma-before.png',
             after: '/assets/stories/emma-after.png',
-            context: '10 veneer cosmetic repair - female patient'
+            context: 'Trade platform optimization - female client'
         },
         implant_crowns_male: {
             before: '/assets/stories/ahmed-before.png',
             after: '/assets/stories/ahmed-after.png',
-            context: '4 dental implants with crowns - male patient'
+            context: 'Consulting & infrastructure upgrade - male client'
         },
         veneers_whitening_female: {
             before: '/assets/stories/lisa-before.png',
             after: '/assets/stories/lisa-after.png',
-            context: '16 veneers Hollywood smile - female patient'
+            context: 'Digital media transformation - female client'
         },
         full_upper_arch_senior: {
             before: '/assets/stories/carlos-before.png',
             after: '/assets/stories/carlos-after.png',
-            context: 'Full upper arch implants - senior male patient'
+            context: 'Legacy system modernization - senior executive'
         }
     },
 
-    // Patient Portrait Images
-    PATIENT_PORTRAITS: {
+    // Client Portrait Images
+    CLIENT_PORTRAITS: {
         sarah_uk: '/assets/stories/sarah-profile.png',
         michael_usa: '/assets/stories/michael-profile.png',
         emma_australia: '/assets/stories/emma-profile.png',
@@ -50,19 +50,19 @@ export const IMAGE_CATEGORIES = {
 
     // Blog Article Cover Images - Premium Generated Assets
     BLOG_COVERS: {
-        dental_tourism_guide: '/assets/blog/dental-tourism-guide.jpg',
-        veneers_vs_crowns: '/assets/blog/veneers-vs-crowns.jpg',
-        all_on_4_guide: '/assets/blog/all-on-4-guide.png',
-        choosing_clinic: '/assets/blog/choosing-clinic.png',
-        whitening_science: '/assets/blog/whitening-science.png',
-        implant_recovery: '/assets/blog/implant-recovery.png',
-        tourism_myths: '/assets/blog/tourism-myths.png',
-        digital_smile_design: '/assets/blog/digital-smile-design.png',
-        destination_comparison: '/assets/blog/destination-comparison.png',
-        cost_breakdown: '/assets/blog/cost-breakdown.png',
-        dental_implant_hero: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=80',
-        invisalign_vs_braces: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80',
-        root_canal: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80',
+        ai_automation_guide: '/assets/blog/ai-automation-guide.jpg',
+        neural_networks_intro: '/assets/blog/neural-networks-intro.jpg',
+        smart_home_guide: '/assets/blog/smart-home-guide.png',
+        choosing_tech_stack: '/assets/blog/choosing-tech-stack.png',
+        cloud_architecture: '/assets/blog/cloud-architecture.png',
+        api_integration: '/assets/blog/api-integration.png',
+        tech_trends: '/assets/blog/tech-trends.png',
+        digital_transformation: '/assets/blog/digital-transformation.png',
+        platform_comparison: '/assets/blog/platform-comparison.png',
+        cost_optimization: '/assets/blog/cost-optimization.png',
+        ai_implementation_hero: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
+        automation_vs_ai: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
+        cloud_computing: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
         composite_bonding: 'https://images.unsplash.com/photo-1609840114035-1c29046a8af3?auto=format&fit=crop&w=800&q=80',
         gum_disease: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f72?auto=format&fit=crop&w=800&q=80',
         full_mouth_recon: 'https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?auto=format&fit=crop&w=800&q=80',
@@ -97,8 +97,8 @@ export const IMAGE_CATEGORIES = {
 
     // About Page ESTC Values - Premium Quality Images
     ESTC: {
-        excellence: '/assets/about/excellence.png', // ✅ Generated - Premium clinic interior
-        safety: '/assets/about/safety.png', // ✅ Generated - Sterilization protocols
+        excellence: '/assets/about/excellence.png', // ✅ Generated - Premium office interior
+        safety: '/assets/about/safety.png', // ✅ Generated - Security protocols
         transparency: '/assets/about/transparency.png', // ✅ Generated - Digital consultation
         care: '/assets/about/care.png' // ✅ Generated - Compassionate team
     },
@@ -106,21 +106,21 @@ export const IMAGE_CATEGORIES = {
     // Home Page Journey Steps
     JOURNEY: {
         arrival: '/assets/journey/arrival-nano.png', // Luxury transfer/airport
-        consultation: '/assets/journey/consultation-nano.png', // Digital dental planning
-        transformation: '/assets/journey/transformation-nano.png' // Antalya beach/clinic
+        consultation: '/assets/journey/consultation-nano.png', // Digital tech planning
+        transformation: '/assets/journey/transformation-nano.png' // Antalya beach/office
     },
 
-    // Clinic Facility Images
-    CLINIC_FACILITIES: {
+    // Office Facility Images
+    OFFICE_FACILITIES: {
         reception_area: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80',
-        treatment_room: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
-        cbct_scanner: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=800&q=80',
-        sterilization: '/assets/about/safety.png',
-        smile_design_monitor: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
-        cadcam_milling: 'https://images.unsplash.com/photo-1579684453423-f84349ef60b0?auto=format&fit=crop&w=800&q=80',
+        meeting_room: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+        tech_lab: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=800&q=80',
+        server_room: '/assets/about/safety.png',
+        design_monitors: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+        ai_systems: 'https://images.unsplash.com/photo-1579684453423-f84349ef60b0?auto=format&fit=crop&w=800&q=80',
         waiting_lounge: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-        dental_chair: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
-        clinic_exterior: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+        workstation: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80',
+        office_exterior: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
     },
 
     // Misc Images
@@ -151,7 +151,7 @@ export const TRANSFORMATION_GROUPS = IMAGE_CATEGORIES.TRANSFORMATIONS;
  * Helper function to get image by category and key
  */
 export function getImage(category: keyof typeof IMAGE_CATEGORIES, key: string): string {
-    const cat = IMAGE_CATEGORIES[category] as any;
+    const cat = IMAGE_CATEGORIES[category] as Record<string, string>;
     return cat[key] || '';
 }
 

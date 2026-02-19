@@ -1,0 +1,84 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0a1520"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+    <filter id="glow-cyan">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-big">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00d4ff" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="pulse" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+
+  <!-- EKG / Medical heartbeat line -->
+  <g stroke="#00d4ff" stroke-width="2" fill="none" stroke-opacity="0.6">
+    <polyline points="60,250 120,250 150,250 170,200 190,310 210,250 250,250 280,250 300,180 320,330 340,250 380,250 400,250 430,250 450,210 470,290 490,250 550,250 580,250"/>
+  </g>
+  <rect x="0" y="249" width="800" height="2" fill="url(#pulse)" opacity="0.4"/>
+
+  <!-- Stylized cross/medical icon left -->
+  <g filter="url(#glow-cyan)" transform="translate(130, 310)">
+    <rect x="-12" y="-36" width="24" height="72" rx="5" fill="#0a1520" stroke="#00d4ff" stroke-width="2"/>
+    <rect x="-36" y="-12" width="72" height="24" rx="5" fill="#0a1520" stroke="#00d4ff" stroke-width="2"/>
+  </g>
+
+  <!-- Central hub - stethoscope icon -->
+  <g filter="url(#glow-big)">
+    <circle cx="400" cy="250" r="60" fill="#0a1520" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="400" cy="250" r="44" fill="#00d4ff" fill-opacity="0.05" stroke="#00d4ff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Simplified heart icon -->
+    <path d="M 400 270 Q 375 250 375 233 Q 375 218 390 218 Q 400 218 400 226 Q 400 218 410 218 Q 425 218 425 233 Q 425 250 400 270 Z" 
+          fill="#00d4ff" fill-opacity="0.3" stroke="#00d4ff" stroke-width="2"/>
+    <!-- Pulse line through heart -->
+    <polyline points="385,245 390,245 395,232 400,258 405,238 410,250 418,250" 
+              fill="none" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bridge graphic: 2 country flags (simplified bars) -->
+  <g fill="none" stroke="#00d4ff" stroke-opacity="0.3" stroke-width="1.5">
+    <!-- Germany block -->
+    <rect x="90" y="140" width="100" height="66" rx="4"/>
+    <rect x="90" y="140" width="100" height="22" fill="#111" stroke-opacity="0"/>
+    <rect x="90" y="162" width="100" height="22" fill="#141414" stroke-opacity="0"/>
+    <text x="140" y="200" text-anchor="middle" font-family="Arial" font-size="10" fill="#00d4ff" fill-opacity="0.5">🇩🇪 GERMANY</text>
+    <!-- Turkey block -->
+    <rect x="610" y="140" width="100" height="66" rx="4"/>
+    <text x="660" y="200" text-anchor="middle" font-family="Arial" font-size="10" fill="#00d4ff" fill-opacity="0.5">🇹🇷 TURKEY</text>
+  </g>
+
+  <!-- Bridge connector -->
+  <g stroke="#00d4ff" stroke-opacity="0.25" stroke-width="1" stroke-dasharray="5,5">
+    <line x1="190" y1="173" x2="340" y2="250"/>
+    <line x1="610" y1="173" x2="460" y2="250"/>
+  </g>
+
+  <!-- Stats: Patient numbers -->
+  <g font-family="monospace" font-size="10" fill="#00d4ff" fill-opacity="0.5">
+    <text x="580" y="320">PATIENTS: 500+</text>
+    <text x="580" y="335">CLINICS: 12</text>
+    <text x="580" y="350">SATISFACTION: 98%</text>
+  </g>
+
+  <rect x="0" y="480" width="800" height="2" fill="#00d4ff" fill-opacity="0.4"/>
+  <rect x="300" y="476" width="200" height="2" fill="#ffd700" fill-opacity="0.5"/>
+  <text x="400" y="448" font-family="'Arial', sans-serif" font-size="11" font-weight="bold" fill="#00d4ff" fill-opacity="0.6" text-anchor="middle" letter-spacing="6">HEALTH TOURISM BRIDGE</text>
+  <path d="M 16 16 L 40 16 M 16 16 L 16 40" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 16 L 760 16 M 784 16 L 784 40" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 16 484 L 40 484 M 16 484 L 16 460" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <path d="M 784 484 L 760 484 M 784 484 L 784 460" stroke="#00d4ff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+</svg>

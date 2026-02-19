@@ -15,14 +15,14 @@ export default async function AdminDashboard() {
             {/* Sidebar */}
             <aside className="w-64 border-r border-white/5 bg-slate-950/50 p-6 flex flex-col">
                 <div className="mb-12">
-                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-[#C5A059]">
+                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-[#ffd700]">
                         Coordinator Pro
                     </h1>
                     <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">Agency Management</p>
                 </div>
 
                 <nav className="flex-1 space-y-2">
-                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 bg-[#C5A059]/10 text-[#C5A059] rounded-xl font-medium">
+                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 bg-[#ffd700]/10 text-[#ffd700] rounded-xl font-medium">
                         <Users className="w-5 h-5" />
                         Leads
                     </Link>
@@ -56,10 +56,10 @@ export default async function AdminDashboard() {
                             <input
                                 type="text"
                                 placeholder="Search patients..."
-                                className="bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 focus:border-[#C5A059] outline-none transition-all text-sm w-64"
+                                className="bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 focus:border-[#ffd700] outline-none transition-all text-sm w-64"
                             />
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-[#C5A059] flex items-center justify-center font-bold text-slate-900 border-2 border-slate-900 shadow-xl">
+                        <div className="w-10 h-10 rounded-full bg-[#ffd700] flex items-center justify-center font-bold text-slate-900 border-2 border-slate-900 shadow-xl">
                             AD
                         </div>
                     </div>
@@ -104,8 +104,8 @@ export default async function AdminDashboard() {
                                         <td className="px-6 py-4 text-sm text-slate-500">{new Date(lead.createdAt).toLocaleDateString()}</td>
                                         <td className="px-6 py-4">
                                             <div className="flex gap-1">
-                                                <div className="w-1 h-3 bg-[#C5A059] rounded-full"></div>
-                                                <div className="w-1 h-3 bg-[#C5A059] rounded-full"></div>
+                                                <div className="w-1 h-3 bg-[#ffd700] rounded-full"></div>
+                                                <div className="w-1 h-3 bg-[#ffd700] rounded-full"></div>
                                                 <div className="w-1 h-3 bg-white/10 rounded-full"></div>
                                             </div>
                                         </td>

@@ -7,7 +7,7 @@ export default function PrivacyPage() {
         <main className="min-h-screen bg-[#0f0f0f] text-slate-300">
             <Header />
             <div className="container mx-auto px-6 pt-32 pb-20 max-w-4xl">
-                <div className="flex items-center gap-4 mb-8 border-b border-[#C5A059]/30 pb-4">
+                <div className="flex items-center gap-4 mb-8 border-b border-[#ffd700]/30 pb-4">
                     <ShieldCheck className="w-10 h-10 text-[#00f3ff]" />
                     <h1 className="text-4xl font-bold text-white">
                         Datenschutzerklärung (Privacy Protocol)
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
                         <p className="mb-4 text-sm leading-relaxed">
                             Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
                         </p>
-                        <h3 className="text-md font-bold text-[#C5A059] mb-2 uppercase tracking-wide text-xs">Verantwortlicher</h3>
+                        <h3 className="text-md font-bold text-[#ffd700] mb-2 uppercase tracking-wide text-xs">Verantwortlicher</h3>
                         <p className="text-sm">
                             Osman Kadir<br />
                             Neuhaus am Rennweg, Germany<br />
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
 
                     <section>
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                            <Lock className="w-5 h-5 text-[#C5A059]" />
+                            <Lock className="w-5 h-5 text-[#ffd700]" />
                             II. Datenerfassung auf dieser Website
                         </h2>
 
@@ -40,10 +40,10 @@ export default function PrivacyPage() {
                             <div>
                                 <h3 className="text-lg font-bold text-white mb-2">Cookies</h3>
                                 <p className="text-sm leading-relaxed mb-2">
-                                    Unsere Internetseiten verwenden so genannte "Cookies". Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen.
+                                    Unsere Internetseiten verwenden so genannte &quot;Cookies&quot;. Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen.
                                 </p>
                                 <p className="text-sm leading-relaxed">
-                                    Die meisten der von uns verwendeten Cookies sind so genannte "Session-Cookies". Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese löschen.
+                                    Die meisten der von uns verwendeten Cookies sind so genannte &quot;Session-Cookies&quot;. Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese löschen.
                                 </p>
                             </div>
 
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
                             <div>
                                 <h3 className="text-lg font-bold text-white mb-2">Kontaktformular / Sovereign Intake</h3>
                                 <p className="text-sm leading-relaxed">
-                                    Wenn Sie uns per Kontaktformular oder über den "Impact Assessment"-Prozess Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
+                                    Wenn Sie uns per Kontaktformular oder über den &quot;Impact Assessment&quot;-Prozess Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
                                 </p>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
 
                     <section>
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                            <Database className="w-5 h-5 text-[#C5A059]" />
+                            <Database className="w-5 h-5 text-[#ffd700]" />
                             III. Analyse-Tools und Tools von Drittanbietern
                         </h2>
                         <p className="text-sm leading-relaxed mb-4">
@@ -90,7 +90,7 @@ export default function PrivacyPage() {
 
                     <section>
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                            <Eye className="w-5 h-5 text-[#C5A059]" />
+                            <Eye className="w-5 h-5 text-[#ffd700]" />
                             IV. Ihre Rechte
                         </h2>
                         <p className="text-sm leading-relaxed mb-4">

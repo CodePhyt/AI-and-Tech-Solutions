@@ -24,12 +24,12 @@ export default function DiamondTrustSection() {
                         viewport={{ once: true }}
                         className="inline-flex items-center space-x-3 px-6 py-2 bg-slate-900 rounded-full border border-white/5 text-slate-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-10"
                     >
-                        <ShieldAlert className="w-4 h-4 text-[#C5A059]" />
+                        <ShieldAlert className="w-4 h-4 text-[#ffd700]" />
                         <span>Institutional Verification</span>
                     </motion.div>
 
                     <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter">
-                        Vetted by <span className="text-[#C5A059]">Sovereign</span> Standards
+                        Vetted by <span className="text-[#ffd700]">Sovereign</span> Standards
                     </h2>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
                         We operate as a premium technology partner, ensuring every digital solution adheres to our ironclad security and quality protocols.
@@ -83,7 +83,7 @@ export default function DiamondTrustSection() {
                     className="mt-20 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8"
                 >
                     <div className="flex items-center gap-6 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                        {/* Mock logo placeholders for dental associations */}
+                        {/* Compliance logos */}
                         <div className="text-white font-bold text-xs tracking-widest uppercase">GDPR Compliant</div>
                         <div className="text-white font-bold text-xs tracking-widest uppercase">ISO 27001</div>
                         <div className="text-white font-bold text-xs tracking-widest uppercase">TÜV SÜD Certified</div>

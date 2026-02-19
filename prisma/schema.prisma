@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Osman Kadir KI & Tech Solutions — Database Schema
+// Prisma Schema for Lead Management & Chat
 
 generator client {
   provider = "prisma-client-js"
@@ -10,41 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Treatment {
-  id           String   @id @default(cuid())
-  slug         String   @unique
-  name         String
-  description  String
-  shortDesc    String
-  price        Int      // Price in USD
-  recoveryTime String
-  imageUrl     String
-  features     String   // JSON-encoded array for SQLite
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  
-  leads        Lead[]
-}
-
 model Lead {
   id          String   @id @default(cuid())
   name        String?
   email       String?
   phone       String?
   whatsapp    String?
-  treatment   String?
+  service     String?  // e.g. "ai-software", "smart-home"
   message     String?
   sentiment   String?  // "HOT" or "COLD"
-  source      String?  // "chat", "contact_form", etc.
+  source      String?  // "chat", "contact_form", "booking_api", "assessment"
   createdAt   DateTime @default(now())
-  
-  treatmentId String?
-  Treatment   Treatment? @relation(fields: [treatmentId], references: [id])
-  
+
+  chatSessions ChatSession[]
+
   @@index([createdAt])
   @@index([sentiment])
-  
-  chatSessions ChatSession[]
 }
 
 model BlogPost {
@@ -53,39 +34,24 @@ model BlogPost {
   title       String
   excerpt     String
   content     String
-  category    String   // "treatments", "antalya-guide", "patient-tips"
+  category    String   // "tech", "ai", "case-study"
   imageUrl    String
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   @@index([category])
   @@index([published])
 }
 
-model PatientStory {
-  id            String   @id @default(cuid())
-  patientName   String
-  treatment     String
-  beforeImage   String
-  afterImage    String
-  testimonial   String
-  videoUrl      String?
-  featured      Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  
-  @@index([featured])
-  @@index([treatment])
-}
-
 model ChatSession {
   id        String    @id @default(cuid())
-  userToken String?   @unique // To identify unnamed users session
+  userToken String?   @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  
+
   messages  Message[]
-  
+
   leadId    String?
   Lead      Lead?     @relation(fields: [leadId], references: [id])
 }
@@ -94,9 +60,9 @@ model Message {
   id            String      @id @default(cuid())
   role          String
   content       String
-  image         String?     // Base64 strings can be large
+  image         String?
   createdAt     DateTime    @default(now())
-  
+
   chatSessionId String
   ChatSession   ChatSession @relation(fields: [chatSessionId], references: [id])
 }

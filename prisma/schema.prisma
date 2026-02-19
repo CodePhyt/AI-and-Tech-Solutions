@@ -13,7 +13,7 @@ datasource db {
 model Lead {
   id          String   @id @default(cuid())
   name        String?
-  email       String?
+  email       String?  @unique
   phone       String?
   whatsapp    String?
   service     String?  // e.g. "ai-software", "smart-home"
@@ -21,6 +21,7 @@ model Lead {
   sentiment   String?  // "HOT" or "COLD"
   source      String?  // "chat", "contact_form", "booking_api", "assessment"
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   chatSessions ChatSession[]
 

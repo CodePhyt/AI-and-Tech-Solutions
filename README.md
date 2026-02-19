@@ -1,18 +1,20 @@
 # Osman Kadir KI & Tech Solutions
 
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-green)]() [![Build](https://img.shields.io/badge/Build-Passing-brightgreen)]()
+[![Status](https://img.shields.io/badge/Status-Bleeding%20Edge-00d4ff)](https://osmankadir.tech)
+[![PWA](https://img.shields.io/badge/PWA-Ready-ffd700)]()
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)]()
 
-**Sovereign Architecture & Elite Tech Consulting**
+**Sovereign AI Architecture & Elite Tech Consulting**
 
-## 🚀 Overview
+## 🚀 Digital HQ Ultimate Edition
 
-This repository houses the official web platform for **Osman Kadir KI & Tech Solutions**. Formerly a template, it has been completely refactored into a high-performance Next.js application tailored for showcasing advanced AI solutions, smart home integrations, and global tech consultancy.
+This is the official platform for **Osman Kadir KI**. Architected for "Bleeding Edge" performance, sovereign data handling, and instant global deployment.
 
 ### Key Features
-- **Premium "Dark Tech" Aesthetic**: Glassmorphism, neon accents, and fluid animations.
-- **Nexus AI Integration**: Custom-built AI assistant for lead qualification and user engagement.
-- **Dynamic Service Architecture**: Scalable service pages built from a central configuration.
-- **Secure & Compliant**: Fully implemented German legal pages (Impressum, Privacy, Terms).
+- **Sovereign AI**: Custom-built `Nexus` agent for lead qualification.
+- **Cyberpunk Aesthetics**: Dark mode, glassmorphism, and fluid Framer Motion animations.
+- **PWA/Offline**: Progressive Web App capabilities for mobile HQ access.
+- **Global Compliance**: Fully localized German legal framework (Impressum, Privacy).
 
 ## 🛠️ Tech Stack
 

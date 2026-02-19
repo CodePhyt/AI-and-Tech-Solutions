@@ -159,15 +159,15 @@ export default function Footer() {
                             <li className="flex items-start gap-3">
                                 <MapPin className="w-4 h-4 text-[#00d4ff] flex-shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-white text-xs font-bold mb-1">Osman Kadir — KI Lösungen</p>
+                                    <p className="text-white text-xs font-bold mb-1">Osman Kadir — KI & TECH LÖSUNGEN</p>
                                     <p className="text-slate-600 text-xs">Dorststraße 15</p>
-                                    <p className="text-slate-600 text-xs">98739 Neuhaus am Rennweg, DE</p>
+                                    <p className="text-slate-600 text-xs">98739 Neuhaus am Rennweg</p>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Mail className="w-4 h-4 text-[#00d4ff] flex-shrink-0 mt-0.5" />
                                 <div>
-                                    <p className="text-white text-xs font-bold mb-1">Email</p>
+                                    <p className="text-white text-xs font-bold mb-1">Kontakt</p>
                                     <a
                                         href="mailto:okadirfinance@gmail.com"
                                         className="text-slate-600 text-xs hover:text-[#00d4ff] transition-colors"
@@ -180,8 +180,10 @@ export default function Footer() {
                                 <Globe className="w-4 h-4 text-[#ffd700] flex-shrink-0 mt-0.5" />
                                 <div>
                                     <p className="text-white text-xs font-bold mb-1">Tel.</p>
-                                    <a href="tel:+4917134743488" className="text-slate-600 text-xs hover:text-[#00d4ff] transition-colors">+49 171 3474348</a>
-                                    <p className="text-slate-700 text-[10px] mt-1">IT-Services & Warenvermittlung. Kein Handwerk.</p>
+                                    <a href="tel:+491713474348" className="text-slate-600 text-xs hover:text-[#00d4ff] transition-colors">+49 171 3474348</a>
+                                    <p className="text-slate-700 text-[10px] mt-2 italic border-l-2 border-[#ffd700] pl-2">
+                                        Rechtlicher Hinweis: "IT-Dienstleistungen, digitale Services & Warenvermittlung. Kein Handwerk. Kein eigener Warenbestand."
+                                    </p>
                                 </div>
                             </li>
                         </ul>

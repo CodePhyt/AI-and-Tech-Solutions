@@ -1,0 +1,26 @@
+{
+    "name": "Osman Kadir KI & Tech Solutions",
+    "short_name": "OK Tech",
+    "description": "Sovereign AI Architecture & Global Trade Logistics. Digital HQ.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#00d4ff",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

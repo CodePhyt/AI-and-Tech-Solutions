@@ -27,7 +27,7 @@ export default function ImpressumPage() {
                         <h2 className="text-sm font-black text-[#00d4ff] mb-3 uppercase tracking-widest">Unternehmensgegenstand</h2>
                         <p className="text-slate-400 leading-relaxed text-sm">
                             IT-Dienstleistungen, digitale Services & Warenvermittlung.<br />
-                            <span className="text-[#ffd700] font-semibold">Kein Handwerk.</span>
+                            <span className="text-[#ffd700] font-semibold">Kein Handwerk. Kein eigener Warenbestand.</span>
                         </p>
                     </section>
 
@@ -35,7 +35,7 @@ export default function ImpressumPage() {
                     <section>
                         <h2 className="text-sm font-black text-[#ffd700] mb-4 uppercase tracking-widest">Kontakt</h2>
                         <p className="leading-relaxed text-slate-400 space-y-1">
-                            <span className="block">Telefon: <a href="tel:+4917134743488" className="text-[#00d4ff] hover:underline">+49 171 3474348</a></span>
+                            <span className="block">Telefon: <a href="tel:+491713474348" className="text-[#00d4ff] hover:underline">+49 171 3474348</a></span>
                             <span className="block">E-Mail: <a href="mailto:okadirfinance@gmail.com" className="text-[#00d4ff] hover:underline">okadirfinance@gmail.com</a></span>
                         </p>
                     </section>

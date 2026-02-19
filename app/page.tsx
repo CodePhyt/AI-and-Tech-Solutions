@@ -1,5 +1,6 @@
 import React from 'react';
 import DigitalTwinChat from '@/components/ares/DigitalTwinChat';
+import TrustBadge from '@/components/ares/TrustBadge';
 import { Network } from 'lucide-react';
 
 export default function Home() {
@@ -30,7 +31,10 @@ export default function Home() {
         </div>
 
         {/* The Digital Twin Terminal */}
-        <DigitalTwinChat />
+        <div className="flex flex-col items-center gap-4 w-full">
+          <TrustBadge />
+          <DigitalTwinChat />
+        </div>
 
         {/* Footer Status */}
         <div className="flex items-center gap-4 text-xs text-gray-600 font-mono mt-8">

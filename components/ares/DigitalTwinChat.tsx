@@ -6,17 +6,16 @@ import { Send, Terminal, Cpu, ShieldCheck } from 'lucide-react';
 
 export default function DigitalTwinChat() {
     const [messages, setMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([
-        { role: 'assistant', content: "Welcome to KI & Tech Lösungen. I am the digital twin of Osman Kadir. I handle B2B sourcing, AI automation, and Smart Home integrations. What are we building or scaling today?" }
+        { role: 'assistant', content: "I am ARES. Why pay enterprise fees for just software?\n\nWe offer the **Hybrid Advantage**: Implement our AI Automation, and we will supply your physical operations (Rixos-quality packaging, frozen wholesale) at direct-from-factory prices via Zero Group.\n\nHow can we cut your costs today?" }
     ]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const quickActions = [
-        "📦 Bulk Packaging (Rixos Quality)",
-        "🍩 Wholesale Food (Churros)",
-        "🏠 Smart Home Lab Setup",
-        "🤖 Custom AI Agent Development"
+        "🔥 The Hybrid Deal (AI + Physical Sourcing)",
+        "🛡️ Sovereign AI (100% On-Premise/GDPR)",
+        "📦 Zero Group Wholesale Catalog",
     ];
 
     useEffect(() => {
@@ -36,9 +35,17 @@ export default function DigitalTwinChat() {
         // TODO: Implement actual API call to /api/swarm-gateway
         // Simulating response for UI Demo
         setTimeout(() => {
+            let responseText = `Ack. Processing request for: "${text}". \n\nInitializing Swarm Protocol...`;
+
+            if (text.includes("Hybrid")) {
+                responseText = "Executing 'Zero Group Nuke' protocol.\n\nCombined Offer: We deploy a custom AI Logistics Agent for you AND route your physical supply chain through our Zero Group corridors (Turkey <-> Germany). Guaranteed 20-30% cost reduction.\n\nShall I initialize a feasibility audit?";
+            } else if (text.includes("Sovereign")) {
+                responseText = "Affirmative. 100% Local Execution. No data leaves your premise. Your keys. Your models. Your sovereignty.\n\nReady to deploy offline Llama 3 or Qwen 2.5 nodes?";
+            }
+
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: `Ack. Processing request for: "${text}". \n\nInitializing Swarm Protocol... \n(This is a simulation. Connect backend to verify).`
+                content: responseText
             }]);
             setIsTyping(false);
         }, 1500);
@@ -77,8 +84,8 @@ export default function DigitalTwinChat() {
                             className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
                             <div className={`max-w-[80%] p-4 rounded-lg border ${m.role === 'user'
-                                    ? 'bg-[#00d4ff]/10 border-[#00d4ff]/30 text-[#00d4ff]'
-                                    : 'bg-[#1a1a1a] border-[#333] text-[#e5e5e5]'
+                                ? 'bg-[#00d4ff]/10 border-[#00d4ff]/30 text-[#00d4ff]'
+                                : 'bg-[#1a1a1a] border-[#333] text-[#e5e5e5]'
                                 }`}>
                                 <p className="text-sm whitespace-pre-wrap leading-relaxed">{m.content}</p>
                             </div>

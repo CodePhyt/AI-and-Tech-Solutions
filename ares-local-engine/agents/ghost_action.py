@@ -5,6 +5,33 @@ Codename: "ZeroClaw"
 Stealth Playwright wrapper for executing web actions without triggering
 bot detection. Inspired by ZeroClaw architecture: random delays,
 human-like mouse paths, realistic user agents.
+
+─────────────────────────────────────────────────────────────────────────
+SCOUT AGENT — FUTURE INTEGRATION POINT
+─────────────────────────────────────────────────────────────────────────
+The Ghost Agent will be extended with a Scout sub-agent that cross-
+references external public data sources for lead enrichment.
+
+Reference Repository:
+    https://github.com/public-apis/public-apis
+    (community list of free/open APIs, categorized)
+
+Planned integrations via public-apis:
+  • German Business Registry (Handelsregister API)
+      → Validate company names, Handelsregisternummer, legal form
+  • OpenCorporates / Northdata
+      → Enrich lead with company size, revenue, directors
+  • Brevo / Hunter.io (email verification category)
+      → Verify B2B emails before ZeroClaw outreach
+  • ClearBit open tier
+      → Company logo, sector, headcount for CRM enrichment
+
+Implementation plan:
+  1. Scout agent receives raw lead (email + company domain)
+  2. Calls relevant public APIs to build enrichment payload
+  3. Attaches enrichment to Prisma Lead record (metadata field)
+  4. ZeroClaw uses enriched data for hyper-personalized outreach
+─────────────────────────────────────────────────────────────────────────
 """
 
 import asyncio

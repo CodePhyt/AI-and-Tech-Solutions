@@ -27,6 +27,7 @@
     "next-pwa": "^5.6.0",
     "octokit": "^5.0.5",
     "prisma": "^6.19.2",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.1",

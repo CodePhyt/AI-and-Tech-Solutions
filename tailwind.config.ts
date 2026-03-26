@@ -28,6 +28,12 @@ const config: Config = {
                     DEFAULT: "#ffd700",
                     glow: "rgba(0, 212, 255, 0.4)",
                 },
+                corporate: {
+                    navy: "#0B132B",
+                    silver: "#E5E5E5",
+                    blue: "#1D4ED8",
+                    dark: "#060A17"
+                },
                 crystal: {
                     white: "rgba(255, 255, 255, 0.03)",
                     border: "rgba(255, 255, 255, 0.08)",

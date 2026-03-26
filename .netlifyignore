@@ -1,0 +1,6 @@
+ares-whatsapp-node/
+ares-telegram-node/
+ares-local-engine/
+ares-automation/
+.next/cache/
+node_modules/.cache/

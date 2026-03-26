@@ -30,6 +30,9 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 
+  // Turbopack config (Next.js 16)
+  turbopack: {},
+
   // TypeScript
   typescript: {
     ignoreBuildErrors: true,

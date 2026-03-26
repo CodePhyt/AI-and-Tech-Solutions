@@ -8,9 +8,6 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig: NextConfig = {
-  // Output configuration for Docker/Cloud Run
-  output: 'standalone',
-
   // Image Optimization
   images: {
     formats: ['image/avif', 'image/webp'],

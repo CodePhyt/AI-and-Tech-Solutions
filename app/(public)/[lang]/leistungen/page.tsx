@@ -1,7 +1,114 @@
 import React from 'react';
-import { Package, Utensils, Anchor, ArrowRight, ShieldCheck, Download, Layers, BarChart3, Globe2, TrendingUp, CheckCircle2, Factory, Activity } from 'lucide-react';
+import { Package, Utensils, Anchor, ArrowRight, ShieldCheck, Download, Layers, BarChart3, Globe2, TrendingUp, CheckCircle2, Factory, Activity, Heart, Shirt, TreeDeciduous, Dumbbell } from 'lucide-react';
 import FAQAccordion, { FAQItem } from '@/components/b2b/FAQAccordion';
 import { getDictionary, locales, type Locale } from '@/lib/i18n/dictionaries';
+
+const categories = [
+    {
+        id: 'cnc',
+        icon: Layers,
+        image: 'https://images.unsplash.com/photo-1565439385584-c6a6d689dd97?q=80&w=2070&auto=format&fit=crop',
+        imageAlt: 'CNC Maschinenbau',
+        titleKey: 'cat1Title',
+        descKey: 'cat1Desc',
+        feats: [
+            '±0.005 mm Toleranzen',
+            'Defense & Auto Zertifikate',
+            'ISO-konforme Baugruppen',
+        ],
+    },
+    {
+        id: 'furniture',
+        icon: Utensils,
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop',
+        imageAlt: 'Gastronomie Möbel',
+        titleKey: 'cat2Title',
+        descKey: 'cat2Desc',
+        feats: [
+            'FSC-Holz & ISO-zertifiziert',
+            'MOQ flexibel ab 50 Stück',
+            'Custom Branding & Whitlabel',
+        ],
+    },
+    {
+        id: 'packaging',
+        icon: Package,
+        image: 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=2072&auto=format&fit=crop',
+        imageAlt: 'Verpackung & Druck',
+        titleKey: 'cat3Title',
+        descKey: 'cat3Desc',
+        feats: [
+            'Maßgeschneiderte Kosmetikverpackungen',
+            'Pizza- & Versandkartons',
+            'Non-Woven Taschen mit Logodruk',
+        ],
+    },
+    {
+        id: 'medical',
+        icon: Heart,
+        image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2060&auto=format&fit=crop',
+        imageAlt: 'Medical & Gesundheit',
+        title: '4. Medical & Schutzkleidung',
+        desc: 'Zertifizierte Einweg- und Mehrweg-Schutzausrüstung direkt aus unserer Produktion. FFP2/FFP3-Atemschutzmasken, OP-Kittel, Scrubs, Einweg-Bettwäsche und vollständige Krankenhausausstattungen.',
+        feats: [
+            'FFP2 / FFP3 zertifiziert (CE)',
+            'OP-Kittel & Scrubs – personalisierbar',
+            'Einweg- & Mehrweg-Bettwäsche',
+        ],
+    },
+    {
+        id: 'textiles',
+        icon: Shirt,
+        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2069&auto=format&fit=crop',
+        imageAlt: 'Textilien & Bekleidung',
+        title: '5. Textilien & Bekleidung',
+        desc: 'Von Basic-T-Shirts über Oversize-Hoodies bis zu Premium-Hamam-Badetüchern (Peştemal). Wir produzieren Kollektionen für Großhändler, Eventveranstalter und Werbeartikel-Importeure mit Full-Service Logoprint.',
+        feats: [
+            'Oversize, Regular & Kids-Sortiment',
+            'Hamam Peştemal – Hotel & Spa',
+            'Private-Label & Weißware möglich',
+        ],
+    },
+    {
+        id: 'playgrounds',
+        icon: TreeDeciduous,
+        image: 'https://images.unsplash.com/photo-1575783970733-1aaedde1db74?q=80&w=2076&auto=format&fit=crop',
+        imageAlt: 'Spielplätze & Outdoor',
+        title: '6. Spielplätze & Outdoor-Anlagen',
+        desc: 'Maßgefertigte Holzspielplätze für Kindergärten, Schulen und öffentliche Kommunen. Individuell planbar – von der einfachen Rutsche bis zum barrierefreien Gesamtkonzept, inkl. Aufbauservice.',
+        feats: [
+            'FSC-zertifiziertes Naturholz',
+            'Barrierefrei-Serien verfügbar',
+            'Schulen, Kommunen & Resorts',
+        ],
+    },
+    {
+        id: 'sports',
+        icon: Dumbbell,
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop',
+        imageAlt: 'Sport & Fitness',
+        title: '7. Sport & Fitnessgeräte',
+        desc: 'Trainingsgeräte für Fitnessstudios, Schulen und Home-Gym-Konzepte. Wandklimmzugstangen, Trainingsbänke, Box-Stationen und mehr – robust, zertifiziert, OEM-fähig.',
+        feats: [
+            'OEM & Whitlabel möglich',
+            'Multifunktionale Stationen',
+            'Für Studios, Schulen & Retail',
+        ],
+    },
+    {
+        id: 'promo',
+        icon: BarChart3,
+        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop',
+        imageAlt: 'Werbemittel & Drucksachen',
+        title: '8. Werbemittel & Promotionartikel',
+        desc: 'Kugelschreiber, Non-Woven-Taschen, Notizbücher, Schlüsselanhänger-Sets und Geschenksets – vollständig mit Ihrem Logo bedruckt, MOQ ab 50 Stück. Ideal für Messen, Events und Agenturprojekte.',
+        feats: [
+            'Logoprint ab 50 Stück',
+            'Kugelschreiber, Taschen, Notizbücher',
+            'Ready für Messen & Events',
+        ],
+    },
+];
 
 export default async function Leistungen({ params }: { params: Promise<{ lang: string }> }) {
     const { lang } = await params;
@@ -64,66 +171,57 @@ export default async function Leistungen({ params }: { params: Promise<{ lang: s
                 </div>
             </section>
 
-            {/* Categories */}
+            {/* Categories — 8 product verticals */}
             <section className="py-24 bg-corporate-dark relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16 space-y-4">
+                        <h2 className="text-3xl md:text-5xl font-black text-white">
+                            Unsere <span className="text-corporate-blue">Produktkategorien</span>
+                        </h2>
+                        <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+                            8 spezialisierte Fertigungsverticals — direkt aus unserer Produktion, white-label & OEM-fähig.
+                        </p>
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {/* Category 1 : CNC & Machinery */}
-                        <div className="bg-corporate-navy border border-white/5 rounded-3xl overflow-hidden hover:border-white/20 transition-all duration-300 group hover:shadow-2xl flex flex-col">
-                            <div className="h-48 overflow-hidden relative shrink-0">
-                                <img src="https://images.unsplash.com/photo-1565439385584-c6a6d689dd97?q=80&w=2070&auto=format&fit=crop" alt="CNC Manufacturing" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-corporate-navy to-transparent" />
-                                <div className="absolute bottom-4 left-6 w-12 h-12 bg-corporate-dark/80 backdrop-blur border border-white/10 rounded-xl flex items-center justify-center">
-                                    <Layers className="w-6 h-6 text-white" />
+                        {categories.map((cat) => {
+                            const Icon = cat.icon;
+                            const title = cat.title || (cat.titleKey ? (t as Record<string, string>)[cat.titleKey] : '');
+                            const desc = cat.desc || (cat.descKey ? (t as Record<string, string>)[cat.descKey] : '');
+                            return (
+                                <div key={cat.id} className="bg-corporate-navy border border-white/5 rounded-3xl overflow-hidden hover:border-corporate-blue/30 transition-all duration-300 group hover:shadow-2xl hover:shadow-corporate-blue/5 flex flex-col">
+                                    <div className="h-48 overflow-hidden relative shrink-0">
+                                        <img
+                                            src={cat.image}
+                                            alt={cat.imageAlt}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-corporate-navy via-corporate-navy/30 to-transparent" />
+                                        <div className="absolute bottom-4 left-6 w-12 h-12 bg-corporate-dark/80 backdrop-blur border border-white/10 rounded-xl flex items-center justify-center">
+                                            <Icon className="w-6 h-6 text-corporate-blue" />
+                                        </div>
+                                    </div>
+                                    <div className="p-8 flex-1 flex flex-col">
+                                        <h2 className="text-xl font-bold text-white mb-3">{title}</h2>
+                                        <p className="text-slate-400 leading-relaxed mb-6 flex-1 text-sm">{desc}</p>
+                                        <ul className="space-y-2 mb-6">
+                                            {cat.feats.map((feat, fi) => (
+                                                <li key={fi} className="flex items-center text-sm text-slate-300">
+                                                    <ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {feat}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <a
+                                            href="https://wa.me/491713474348"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-auto px-6 py-3 w-full bg-corporate-blue hover:bg-blue-600 text-white rounded-lg transition-all flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider shadow-lg shadow-corporate-blue/20"
+                                        >
+                                            {t.catalogCta} <Download className="w-4 h-4" />
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="p-8 flex-1 flex flex-col">
-                                <h2 className="text-2xl font-bold text-white mb-4">{t.cat1Title}</h2>
-                                <p className="text-slate-400 leading-relaxed mb-6 flex-1">{t.cat1Desc}</p>
-                                <ul className="space-y-3 mt-auto">
-                                    <li className="flex items-center text-sm text-slate-300"><ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {t.cat1Feat1}</li>
-                                    <li className="flex items-center text-sm text-slate-300"><ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {t.cat1Feat2}</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Category 2 : Furniture */}
-                        <div className="bg-corporate-navy border border-white/5 rounded-3xl overflow-hidden hover:border-white/20 transition-all duration-300 group hover:shadow-2xl flex flex-col">
-                            <div className="h-48 overflow-hidden relative shrink-0">
-                                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop" alt="Gastronomy Furniture" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-corporate-navy to-transparent" />
-                                <div className="absolute bottom-4 left-6 w-12 h-12 bg-corporate-dark/80 backdrop-blur border border-white/10 rounded-xl flex items-center justify-center">
-                                    <Utensils className="w-6 h-6 text-white" />
-                                </div>
-                            </div>
-                            <div className="p-8 flex-1 flex flex-col">
-                                <h2 className="text-2xl font-bold text-white mb-4">{t.cat2Title}</h2>
-                                <p className="text-slate-400 leading-relaxed mb-6 flex-1">{t.cat2Desc}</p>
-                                <ul className="space-y-3 mt-auto">
-                                    <li className="flex items-center text-sm text-slate-300"><ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {t.cat2Feat1}</li>
-                                    <li className="flex items-center text-sm text-slate-300"><ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {t.cat2Feat2}</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Category 3 : Packaging */}
-                        <div className="bg-corporate-navy border border-white/5 rounded-3xl overflow-hidden hover:border-white/20 transition-all duration-300 group hover:shadow-2xl flex flex-col">
-                            <div className="h-48 overflow-hidden relative shrink-0">
-                                <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=2072&auto=format&fit=crop" alt="Packaging Box" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-corporate-navy to-transparent" />
-                                <div className="absolute bottom-4 left-6 w-12 h-12 bg-corporate-dark/80 backdrop-blur border border-white/10 rounded-xl flex items-center justify-center">
-                                    <Package className="w-6 h-6 text-white" />
-                                </div>
-                            </div>
-                            <div className="p-8 flex-1 flex flex-col">
-                                <h2 className="text-2xl font-bold text-white mb-4">{t.cat3Title}</h2>
-                                <p className="text-slate-400 leading-relaxed mb-6 flex-1">{t.cat3Desc}</p>
-                                <ul className="space-y-3 mt-auto">
-                                    <li className="flex items-center text-sm text-slate-300"><ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {t.cat3Feat1}</li>
-                                    <li className="flex items-center text-sm text-slate-300"><ShieldCheck className="w-4 h-4 text-corporate-blue mr-2 shrink-0" /> {t.cat3Feat2}</li>
-                                </ul>
-                            </div>
-                        </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -166,39 +264,6 @@ export default async function Leistungen({ params }: { params: Promise<{ lang: s
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Produktkataloge */}
-            <section className="py-24 bg-corporate-navy relative border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16 space-y-4">
-                        <h2 className="text-3xl md:text-5xl font-black text-white">{t.catalogTitle} <span className="text-corporate-blue">{t.catalogTitleHighlight}</span></h2>
-                        <p className="text-xl text-slate-400">{t.catalogSubtitle}</p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="p-8 bg-corporate-dark border border-white/5 rounded-3xl text-center space-y-6 flex flex-col items-center">
-                            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center"><Layers className="w-8 h-8 text-corporate-blue" /></div>
-                            <h3 className="text-xl font-bold text-white">{t.catalog1}</h3>
-                            <a href="https://wa.me/4915206380695" target="_blank" rel="noopener noreferrer" className="mt-auto px-6 py-3 w-full bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider">
-                                {t.catalogCta} <Download className="w-4 h-4" />
-                            </a>
-                        </div>
-                        <div className="p-8 bg-corporate-dark border border-white/5 rounded-3xl text-center space-y-6 flex flex-col items-center">
-                            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center"><Utensils className="w-8 h-8 text-corporate-blue" /></div>
-                            <h3 className="text-xl font-bold text-white">{t.catalog2}</h3>
-                            <a href="https://wa.me/4915206380695" target="_blank" rel="noopener noreferrer" className="mt-auto px-6 py-3 w-full bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider">
-                                {t.catalogCta} <Download className="w-4 h-4" />
-                            </a>
-                        </div>
-                        <div className="p-8 bg-corporate-dark border border-white/5 rounded-3xl text-center space-y-6 flex flex-col items-center">
-                            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center"><Package className="w-8 h-8 text-corporate-blue" /></div>
-                            <h3 className="text-xl font-bold text-white">{t.catalog3}</h3>
-                            <a href="https://wa.me/4915206380695" target="_blank" rel="noopener noreferrer" className="mt-auto px-6 py-3 w-full bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider">
-                                {t.catalogCta} <Download className="w-4 h-4" />
-                            </a>
                         </div>
                     </div>
                 </div>

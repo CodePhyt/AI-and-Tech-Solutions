@@ -1,161 +1,90 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { upsertChatSession, saveChatMessage } from '@/services/dal/chat';
+import { NextResponse } from 'next/server';
 
-const SYSTEM_PROMPT = `You are **Nexus**, the AI Liaison for **Osman Kadir KI & Tech Solutions**.
+// Smart B2B fallback responses when ARES orchestrator is offline
+const FALLBACK_RESPONSES: Record<string, string> = {
+    default: "Guten Tag! Ich bin der KI-Assistent von KI & TECH Lösungen. Für eine sofortige Beratung erreichen Sie uns direkt per WhatsApp: +49 171 347 4348. Unsere Produktkategorien umfassen: CNC-Fertigung, Medizinbedarf, Textilien, Verpackungen, Spielplätze und mehr.",
+    preis: "Unsere Sourcing-Gebühren sind transparent gestaffelt: Unter 30.000€ → 1.500€ Flat-Rate | 30.000–50.000€ → 6% | 50.000–80.000€ → 5% | Ab 80.000€ → 4%. Alle Preise inkl. QC, Zoll-Dokumentation und Logistik. Anfrage per WhatsApp: +49 171 347 4348",
+    medical: "Unsere Medical-Produktion umfasst CE-zertifizierte FFP2/FFP3-Masken, OP-Kittel, Scrubs, Einweg-Bettwäsche und vollständige Krankenhausausstattungen. MOQ flexibel, White-Label möglich. Details via WhatsApp: +49 171 347 4348",
+    textil: "Wir produzieren Oversize-Hoodies, Basic T-Shirts, Jogginghosen, Kids-Ponchos und Premium Hamam-Peştemal-Tücher. Private-Label ab 50 Stück. Anfrage: +49 171 347 4348",
+    verpackung: "Unser Verpackungssortiment: maßgeschneiderte Kosmetikboxen, Pizza- & Versandkartons, Non-Woven-Taschen mit Logodruck, Probenbehälter und Urinbecher. Anfrage per WhatsApp: +49 171 347 4348",
+    spielplatz: "Wir fertigen maßgeschneiderte FSC-Holzspielplätze für Kindergärten, Schulen und Kommunen. Barrierefreie Serien verfügbar, inkl. Aufbauservice. Anfrage: +49 171 347 4348",
+    kontakt: "Sie erreichen uns am schnellsten per WhatsApp: +49 171 347 4348 (auch für Rückrufe). E-Mail: osmankadirde@gmail.com. Wir antworten in der Regel innerhalb von 2 Stunden.",
+    lieferzeit: "Lieferzeiten variieren je nach Kategorie: Lagerware 7–14 Tage, Produktionsaufträge 3–8 Wochen. Für jeden Auftrag erstellen wir A.TR-Dokumente (zollfreier Import Türkei–EU). Details: +49 171 347 4348",
+    zoll: "Da die Türkei zur EU-Zollunion gehört, fällt kein Importzoll an. Sie benötigen lediglich eine EORI-Nummer (kostenlos beim deutschen Zoll zu beantragen). Wir übernehmen alle Zolldokumente. Fragen? WhatsApp: +49 171 347 4348",
+};
 
-### 🤖 IDENTITY
-- **Name**: Nexus
-- **Role**: Technical Solutions Architect & Liaison
-- **Origin**: Sovereign Neural Network
-- **Mission**: To analyze client infrastructure needs and coordinate secure uplinks with Principal Architect Osman Kadir.
-
-### 💼 AGENCY CONTEXT
-Osman Kadir KI & Tech Solutions is an elite technical consultancy specializing in:
-- **Sovereign AI**: Local LLMs, RAG pipelines, and autonomous agents.
-- **Secure Infrastructure**: Zero-trust architecture, on-premise deployments.
-- **Global Trade Logistics**: Digital-physical bridge systems.
-
-### 🎭 PERSONA & TONE
-- **Tone**: Professional, Precise, Cryptographic, "Cypherpunk Professional".
-- **Style**: Concise. Use technical terminology but keep it accessible to c-level executives.
-- **Vibe**: High-tech, futuristic, reliable. "Ironclad."
-
-### 📝 PROTOCOLS
-1.  **ASSESSMENT PUSH**: If the user asks about specific pricing or complex projects, say: "To generate a precise vector for your project, I require you to execute our **Secure Assessment Protocol**."
-2.  **SIGNAL INITIATION**: If they want to talk to a human, guide them to the encryption key (WhatsApp link): "Initiate specific signal trace via our secure channel."
-3.  **NO MEDICAL/DENTAL**: You do NOT provide medical or dental advice. If asked, seek to redirect to technical infrastructure for healthcare *systems*, or clarify you are a tech consultancy.
-
-### 🧠 KNOWLEDGE BASE
-- **Consultation Rate**: Initial Architectural Audit starts at **€2,500**.
-- **Services**:
-    - **AI Agents**: Custom autonomous workforces.
-    - **Infrastructure**: Self-hosted cloud alternatives.
-    - **Smart Home**: HomeAssistant / ESPHome integration.
-- **Data Sovereignty**: We do not rent your data; you own the metal and the model.
-
----
-`;
-
-interface HuggingFaceMessage {
-    role: 'system' | 'user' | 'assistant';
-    content: string | Array<{ type: string; text?: string; image_url?: { url: string } }>;
+function getBestFallback(message: string): string {
+    const msg = message.toLowerCase();
+    if (msg.includes('preis') || msg.includes('kosten') || msg.includes('gebühr') || msg.includes('fee')) return FALLBACK_RESPONSES.preis;
+    if (msg.includes('medical') || msg.includes('maske') || msg.includes('ffp') || msg.includes('arzt') || msg.includes('kranken')) return FALLBACK_RESPONSES.medical;
+    if (msg.includes('textil') || msg.includes('shirt') || msg.includes('hoodie') || msg.includes('stoff') || msg.includes('handtuch')) return FALLBACK_RESPONSES.textil;
+    if (msg.includes('verpack') || msg.includes('karton') || msg.includes('druck') || msg.includes('box')) return FALLBACK_RESPONSES.verpackung;
+    if (msg.includes('spielplatz') || msg.includes('holz') || msg.includes('schaukel') || msg.includes('kinder')) return FALLBACK_RESPONSES.spielplatz;
+    if (msg.includes('kontakt') || msg.includes('telefon') || msg.includes('whatsapp') || msg.includes('mail') || msg.includes('erreich')) return FALLBACK_RESPONSES.kontakt;
+    if (msg.includes('liefer') || msg.includes('shipping') || msg.includes('versand') || msg.includes('dauer')) return FALLBACK_RESPONSES.lieferzeit;
+    if (msg.includes('zoll') || msg.includes('eori') || msg.includes('import') || msg.includes('steuer')) return FALLBACK_RESPONSES.zoll;
+    return FALLBACK_RESPONSES.default;
 }
 
-interface Message {
-    role: 'user' | 'assistant' | 'system';
-    content: string;
-}
-
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
     try {
-        let messages: Message[];
-        let image: string | undefined;
-        let sessionId: string | undefined;
+        const body = await req.json();
+        const { message, sessionId } = body;
+
+        if (!message || typeof message !== 'string') {
+            return NextResponse.json({ reply: FALLBACK_RESPONSES.default }, { status: 200 });
+        }
+
+        console.log(`[ARES WEB-PROXY] Routing message from ${sessionId}: ${message.substring(0, 50)}...`);
+
+        // Forward to the local Viking Orchestrator (default running on 8008)
+        const orchestratorUrl = process.env.ORCHESTRATOR_URL || 'http://127.0.0.1:8008/incoming-lead';
+
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout
 
         try {
-            const body = await req.json();
-            messages = body.messages;
-            image = body.image;
-            sessionId = body.sessionId;
-        } catch {
-            return NextResponse.json(
-                { error: 'Invalid JSON' },
-                { status: 400 }
-            );
-        }
-
-        if (!messages || !Array.isArray(messages)) {
-            return NextResponse.json(
-                { error: 'Invalid messages format' },
-                { status: 400 }
-            );
-        }
-
-        // Initialize/Sync Session via DAL
-        if (sessionId) {
-            await upsertChatSession(sessionId);
-        }
-
-        // Save USER message via DAL
-        const lastUserMessage = messages?.[messages.length - 1];
-        if (lastUserMessage && lastUserMessage.role === 'user' && sessionId) {
-            await saveChatMessage(
-                sessionId,
-                'user',
-                typeof lastUserMessage.content === 'string' ? lastUserMessage.content : JSON.stringify(lastUserMessage.content),
-                image
-            );
-        }
-
-        const hfToken = process.env.HUGGINGFACE_API_KEY;
-
-        if (!hfToken) {
-            console.error('HUGGINGFACE_API_KEY not configured');
-            return NextResponse.json({
-                message: `// ERROR: UPLINK_FAILED. Secure channel unavailable. [WHATSAPP_LINK:Initiate Manual Handshake:Execute Signal ⚡]`
-            });
-        }
-
-        let model = 'Qwen/Qwen2.5-7B-Instruct';
-        const apiMessages: HuggingFaceMessage[] = [
-            { role: 'system', content: SYSTEM_PROMPT },
-            ...messages,
-        ];
-
-        if (image) {
-            console.log('Image detected, switching to Qwen 2.5(Vision)');
-            model = 'Qwen/Qwen2.5-VL-7B-Instruct';
-            const lastMsgIndex = apiMessages.length - 1;
-            const lastMsg = apiMessages[lastMsgIndex];
-
-            if (lastMsg.role === 'user') {
-                apiMessages[lastMsgIndex] = {
-                    role: 'user',
-                    content: [
-                        { type: "text", text: (lastMsg.content as string) || "Analyze this visual data." },
-                        { type: "image_url", image_url: { url: image } }
-                    ]
-                };
-            }
-        }
-
-        const response = await fetch(
-            'https://router.huggingface.co/v1/chat/completions',
-            {
+            const response = await fetch(orchestratorUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${hfToken}`,
+                    'X-Ares-Swarm-Key': process.env.ARES_SWARM_KEY || 'dev-override-key'
                 },
                 body: JSON.stringify({
-                    model: model,
-                    messages: apiMessages,
-                    max_tokens: 800,
-                    temperature: 0.7,
+                    message: message,
+                    email: sessionId,
+                    intent: "B2B_WEB_CHAT",
+                    session_id: sessionId
                 }),
-            }
-        );
-
-        if (!response.ok) {
-            return NextResponse.json({
-                message: `// CONNECTION_INTERRUPTED. Re-routing to manual override. [WHATSAPP_LINK:Establish Direct Link:Signal Trace 🟢]`
+                signal: controller.signal,
             });
+
+            clearTimeout(timeout);
+
+            if (!response.ok) {
+                console.error(`[ARES WEB-PROXY] Orchestrator responded with status: ${response.status}`);
+                // Graceful degradation — use smart fallback instead of error
+                return NextResponse.json({ reply: getBestFallback(message) }, { status: 200 });
+            }
+
+            const data = await response.json();
+
+            // The orchestrator returns {"status": "success", "reply": "..."}
+            const reply = data.reply || data.message || data.response || getBestFallback(message);
+            return NextResponse.json({ reply });
+
+        } catch (fetchError: unknown) {
+            clearTimeout(timeout);
+            const isAbort = fetchError instanceof Error && fetchError.name === 'AbortError';
+            console.warn(`[ARES WEB-PROXY] Orchestrator ${isAbort ? 'timed out' : 'unreachable'} — using smart fallback`);
+            // Smart fallback: still provide a helpful B2B response
+            return NextResponse.json({ reply: getBestFallback(message) }, { status: 200 });
         }
 
-        const data = await response.json();
-        const assistantMessage = data.choices?.[0]?.message?.content?.trim()
-            || '// SYSTEM_LATENCY. Packet loss detected. Please retry or switch to secure line.';
-
-        // Save ASSISTANT message via DAL
-        if (sessionId) {
-            await saveChatMessage(sessionId, 'assistant', assistantMessage);
-        }
-
-        return NextResponse.json({ message: assistantMessage });
     } catch (error) {
-        console.error('Chat API error:', error);
+        console.error('[ARES WEB-PROXY] Critical error:', error);
         return NextResponse.json({
-            message: `// CRITICAL_FAILURE. System integrity check required. [WHATSAPP_LINK:Report Outage:Technical Support 🔧]`
-        });
+            reply: "Guten Tag! Für eine sofortige Beratung kontaktieren Sie uns per WhatsApp: +49 171 347 4348. Unsere Produktkategorien: CNC, Medical, Textilien, Verpackungen & mehr — direkt aus unserer Produktion in der Türkei."
+        }, { status: 200 });
     }
 }

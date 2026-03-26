@@ -67,7 +67,7 @@ export default async function Leistungen({ params }: { params: Promise<{ lang: s
             {/* Categories */}
             <section className="py-24 bg-corporate-dark relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {/* Category 1 : CNC & Machinery */}
                         <div className="bg-corporate-navy border border-white/5 rounded-3xl overflow-hidden hover:border-white/20 transition-all duration-300 group hover:shadow-2xl flex flex-col">
                             <div className="h-48 overflow-hidden relative shrink-0">
@@ -220,7 +220,7 @@ export default async function Leistungen({ params }: { params: Promise<{ lang: s
                 <div className="max-w-4xl mx-auto px-4 text-center space-y-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-white">{t.ctaTitle}</h2>
                     <p className="text-xl text-slate-400">{t.ctaSubtitle}</p>
-                    <a href="https://wa.me/4915206380695" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold rounded-lg shadow-lg transition-all gap-2 uppercase tracking-wide">
+                    <a href="https://wa.me/491713474348" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-10 py-5 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl shadow-2xl shadow-green-500/20 transition-all gap-3 uppercase tracking-wide text-lg hover:-translate-y-1">
                         {t.ctaButton} <ArrowRight className="w-5 h-5" />
                     </a>
                 </div>

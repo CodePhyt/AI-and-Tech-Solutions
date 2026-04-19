@@ -1,90 +1,127 @@
 import { NextResponse } from 'next/server';
 
-// Smart B2B fallback responses when ARES orchestrator is offline
+// ── System Prompt ─────────────────────────────────────────────────────────────
+const SYSTEM_PROMPT = `Du bist der KI-Assistent von KI & TECH Lösungen, einem deutschen B2B-Hersteller und globalen Beschaffungsnetzwerk mit eigener Produktion in der Türkei und Vertragsabwicklung nach deutschem Recht.
+
+Deine Aufgabe:
+- Antworte organisch, menschlich, professionell und analytisch.
+- Verstehe das Problem des Kunden tiefgründig, bevor du antwortest.
+- Fasse dich kurz (2-4 Sätze), aber sei extrem hilfreich und präzise.
+- Frage gezielt nach relevanten Details wie: Stückzahl (MOQ), Material, Lieferzeitraum, Zertifizierungen oder Zielmarkt.
+- Produktkategorien: Medical & Schutzausrüstung (CE), Textilien (Private-Label), Verpackung (Custom Print), Spielplätze (FSC-Holz), Möbel, Sicherheitsausstattung, Sportartikel, Werbemittel, Lebensmittel.
+- Kontakt: WhatsApp +49 171 347 4348 | E-Mail osmankadirde@gmail.com
+- Lieferzeiten: Lagerware 7–14 Tage, Produktion 3–8 Wochen. Zollfrei Türkei→EU (Zollunion).
+- Wenn der Kunde bereit für ein Angebot ist, empfehle den WhatsApp-Wechsel für persönliche Beratung.
+- Antworte auf Englisch, wenn der Kunde auf Englisch schreibt. Auf Türkisch, wenn auf Türkisch.`;
+
+// ── OpenRouter model fallback chain ──────────────────────────────────────────
+const MODELS = [
+    'meta-llama/llama-3.3-70b-instruct:free',
+    'google/gemma-3-27b-it:free',
+    'nousresearch/hermes-3-llama-3.1-405b:free',
+    'meta-llama/llama-3.2-3b-instruct:free',
+];
+
+// ── Smart keyword fallback (used when all models fail) ───────────────────────
 const FALLBACK_RESPONSES: Record<string, string> = {
-    default: "Guten Tag! Ich bin der KI-Assistent von KI & TECH Lösungen. Für eine sofortige Beratung erreichen Sie uns direkt per WhatsApp: +49 171 347 4348. Unsere Produktkategorien umfassen: CNC-Fertigung, Medizinbedarf, Textilien, Verpackungen, Spielplätze und mehr.",
-    preis: "Unsere Sourcing-Gebühren sind transparent gestaffelt: Unter 30.000€ → 1.500€ Flat-Rate | 30.000–50.000€ → 6% | 50.000–80.000€ → 5% | Ab 80.000€ → 4%. Alle Preise inkl. QC, Zoll-Dokumentation und Logistik. Anfrage per WhatsApp: +49 171 347 4348",
-    medical: "Unsere Medical-Produktion umfasst CE-zertifizierte FFP2/FFP3-Masken, OP-Kittel, Scrubs, Einweg-Bettwäsche und vollständige Krankenhausausstattungen. MOQ flexibel, White-Label möglich. Details via WhatsApp: +49 171 347 4348",
-    textil: "Wir produzieren Oversize-Hoodies, Basic T-Shirts, Jogginghosen, Kids-Ponchos und Premium Hamam-Peştemal-Tücher. Private-Label ab 50 Stück. Anfrage: +49 171 347 4348",
-    verpackung: "Unser Verpackungssortiment: maßgeschneiderte Kosmetikboxen, Pizza- & Versandkartons, Non-Woven-Taschen mit Logodruck, Probenbehälter und Urinbecher. Anfrage per WhatsApp: +49 171 347 4348",
-    spielplatz: "Wir fertigen maßgeschneiderte FSC-Holzspielplätze für Kindergärten, Schulen und Kommunen. Barrierefreie Serien verfügbar, inkl. Aufbauservice. Anfrage: +49 171 347 4348",
-    kontakt: "Sie erreichen uns am schnellsten per WhatsApp: +49 171 347 4348 (auch für Rückrufe). E-Mail: osmankadirde@gmail.com. Wir antworten in der Regel innerhalb von 2 Stunden.",
-    lieferzeit: "Lieferzeiten variieren je nach Kategorie: Lagerware 7–14 Tage, Produktionsaufträge 3–8 Wochen. Für jeden Auftrag erstellen wir A.TR-Dokumente (zollfreier Import Türkei–EU). Details: +49 171 347 4348",
-    zoll: "Da die Türkei zur EU-Zollunion gehört, fällt kein Importzoll an. Sie benötigen lediglich eine EORI-Nummer (kostenlos beim deutschen Zoll zu beantragen). Wir übernehmen alle Zolldokumente. Fragen? WhatsApp: +49 171 347 4348",
+    default: "Guten Tag! Ich bin der KI-Assistent von KI & TECH Lösungen. Für eine sofortige Beratung erreichen Sie uns direkt per WhatsApp: +49 171 347 4348. Unsere Produktkategorien umfassen: Medical, Textilien, Verpackungen, Spielplätze und mehr.",
+    preis: "Unsere Sourcing-Gebühren: unter 30.000€ → 1.500€ Flat | 30–50K € → 6% | 50–80K € → 5% | ab 80K€ → 4%. Inkl. QC, Zolldokumentation & Logistik. Anfrage per WhatsApp: +49 171 347 4348",
+    medical: "Unsere Medical-Produktion: CE-zertifizierte FFP2/FFP3-Masken, OP-Kittel, Einweg-Bettwäsche, Krankenhausausstattungen. MOQ flexibel, White-Label möglich. Details via WhatsApp: +49 171 347 4348",
+    textil: "Wir produzieren Oversize-Hoodies, Basic T-Shirts, Jogginghosen, Kids-Ponchos und Premium Peştemal-Tücher. Private-Label ab 50 Stück. Anfrage: +49 171 347 4348",
+    verpackung: "Verpackungssortiment: maßgeschneiderte Kosmetikboxen, Pizza- & Versandkartons, Non-Woven-Taschen mit Logodruck, Probenbehälter. Anfrage per WhatsApp: +49 171 347 4348",
+    lieferzeit: "Lagerware: 7–14 Tage. Produktionsaufträge: 3–8 Wochen. Zollfrei Türkei → EU (Zollunion, A.TR-Dokument). Details: +49 171 347 4348",
 };
 
-function getBestFallback(message: string): string {
+function getKeywordFallback(message: string): string {
     const msg = message.toLowerCase();
-    if (msg.includes('preis') || msg.includes('kosten') || msg.includes('gebühr') || msg.includes('fee')) return FALLBACK_RESPONSES.preis;
-    if (msg.includes('medical') || msg.includes('maske') || msg.includes('ffp') || msg.includes('arzt') || msg.includes('kranken')) return FALLBACK_RESPONSES.medical;
-    if (msg.includes('textil') || msg.includes('shirt') || msg.includes('hoodie') || msg.includes('stoff') || msg.includes('handtuch')) return FALLBACK_RESPONSES.textil;
-    if (msg.includes('verpack') || msg.includes('karton') || msg.includes('druck') || msg.includes('box')) return FALLBACK_RESPONSES.verpackung;
-    if (msg.includes('spielplatz') || msg.includes('holz') || msg.includes('schaukel') || msg.includes('kinder')) return FALLBACK_RESPONSES.spielplatz;
-    if (msg.includes('kontakt') || msg.includes('telefon') || msg.includes('whatsapp') || msg.includes('mail') || msg.includes('erreich')) return FALLBACK_RESPONSES.kontakt;
-    if (msg.includes('liefer') || msg.includes('shipping') || msg.includes('versand') || msg.includes('dauer')) return FALLBACK_RESPONSES.lieferzeit;
-    if (msg.includes('zoll') || msg.includes('eori') || msg.includes('import') || msg.includes('steuer')) return FALLBACK_RESPONSES.zoll;
+    if (msg.includes('preis') || msg.includes('kosten') || msg.includes('fee')) return FALLBACK_RESPONSES.preis;
+    if (msg.includes('medical') || msg.includes('maske') || msg.includes('ffp')) return FALLBACK_RESPONSES.medical;
+    if (msg.includes('textil') || msg.includes('shirt') || msg.includes('hoodie')) return FALLBACK_RESPONSES.textil;
+    if (msg.includes('verpack') || msg.includes('karton') || msg.includes('box')) return FALLBACK_RESPONSES.verpackung;
+    if (msg.includes('liefer') || msg.includes('versand') || msg.includes('dauer')) return FALLBACK_RESPONSES.lieferzeit;
     return FALLBACK_RESPONSES.default;
 }
 
-export async function POST(req: Request) {
-    try {
-        const body = await req.json();
-        const { message, sessionId } = body;
+// ── OpenRouter call with model fallback chain ─────────────────────────────────
+async function callOpenRouter(
+    messages: { role: string; content: string }[]
+): Promise<string | null> {
+    const apiKey = process.env.OPENROUTER_API_KEY;
+    if (!apiKey) return null;
 
-        if (!message || typeof message !== 'string') {
-            return NextResponse.json({ reply: FALLBACK_RESPONSES.default }, { status: 200 });
-        }
-
-        console.log(`[ARES WEB-PROXY] Routing message from ${sessionId}: ${message.substring(0, 50)}...`);
-
-        // Forward to the local Viking Orchestrator (default running on 8008)
-        const orchestratorUrl = process.env.ORCHESTRATOR_URL || 'http://127.0.0.1:8008/incoming-lead';
-
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout
-
+    for (const model of MODELS) {
         try {
-            const response = await fetch(orchestratorUrl, {
+            const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${apiKey}`,
                     'Content-Type': 'application/json',
-                    'X-Ares-Swarm-Key': process.env.ARES_SWARM_KEY || 'dev-override-key'
+                    'HTTP-Referer': 'https://osmankadir.netlify.app',
+                    'X-Title': 'KI & TECH Lösungen Chat',
                 },
                 body: JSON.stringify({
-                    message: message,
-                    email: sessionId,
-                    intent: "B2B_WEB_CHAT",
-                    session_id: sessionId
+                    model,
+                    messages,
+                    max_tokens: 350,
+                    temperature: 0.7,
                 }),
-                signal: controller.signal,
+                signal: AbortSignal.timeout(12000),
             });
 
-            clearTimeout(timeout);
-
-            if (!response.ok) {
-                console.error(`[ARES WEB-PROXY] Orchestrator responded with status: ${response.status}`);
-                // Graceful degradation — use smart fallback instead of error
-                return NextResponse.json({ reply: getBestFallback(message) }, { status: 200 });
+            if (!res.ok) {
+                console.warn(`[OpenRouter] Model ${model} failed with status ${res.status} — trying next`);
+                continue;
             }
 
-            const data = await response.json();
+            const data = await res.json();
+            const reply = data?.choices?.[0]?.message?.content?.trim();
+            if (reply) {
+                console.log(`[OpenRouter] Success with model: ${model}`);
+                return reply;
+            }
+        } catch (err) {
+            console.warn(`[OpenRouter] Model ${model} threw: ${err} — trying next`);
+        }
+    }
 
-            // The orchestrator returns {"status": "success", "reply": "..."}
-            const reply = data.reply || data.message || data.response || getBestFallback(message);
-            return NextResponse.json({ reply });
+    return null; // All models failed
+}
 
-        } catch (fetchError: unknown) {
-            clearTimeout(timeout);
-            const isAbort = fetchError instanceof Error && fetchError.name === 'AbortError';
-            console.warn(`[ARES WEB-PROXY] Orchestrator ${isAbort ? 'timed out' : 'unreachable'} — using smart fallback`);
-            // Smart fallback: still provide a helpful B2B response
-            return NextResponse.json({ reply: getBestFallback(message) }, { status: 200 });
+// ── Route handler ─────────────────────────────────────────────────────────────
+export async function POST(req: Request) {
+    try {
+        const { message, history = [], sessionId } = await req.json();
+
+        if (!message || typeof message !== 'string') {
+            return NextResponse.json({ reply: FALLBACK_RESPONSES.default });
         }
 
+        console.log(`[Chat] Session ${sessionId}: ${message.substring(0, 60)}`);
+
+        // Build conversation context for OpenRouter
+        const contextMessages = [
+            { role: 'system', content: SYSTEM_PROMPT },
+            // Include last 6 messages of history for context
+            ...history.slice(-6).map((m: { role: string; content: string }) => ({
+                role: m.role,
+                content: m.content,
+            })),
+            { role: 'user', content: message },
+        ];
+
+        // Try OpenRouter first
+        const aiReply = await callOpenRouter(contextMessages);
+
+        if (aiReply) {
+            return NextResponse.json({ reply: aiReply });
+        }
+
+        // OpenRouter chain exhausted — use smart keyword fallback
+        console.warn('[Chat] All OpenRouter models failed — using keyword fallback');
+        return NextResponse.json({ reply: getKeywordFallback(message) });
+
     } catch (error) {
-        console.error('[ARES WEB-PROXY] Critical error:', error);
-        return NextResponse.json({
-            reply: "Guten Tag! Für eine sofortige Beratung kontaktieren Sie uns per WhatsApp: +49 171 347 4348. Unsere Produktkategorien: CNC, Medical, Textilien, Verpackungen & mehr — direkt aus unserer Produktion in der Türkei."
-        }, { status: 200 });
+        console.error('[Chat] Critical error:', error);
+        return NextResponse.json({ reply: FALLBACK_RESPONSES.default });
     }
 }

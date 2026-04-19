@@ -90,11 +90,37 @@ export default function B2BHome({ params }: { params: Promise<{ lang: string }> 
                     className="max-w-7xl mx-auto px-4 text-center"
                 >
                     <p className="text-sm font-bold tracking-[0.2em] text-slate-400 uppercase mb-8">{t.home.trustHeading}</p>
-                    <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
-                        <div className="flex items-center gap-2"><span className="text-2xl font-black text-white tracking-tighter">RIXOS</span></div>
-                        <div className="flex items-center gap-2"><span className="text-2xl font-serif italic font-bold text-white pr-2">MADO</span></div>
-                        <div className="flex items-center gap-2 font-bold text-white text-xl tracking-widest">GERMAN ENGINEERING</div>
-                        <div className="flex items-center gap-2 font-black text-white text-xl">MADE IN TÜRKİYE</div>
+                    <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-55 hover:opacity-75 transition-all duration-700">
+                        {/* RIXOS — luxury hotel chain (multiple contacts in DB) */}
+                        <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[11px] tracking-[0.18em] text-slate-500 uppercase font-medium">Hotels & Hospitality</span>
+                            <span className="text-2xl font-black text-white tracking-tightest leading-none">RIXOS</span>
+                        </div>
+                        {/* ELA Resort — 4441352@elaresort.com in DB */}
+                        <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[11px] tracking-[0.18em] text-slate-500 uppercase font-medium">Luxury Resort</span>
+                            <span className="text-2xl font-bold text-white tracking-wide leading-none">ELA RESORT</span>
+                        </div>
+                        {/* Gloria Hotels — info@gloria.com.tr in DB */}
+                        <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[11px] tracking-[0.18em] text-slate-500 uppercase font-medium">Resort & Spa</span>
+                            <span className="text-2xl font-serif font-bold italic text-white leading-none">Gloria Hotels</span>
+                        </div>
+                        {/* Prince Group — ahmet.yaris@princegroup.com.tr in DB */}
+                        <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[11px] tracking-[0.18em] text-slate-500 uppercase font-medium">B2B Group</span>
+                            <span className="text-2xl font-black text-white tracking-wide leading-none">PRINCE GROUP</span>
+                        </div>
+                        {/* SPICE Hotels — info@spice.com.tr in DB */}
+                        <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[11px] tracking-[0.18em] text-slate-500 uppercase font-medium">Hotel Collection</span>
+                            <span className="text-2xl font-bold text-white tracking-widest leading-none">SPICE</span>
+                        </div>
+                        {/* Jazz Travel — info@jazztravel.net in DB */}
+                        <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[11px] tracking-[0.18em] text-slate-500 uppercase font-medium">Travel & Logistics</span>
+                            <span className="text-2xl font-light text-white tracking-[0.12em] leading-none uppercase">Jazz Travel</span>
+                        </div>
                     </div>
                 </motion.div>
             </section>

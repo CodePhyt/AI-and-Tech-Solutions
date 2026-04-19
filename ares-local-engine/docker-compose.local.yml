@@ -4,8 +4,10 @@ services:
   ares-engine:
     build: .
     container_name: ares-viking-orchestrator
+    env_file:
+      - .env
     ports:
-      - "8000:8000"
+      - "8008:8000"
     volumes:
       - .:/app
     environment:
@@ -17,7 +19,7 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   chroma-db:
-    image: chromadb/chroma:latest
+    image: chromadb/chroma:0.5.23
     container_name: ares-chroma-memory
     ports:
       - "8001:8000"

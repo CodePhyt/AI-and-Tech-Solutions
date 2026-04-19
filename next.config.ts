@@ -28,7 +28,12 @@ const nextConfig: NextConfig = {
   },
 
   // Turbopack config (Next.js 16)
-  turbopack: {},
+  // Pin root to THIS project directory so Turbopack doesn't watch the
+  // parent "CodePhyt Site/" folder (which has stray package-lock.json,
+  // large CSV/JSON data files and Python scripts that cause restart loops).
+  turbopack: {
+    root: __dirname,
+  },
 
   // TypeScript
   typescript: {

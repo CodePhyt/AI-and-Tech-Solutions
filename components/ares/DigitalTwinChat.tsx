@@ -15,7 +15,7 @@ const SWARM_KEY = process.env.NEXT_PUBLIC_ARES_SWARM_KEY ?? '';
 const INITIAL_MESSAGE: Message = {
     role: 'assistant',
     content:
-        'I am ARES. Why pay enterprise fees for just software?\n\nWe offer the **Hybrid Advantage**: Implement our AI Automation, and we will supply your physical operations (Rixos-quality packaging, frozen wholesale) at direct-from-factory prices via Zero Group.\n\nHow can we cut your costs today?',
+        'Welcome. I am SHACO, the Digital Twin of Osman Kadir.\n\nWhy pay enterprise fees for just software?\n\nWe offer the **Hybrid Advantage**: Implement our AI Automation, and we will supply your physical operations (Rixos-quality packaging, frozen wholesale) at direct-from-factory prices via Zero Group.\n\nHow can we cut your costs today?',
 };
 
 const QUICK_ACTIONS = [
@@ -80,13 +80,13 @@ export default function DigitalTwinChat() {
 
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: data.response ?? 'ARES is processing your request...',
+                content: data.response ?? 'SHACO is processing your request...',
             }]);
         } catch {
             // Graceful offline fallback
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: 'ARES Command temporarily offline. Your message has been logged. An operative will respond through a secure channel.',
+                content: 'SHACO Core Engine temporarily offline. Your message has been logged. An operative will respond through a secure channel.',
             }]);
         } finally {
             setIsLoading(false);
@@ -110,7 +110,7 @@ export default function DigitalTwinChat() {
         setPhase('chat');
         setMessages(prev => [...prev, {
             role: 'assistant',
-            content: 'Proceeding anonymously. Note: Custom quotes and outreach require an email for coordination.\n\nHow can ARES assist?',
+            content: 'Proceeding anonymously. Note: Custom quotes and outreach require an email for coordination.\n\nHow can SHACO assist?',
         }]);
     };
 
@@ -131,7 +131,7 @@ export default function DigitalTwinChat() {
                             Osman Kadir <span className="text-[#ffd700] text-xs px-1 border border-[#ffd700]/30 rounded">DIGITAL TWIN</span>
                         </h2>
                         <p className="text-[#00d4ff]/60 text-xs flex items-center gap-1">
-                            <ShieldCheck className="w-3 h-3" /> Secured by ARES Swarm
+                            <ShieldCheck className="w-3 h-3" /> Secured by SHACO Swarm
                         </p>
                     </div>
                 </div>

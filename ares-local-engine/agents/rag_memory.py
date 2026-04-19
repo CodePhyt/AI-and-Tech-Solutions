@@ -19,7 +19,7 @@ import chromadb
 from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -56,17 +56,23 @@ class ZeroGroupMemory:
     """
 
     def __init__(self):
-        self.client = chromadb.HttpClient(host=CHROMA_HOST, port=CHROMA_PORT)
-        self.collection = self.client.get_or_create_collection(
-            name=COLLECTION_NAME,
-            metadata={"hnsw:space": "cosine"},
-        )
+        self.client = None
+        self.collection = None
+        try:
+            self.client = chromadb.PersistentClient(path="./local_chroma_data")
+            self.collection = self.client.get_or_create_collection(
+                name=COLLECTION_NAME,
+                metadata={"hnsw:space": "cosine"},
+            )
+            print(f"[MEMORY] Zero Group Brain online. Collection: '{COLLECTION_NAME}' | Docs: {self.collection.count()}")
+        except Exception as e:
+            print(f"[MEMORY ERROR] ChromaDB initialization failed: {e}. RAG offline.")
+        
         self._splitter = RecursiveCharacterTextSplitter(
             chunk_size=CHUNK_SIZE,
             chunk_overlap=CHUNK_OVERLAP,
             length_function=len,
         )
-        print(f"[MEMORY] Zero Group Brain online. Collection: '{COLLECTION_NAME}' | Docs: {self.collection.count()}")
 
     # ─────────────────────────────────────────────────────────────────────────
     # PHASE 1: INGEST ALL PDFS IN A DIRECTORY
@@ -215,7 +221,7 @@ class ZeroGroupMemory:
 
     def get_stats(self) -> dict:
         """Return current memory stats."""
-        count = self.collection.count()
+        count = self.collection.count() if self.collection else 0
         return {"collection": COLLECTION_NAME, "total_documents": count, "embed_model": EMBED_MODEL}
 
     @staticmethod
@@ -242,3 +248,62 @@ def query_zero_group_memory(question: str) -> list[str]:
 def ingest_pdf_catalogs(directory_path: str = "./catalogs") -> dict:
     """Module-level convenience wrapper."""
     return memory.ingest_pdf_catalogs(directory_path)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# USER MEMORY MANAGER
+# ─────────────────────────────────────────────────────────────────────────────
+class UserMemoryManager:
+    """
+    Retrieval-Augmented Generation memory bank for USER conversations.
+    Stores and retrieves long-term specific conversation snippets per user.
+    """
+    def __init__(self, client):
+        self.collection = None
+        try:
+            self.collection = client.get_or_create_collection(
+                name="user_memory",
+                metadata={"hnsw:space": "cosine"},
+            )
+            print(f"[MEMORY] User Memory online. Docs: {self.collection.count()}")
+        except Exception as e:
+            print(f"[MEMORY ERROR] User Memory initialization failed: {e}")
+
+    def save_memory(self, user_id: str, memory_text: str):
+        if not self.collection or not user_id or not memory_text:
+            return
+        
+        # Use a combination of user_id and hash of text for unique ID
+        import time
+        doc_id = f"{user_id}_{int(time.time()*100)}"
+        
+        self.collection.add(
+            documents=[memory_text],
+            metadatas=[{"user_id": user_id, "timestamp": time.time()}],
+            ids=[doc_id]
+        )
+        print(f"[MEMORY] Saved new memory for {user_id}")
+
+    def query_memory(self, user_id: str, query: str, n_results: int = 3) -> list[str]:
+        if not self.collection or not user_id or not query:
+            return []
+            
+        try:
+            # We filter by user_id
+            results = self.collection.query(
+                query_texts=[query],
+                n_results=n_results,
+                where={"user_id": user_id}
+            )
+            chunks = results["documents"][0] if results["documents"] else []
+            return chunks
+        except Exception as e:
+            print(f"[MEMORY ERROR] Failed to retrieve user memory: {e}")
+            return []
+
+user_memory = UserMemoryManager(memory.client)
+
+def query_user_memory(user_id: str, query: str) -> list[str]:
+    return user_memory.query_memory(user_id, query)
+
+def save_user_memory(user_id: str, memory_text: str):
+    user_memory.save_memory(user_id, memory_text)

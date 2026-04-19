@@ -62,8 +62,25 @@ model Message {
   role          String
   content       String
   image         String?
+  mediaBase64   String?
+  mediaName     String?
+  syncStatus    String      @default("SYNCED") // "SYNCED", "PENDING_ARES", "REPLIED", "REQUIRES_OSMAN_APPROVAL", "APPROVED_FOR_SENDING"
   createdAt     DateTime    @default(now())
 
   chatSessionId String
   ChatSession   ChatSession @relation(fields: [chatSessionId], references: [id])
+}
+
+model OutboundLead {
+  id              String   @id @default(cuid())
+  name            String
+  phone           String
+  queryKeyword    String
+  generatedPitch  String
+  status          String   @default("PENDING") // PENDING, CONTACTED, RESPONDED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
+  @@index([queryKeyword])
 }
